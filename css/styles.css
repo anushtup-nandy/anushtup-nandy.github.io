@@ -1,0 +1,63 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+/* Base Styles */
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    scroll-behavior: smooth; /* Enables smooth scrolling for anchor links */
+}
+
+/* Utility Classes */
+.gradient-text {
+    background: linear-gradient(90deg, #3b82f6, #10b981); /* Blue to Emerald gradient */
+    -webkit-background-clip: text; /* Clip background to text (Chrome/Safari) */
+    background-clip: text; /* Clip background to text (Standard) */
+    color: transparent; /* Make text transparent to show gradient */
+}
+
+/* Component Styles */
+.project-card:hover {
+    transform: translateY(-5px); /* Subtle lift effect on hover */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* Enhanced shadow on hover */
+}
+
+.nav-link {
+    position: relative; /* Needed for absolute positioning of the pseudo-element */
+}
+
+.nav-link::after {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute;
+    width: 0; /* Start with no width */
+    height: 2px; /* Underline thickness */
+    bottom: 0; /* Position at the bottom of the link */
+    left: 0; /* Align to the left */
+    background-color: #3b82f6; /* Underline color (Tailwind blue-600) */
+    transition: width 0.3s ease; /* Smooth transition for the width */
+}
+
+.nav-link:hover::after {
+    width: 100%; /* Expand width to 100% on hover */
+}
+
+/* Animations */
+.animate-float {
+    animation: float 3s ease-in-out infinite; /* Apply the float animation */
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); } /* Move up */
+    100% { transform: translateY(0px); } /* Return to original position */
+}
+
+/* Note: TailwindCSS classes handle most other styling.
+   These are custom additions or overrides. */
+
+/* Example of potential override or addition if needed */
+/*
+.sticky {
+    position: -webkit-sticky; / Safari /
+    position: sticky;
+}
+*/
