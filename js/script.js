@@ -1,81 +1,70 @@
-// Wait for the DOM to be fully loaded before executing scripts
 document.addEventListener('DOMContentLoaded', () => {
-
-    // --- Mobile Menu Toggle ---
+    // Mobile menu toggle
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const mobileMenu = document.querySelector('.mobile-menu');
-
-    // Check if both button and menu exist to prevent errors
+    
     if (mobileMenuButton && mobileMenu) {
         mobileMenuButton.addEventListener('click', () => {
-            // Toggle the 'hidden' class provided by TailwindCSS
             mobileMenu.classList.toggle('hidden');
-
-            // Optional: Toggle ARIA attributes for accessibility
-            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            // Accessibility: Toggle aria-expanded attribute
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
             mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-            mobileMenu.setAttribute('aria-hidden', isExpanded); // Note: 'hidden' class usually suffices for screen readers
+            mobileMenu.setAttribute('aria-hidden', isExpanded); // if hidden, it's true
         });
-
-        // --- Close Mobile Menu When a Link is Clicked ---
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-
+    }
+    
+    // Close mobile menu when clicking a link
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+    if (mobileMenu && mobileMenuLinks.length > 0) {
         mobileMenuLinks.forEach(link => {
             link.addEventListener('click', () => {
-                // Hide the menu when a link inside it is clicked
                 mobileMenu.classList.add('hidden');
-                // Reset ARIA attribute on button
-                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                if (mobileMenuButton) {
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                }
                 mobileMenu.setAttribute('aria-hidden', 'true');
             });
         });
-    } else {
-        console.warn("Mobile menu button or menu element not found.");
     }
-
-
-    // --- Smooth Scrolling for Navigation Links ---
-    // Select all anchor links whose href attribute starts with '#'
-    const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
-
-    smoothScrollLinks.forEach(anchor => {
+    
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            // Prevent the default anchor link behavior (instant jump)
-            e.preventDefault();
+            const hrefAttribute = this.getAttribute('href');
+            // Ensure it's a valid ID selector and not just "#"
+            if (hrefAttribute && hrefAttribute.length > 1) {
+                const targetElement = document.querySelector(hrefAttribute);
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
 
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
+                    // Optional: Update URL hash without page jump for better history/bookmarking
+                    // if (history.pushState) {
+                    //     history.pushState(null, null, hrefAttribute);
+                    // } else {
+                    //     location.hash = hrefAttribute;
+                    // }
 
-            // Check if the target element exists on the page
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth', // Enable smooth scrolling animation
-                    block: 'start'      // Align the top of the target element to the top of the viewport
-                });
-
-                // Optional: Update URL hash without page jump (improves accessibility and history)
-                // history.pushState(null, null, targetId);
-            } else {
-                console.warn(`Smooth scroll target element not found for selector: ${targetId}`);
+                    // Close mobile menu if open and it's a mobile link
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden') && this.closest('.mobile-menu')) {
+                        mobileMenu.classList.add('hidden');
+                        if (mobileMenuButton) {
+                            mobileMenuButton.setAttribute('aria-expanded', 'false');
+                        }
+                        mobileMenu.setAttribute('aria-hidden', 'true');
+                    }
+                }
             }
         });
     });
 
-    // Optional: Dynamic Year in Footer
-    const yearSpan = document.querySelector('footer p span.year'); // Add a <span class="year"> if you want this
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
+    // Initialize ARIA attributes for mobile menu
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+        mobileMenuButton.setAttribute('aria-controls', 'mobile-menu-nav'); // Assuming mobileMenu div could have an id
+        mobileMenu.setAttribute('id', 'mobile-menu-nav'); // Give mobile menu an id
+        mobileMenu.setAttribute('aria-hidden', 'true');
     }
-    // Or directly target the paragraph if you don't add a span:
-    const copyrightPara = document.querySelector('footer p[data-copyright]'); // Add data-copyright attribute to the p tag
-    if (copyrightPara) {
-         copyrightPara.textContent = `© ${new Date().getFullYear()} Anushtup Nandy. All rights reserved.`;
-    } else {
-        // Fallback if you don't want to modify the HTML for this:
-        const footerCopy = document.querySelector('footer .max-w-6xl > div:last-child > p:first-child');
-         if (footerCopy && footerCopy.textContent.includes('©')) {
-            footerCopy.textContent = footerCopy.textContent.replace(/© \d{4}/, `© ${new Date().getFullYear()}`);
-        }
-    }
-
-}); // End DOMContentLoaded
+});

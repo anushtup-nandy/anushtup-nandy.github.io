@@ -1,63 +1,66 @@
-/* Import Google Font */
+/* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
-/* Base Styles */
 body {
     font-family: 'Space Grotesk', sans-serif;
-    scroll-behavior: smooth; /* Enables smooth scrolling for anchor links */
+    scroll-behavior: smooth;
 }
 
-/* Utility Classes */
 .gradient-text {
-    background: linear-gradient(90deg, #3b82f6, #10b981); /* Blue to Emerald gradient */
-    -webkit-background-clip: text; /* Clip background to text (Chrome/Safari) */
-    background-clip: text; /* Clip background to text (Standard) */
-    color: transparent; /* Make text transparent to show gradient */
+    background: linear-gradient(90deg, #3b82f6, #10b981);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-/* Component Styles */
 .project-card:hover {
-    transform: translateY(-5px); /* Subtle lift effect on hover */
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* Enhanced shadow on hover */
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .nav-link {
-    position: relative; /* Needed for absolute positioning of the pseudo-element */
+    position: relative;
 }
 
 .nav-link::after {
-    content: ''; /* Required for pseudo-elements */
+    content: '';
     position: absolute;
-    width: 0; /* Start with no width */
-    height: 2px; /* Underline thickness */
-    bottom: 0; /* Position at the bottom of the link */
-    left: 0; /* Align to the left */
-    background-color: #3b82f6; /* Underline color (Tailwind blue-600) */
-    transition: width 0.3s ease; /* Smooth transition for the width */
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #3b82f6; /* Tailwind blue-600 */
+    transition: width 0.3s ease;
 }
 
 .nav-link:hover::after {
-    width: 100%; /* Expand width to 100% on hover */
+    width: 100%;
 }
 
-/* Animations */
 .animate-float {
-    animation: float 3s ease-in-out infinite; /* Apply the float animation */
+    animation: float 3s ease-in-out infinite;
 }
 
 @keyframes float {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); } /* Move up */
-    100% { transform: translateY(0px); } /* Return to original position */
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
 }
 
-/* Note: TailwindCSS classes handle most other styling.
-   These are custom additions or overrides. */
-
-/* Example of potential override or addition if needed */
-/*
-.sticky {
-    position: -webkit-sticky; / Safari /
-    position: sticky;
+/* Additional accessibility considerations (optional, but good practice) */
+.mobile-menu-button:focus,
+.nav-link:focus,
+a:focus {
+    outline: 2px solid #2563eb; /* Tailwind blue-600, adjust as needed */
+    outline-offset: 2px;
 }
+
+/* Ensure skill bar percentages are accessible if they represent actual data */
+/* For purely visual skill bars, ensure the text alternative (the skill name) is sufficient.
+   If the percentage is important, consider adding an aria-label or visually hidden text
+   with the percentage value if the visual bar itself isn't perfectly perceivable by all.
+   For example, if the bar width is programmatically set and represents a real value,
+   you might add:
+   <div class="bg-blue-600 h-2.5 rounded-full" style="width: 90%" aria-label="Python skill: 90%"></div>
+   Or, ensure the text "Python" clearly implies a high proficiency.
 */
