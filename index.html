@@ -54,11 +54,13 @@
         <div class="flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 mb-12 md:mb-0">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4">Anushtup Nandy</h1>
-                <h2 class="text-2xl md:text-3xl font-semibold mb-6 gradient-text">Robotics Engineer: Designing Intelligent Motion</h2>
+                <h2 class="text-2xl md:text-3xl font-semibold mb-6 gradient-text">Robotics Researcher</h2>
                 <p class="text-lg text-gray-600 mb-8">
-                    Driven by a fascination with creating intelligent machines, I'm a Mechanical Engineer specializing in Robotics. 
+                    <!-- Driven by a fascination with creating intelligent machines, I'm a Mechanical Engineer specializing in Robotics. 
                     My work spans motion planning, reinforcement learning, bio-inspired design, and controls with a focus on developing 
-                    innovative solutions for complex challenges.
+                    innovative solutions for complex challenges. -->
+                    I'm on a mission to learn as much as I can about robotics! I started out in Bio-inspired design for robotics and have explored and researched motion planning, reinforcement learning, dynamics, controls, parallel robotics, rehabilitation robotics and haptic teleoperation.
+                    Currently, I am immersing myself into Neural Operators for intelligent dynamics and cotrol and my next stop will be foundation models for robotics (excitedddd!).
                 </p>
                 <div class="flex space-x-4">
                     <a href="#projects" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
@@ -328,10 +330,14 @@
                             <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Robotics</span>
                             <span class="bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Bio-inspired</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">Bio-Inspired Undulatory Fin</h3>
+                        <h3 class="text-xl font-bold mb-2">Bio-Inspired Undulatory Fin - BITS Pilani</h3>
                         <p class="text-gray-600 mb-4">
                             Developed a robotic fin that mimics stingray motion for efficient underwater propulsion using wavelike sinusoidal motion. Therefore limiting 
                             acoustic signature and conserving energy. 
+                        </p>
+                        <p>    
+                            Rapid prototyped a propulsion mechanism operating Arduino, servomotors, a 3D-printed hull, & CNC-machined fin-ray. Conducted experimentation of the 
+                            wave structure formed using NI DAQ 9237 with a single axis load cell and a PTC high-speed camera at 5610 fps. Moreover, Mentored 5 undergrads in building an autonomous underwater rover, securing funding of ₹2 lakhs.
                         </p>
                         <div class="flex justify-between items-center">
                             <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
@@ -339,12 +345,12 @@
                                 <i class="fas fa-arrow-right ml-1"></i>
                             </a>
                             <div class="flex space-x-2">
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
+                                <a href="https://github.com/anushtup-nandy/Undulating-fin" class="text-gray-500 hover:text-blue-600">
                                     <i class="fab fa-github"></i>
                                 </a>
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
+                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
                                     <i class="fas fa-external-link-alt"></i>
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
@@ -357,12 +363,16 @@
                          class="w-full h-48 object-cover">
                     <div class="p-6">
                         <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">Controls</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">Navigation</span>
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Motion Planning</span>
                             <span class="bg-amber-100 text-amber-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Optimization</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">RSCPP with Refueling (PF-RF)</h3>
+                        <h3 class="text-xl font-bold mb-2">RSCPP with Refueling (PF-RF) - CMU</h3>
                         <p class="text-gray-600 mb-4">
-                            Designed a robust control system for robotic satellite servicing with autonomous refueling capabilities.
+                            Wrote algorithm employing A*-like search to minimize cost in shortest path problem with fuel and stop constraints.
+                            Achieved orders magnitude faster performance over Dynamic Programming baseline leveraging dominance & partial path pruning.
+                            Implemented algorithm design in C++ & tested on cities with 400+ gas stations, utilized CMake to automate build & testing.
+                            Published findings as first author in peer-reviewed RA-L paper, showcasing analytical rigor & clear communication.
                         </p>
                         <div class="flex justify-between items-center">
                             <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
@@ -370,12 +380,15 @@
                                 <i class="fas fa-arrow-right ml-1"></i>
                             </a>
                             <div class="flex space-x-2">
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
+                                <p>
+                                    <span class="bg-red-100 text-purple-500 text-xs font-medium px-2.5 py-0.5 rounded">See Publications</span>
+                                </p>
+                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
                                     <i class="fab fa-github"></i>
                                 </a>
                                 <a href="#" class="text-gray-500 hover:text-blue-600">
                                     <i class="fas fa-external-link-alt"></i>
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
@@ -383,17 +396,20 @@
                 
                 <!-- Project 3 -->
                 <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    <img src="./images/haptic.png" 
                          alt="Haptic Joystick" 
                          class="w-full h-48 object-cover">
                     <div class="p-6">
                         <div class="flex items-center mb-2">
                             <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Haptics</span>
-                            <span class="bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Human-Robot</span>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Human-Robo Interaction</span>
+                            <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Rehabilitation</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">Haptic Joystick for Posture Control</h3>
+                        <h3 class="text-xl font-bold mb-2">Haptic Joystick for Posture Control - Columbia University</h3>
                         <p class="text-gray-600 mb-4">
-                            Developed a force-feedback joystick system to assist in human posture control and rehabilitation.
+                            Developed a PD-based haptic control system for pWRAPS rehabilitation robot, facilitating remote SCI patient therapy. 
+                            Furthermore, I designed impedance control & real-time upper trunk tracking using D435i depth camera, enabling adaptive control.
+                            Currently conducting extensive experiments w/ ADDVERB haptic device, integrating AR & VR feedback for remote therapy solution.
                         </p>
                         <div class="flex justify-between items-center">
                             <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
@@ -401,12 +417,15 @@
                                 <i class="fas fa-arrow-right ml-1"></i>
                             </a>
                             <div class="flex space-x-2">
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
+                                <p>
+                                <span class="bg-red-100 text-purple-500 text-xs font-medium px-2.5 py-0.5 rounded">Publication underworks</span>
+                                </p>
+                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
                                     <i class="fab fa-github"></i>
                                 </a>
                                 <a href="#" class="text-gray-500 hover:text-blue-600">
                                     <i class="fas fa-external-link-alt"></i>
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
@@ -414,17 +433,22 @@
                 
                 <!-- Project 4 -->
                 <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    <img src="./images/rl-dqn.png" 
                          alt="Autonomous Rover" 
                          class="w-full h-48 object-cover">
                     <div class="p-6">
                         <div class="flex items-center mb-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Autonomy</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">RL</span>
                             <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Navigation</span>
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Autonomy</span>
+
                         </div>
-                        <h3 class="text-xl font-bold mb-2">Autonomous Planetary Rover</h3>
+                        <h3 class="text-xl font-bold mb-2">Path planning using Deep RL - BITS Pilani</h3>
                         <p class="text-gray-600 mb-4">
-                            Built and programmed an autonomous rover capable of terrain mapping and obstacle avoidance.
+                            Formulated planning algorithm using DQN (deep reinforcement learning) for mobile robots in unknown environments.
+                            Developed simulations using OpenCV, NumPy, and used PyTorch for DQN algorithm.
+                            Demonstrated feasibility of planning in unknown office spaces under 600 and 800 seconds time constraints, leading to
+                            ACM AIR 2023 publication, highlighting innovative problem-solving and technical proficiency.
                         </p>
                         <div class="flex justify-between items-center">
                             <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
@@ -432,12 +456,12 @@
                                 <i class="fas fa-arrow-right ml-1"></i>
                             </a>
                             <div class="flex space-x-2">
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
+                                <a href="https://github.com/anushtup-nandy/Maze-solver-dqn" class="text-gray-500 hover:text-blue-600">
                                     <i class="fab fa-github"></i>
                                 </a>
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
+                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
                                     <i class="fas fa-external-link-alt"></i>
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
@@ -445,17 +469,19 @@
                 
                 <!-- Project 5 -->
                 <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    <img src="./images/dms.png" 
                          alt="Robotic Arm" 
                          class="w-full h-48 object-cover">
                     <div class="p-6">
                         <div class="flex items-center mb-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Manipulation</span>
-                            <span class="bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">RL</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Path Planning</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Navigation</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">RL for Robotic Manipulation</h3>
+                        <h3 class="text-xl font-bold mb-2">Experimentation and validation of DMS* and MS* algorithms - CMU</h3>
                         <p class="text-gray-600 mb-4">
-                            Implemented reinforcement learning algorithms for dexterous robotic manipulation tasks.
+                            Validated combinatorial search algorithms (DMS* & MS*) using ROS on ROSbot 2Rs.
+                            Proved DMS* as 2x faster and successful due to evenly distributing intermediate targets, thus reducing the makespan.
+                            Co-authored paper in RA-L, underscoring rigorous analysis and practical application.
                         </p>
                         <div class="flex justify-between items-center">
                             <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
@@ -463,30 +489,35 @@
                                 <i class="fas fa-arrow-right ml-1"></i>
                             </a>
                             <div class="flex space-x-2">
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
+                                <p>
+                                   <span class="bg-red-100 text-purple-500 text-xs font-medium px-2.5 py-0.5 rounded">See Publications</span>
+                                </p>
+                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
                                     <i class="fab fa-github"></i>
                                 </a>
                                 <a href="#" class="text-gray-500 hover:text-blue-600">
                                     <i class="fas fa-external-link-alt"></i>
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Project 6 -->
                 <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    <img src="./images/hopper.png" 
                          alt="Swarm Robotics" 
                          class="w-full h-48 object-cover">
                     <div class="p-6">
                         <div class="flex items-center mb-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Swarm</span>
-                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Coordination</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Legged robotics</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Bio-Inspired Robotics</span>
+                            <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Controls</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">Distributed Swarm Robotics</h3>
+                        <h3 class="text-xl font-bold mb-2">Single Legged Raibert Hopper - BITS Pilani</h3>
                         <p class="text-gray-600 mb-4">
-                            Developed algorithms for decentralized coordination and task allocation in robotic swarms.
+                           Designed a Raibert Hopper using URDF.
+                           Implemented PID controller for balance and navigation of hopper using the inverted pendulum gait
                         </p>
                         <div class="flex justify-between items-center">
                             <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
@@ -494,24 +525,90 @@
                                 <i class="fas fa-arrow-right ml-1"></i>
                             </a>
                             <div class="flex space-x-2">
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
+                                <a href="https://github.com/anushtup-nandy/Hopper_robot" class="text-gray-500 hover:text-blue-600">
                                     <i class="fab fa-github"></i>
                                 </a>
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
+                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
                                     <i class="fas fa-external-link-alt"></i>
+                                </a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 8 -->
+                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <img src="./images/Delta_img.jpg" 
+                         alt="Swarm Robotics" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Parallel robotics</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Dynamics</span>
+                            <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">CAD</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Development and Experimental Analysis of Delta robot - BITS Pilani</h3>
+                        <p class="text-gray-600 mb-4">
+                           Designed Delta robot using Fusion 360.
+                           Utilized acrylic sheets, 3D printing and plastic moulding to develop robot base, arms and joints.
+                           Developed simple PID constroller using Arduino Mega, L298N stepper motor drivers and Neema 17 5kg/cm stepper motors
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                                View Details
+                                <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                            <div class="flex space-x-2">
+                                <a href="https://github.com/anushtup-nandy/Delta-Robot-project" class="text-gray-500 hover:text-blue-600">
+                                    <i class="fab fa-github"></i>
                                 </a>
+                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Project 6 -->
+                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <!-- <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                         alt="Swarm Robotics" 
+                         class="w-full h-48 object-cover"> -->
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Fluids</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Bio-Inspired Robotics</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Flapping and pitching wing mechanism for Bio-inspired UAV - BITS Pilani</h3>
+                        <p class="text-gray-600 mb-4">
+                            Developed a combined flapping and pitching mechanism for flexible wing-based UAVs using servomotors.
+                            Performed experimental analysis of propulsion under cross-flow to determine lift and drag using NI DAQ 9237 Bridge
+                            Module and S-type load cells.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                                View Details
+                                <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                            <div class="flex space-x-2">
+                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="text-gray-500 hover:text-blue-600">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             
-            <div class="text-center mt-12">
+            <!-- <div class="text-center mt-12">
                 <a href="#" class="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium">
                     View All Projects
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>
-            </div>
+            </div> -->
         </div>
     </section>
 
@@ -530,16 +627,16 @@
                 <div class="p-6 hover:bg-gray-50 transition duration-200">
                     <div class="flex flex-col md:flex-row md:items-center">
                         <div class="md:w-3/4 mb-4 md:mb-0">
-                            <h3 class="text-xl font-bold mb-1">Bio-Inspired Undulatory Fin Propulsion: Design and Control</h3>
+                            <h3 class="text-xl font-bold mb-1">Heuristic Search for Path Finding With Refuelling</h3>
                             <p class="text-gray-600 mb-2">
-                                <span class="font-medium">A. Nandy</span>, J. Smith, R. Johnson
+                                <span class="font-medium"> S. Zhao, A. Nandy, H. Choset, S. Rathinam and Z. Ren</span>
                             </p>
                             <p class="text-sm text-gray-500">
-                                IEEE Robotics and Automation Letters, vol. 15, no. 3, pp. 1234-1241, 2023
+                                IEEE Robotics and Automation Letters, vol. 10, no. 4, pp. 3230-3237, April 2025, doi: 10.1109/LRA.2025.3540736
                             </p>
                         </div>
                         <div class="md:w-1/4 flex md:justify-end">
-                            <a href="#" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
+                            <a href="https://github.com/anushtup-nandy/anushtup-nandy.github.io/blob/main/pdfs/Heuristic%20search%20.pdf" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
                                 <i class="fas fa-file-pdf mr-2"></i> PDF
                             </a>
                         </div>
@@ -550,16 +647,17 @@
                 <div class="p-6 hover:bg-gray-50 transition duration-200">
                     <div class="flex flex-col md:flex-row md:items-center">
                         <div class="md:w-3/4 mb-4 md:mb-0">
-                            <h3 class="text-xl font-bold mb-1">Reinforcement Learning for Robotic Satellite Servicing with Refueling</h3>
+                            <h3 class="text-xl font-bold mb-1">Maze Solving Using Deep Q-Network</h3>
                             <p class="text-gray-600 mb-2">
-                                <span class="font-medium">A. Nandy</span>, M. Williams, T. Brown
+                                <span class="font-medium">Anushtup Nandy</span>, Subash Sehsashtri, Abhishek Sarkar
                             </p>
                             <p class="text-sm text-gray-500">
-                                International Conference on Robotics and Automation (ICRA), 2022
+                                Advances In Robotics - 6th International Conference of The Robotics Society. AIR 2023. Ropar, India: Association for Computing Machinery, 2023. ISBN:
+                                9781450399807. DOI: 10.1145/3610419.3610458. URL: https://doi.org/10.1145/3610419.3610458
                             </p>
                         </div>
                         <div class="md:w-1/4 flex md:justify-end">
-                            <a href="#" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
+                            <a href="https://github.com/anushtup-nandy/anushtup-nandy.github.io/blob/main/pdfs/DQN_maze_solver.pdf" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
                                 <i class="fas fa-file-pdf mr-2"></i> PDF
                             </a>
                         </div>
@@ -570,49 +668,31 @@
                 <div class="p-6 hover:bg-gray-50 transition duration-200">
                     <div class="flex flex-col md:flex-row md:items-center">
                         <div class="md:w-3/4 mb-4 md:mb-0">
-                            <h3 class="text-xl font-bold mb-1">Haptic Feedback Systems for Human Posture Control Assistance</h3>
+                            <h3 class="text-xl font-bold mb-1">DMS*: Towards Minimizing Makespan for Multi-
+                            Agent Combinatorial Path Finding</h3>
                             <p class="text-gray-600 mb-2">
-                                R. Davis, <span class="font-medium">A. Nandy</span>, K. Wilson
+                                R. Davis, <span class="font-medium">Zhongqiang Ren, Anushtup Nandy, Sivakumar Rathinam, and Howie Choset</span>
                             </p>
                             <p class="text-sm text-gray-500">
-                                IEEE Transactions on Haptics, vol. 14, no. 2, pp. 456-463, 2021
+                                IEEE Robotics and Automation Letters 9.9 (2024), pp. 7987-7994. DOI:10.1109/LRA.2024.3436333
                             </p>
                         </div>
                         <div class="md:w-1/4 flex md:justify-end">
-                            <a href="#" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
+                            <a href="https://github.com/anushtup-nandy/anushtup-nandy.github.io/blob/main/pdfs/DMS_Minimizing%20Makespan%20Multi-Agent%20Combinatorial%20Path%20Finding.pdf" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
                                 <i class="fas fa-file-pdf mr-2"></i> PDF
                             </a>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Publication 4 -->
-                <div class="p-6 hover:bg-gray-50 transition duration-200">
-                    <div class="flex flex-col md:flex-row md:items-center">
-                        <div class="md:w-3/4 mb-4 md:mb-0">
-                            <h3 class="text-xl font-bold mb-1">Distributed Task Allocation Algorithms for Robotic Swarms</h3>
-                            <p class="text-gray-600 mb-2">
-                                <span class="font-medium">A. Nandy</span>, L. Taylor, P. Anderson
-                            </p>
-                            <p class="text-sm text-gray-500">
-                                Autonomous Robots, vol. 45, no. 5, pp. 789-801, 2021
-                            </p>
-                        </div>
-                        <div class="md:w-1/4 flex md:justify-end">
-                            <a href="#" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
-                                <i class="fas fa-file-pdf mr-2"></i> PDF
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
             
-            <div class="p-6 text-center border-t border-gray-200">
+            <!-- <div class="p-6 text-center border-t border-gray-200">
                 <a href="#" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
                     View All Publications
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>
-            </div>
+            </div> -->
         </div>
     </section>
 
@@ -714,7 +794,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
                     <a href="#" class="text-2xl font-bold">
-                        <span class="gradient-text">AN</span>
+                        <span class="gradient-text">Anush</span>
                     </a>
                     <p class="text-gray-400 mt-2">Mechanical Engineer | Robotics Specialist</p>
                 </div>
@@ -726,16 +806,16 @@
                     <a href="#" class="text-gray-400 hover:text-white">
                         <i class="fab fa-github text-xl"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-white">
-                        <i class="fab fa-twitter text-xl"></i>
+                    <!-- <a href="#" class="text-gray-400 hover:text-white"> -->
+                        <!-- <i class="fab fa-twitter text-xl"></i>
                     </a>
                     <a href="#" class="text-gray-400 hover:text-white">
-                        <i class="fab fa-youtube text-xl"></i>
+                        <i class="fab fa-youtube text-xl"></i> -->
                     </a>
                 </div>
             </div>
             
-            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <!-- <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-400 text-sm mb-4 md:mb-0">
                     © 2023 Anushtup Nandy. All rights reserved.
                 </p>
@@ -745,7 +825,7 @@
                     <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
                     <a href="#" class="text-gray-400 hover:text-white text-sm">Sitemap</a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </footer>
 
