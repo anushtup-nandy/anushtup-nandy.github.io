@@ -1,66 +1,284 @@
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-body {
-    font-family: 'Space Grotesk', sans-serif;
-    scroll-behavior: smooth;
+/*
+  ==============================================
+  DESIGN SYSTEM & CSS VARIABLES
+  ==============================================
+*/
+:root {
+    --font-sans: 'Space Grotesk', sans-serif;
+    --transition-fast: 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-slow: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* Light Theme */
+    --bg-primary-light: #f7f7f8;
+    --bg-secondary-light: #ffffff;
+    --text-primary-light: #111827;
+    --text-secondary-light: #4b5563;
+    --border-light: #e5e7eb;
+    --brand-accent-1: #3b82f6;
+    --brand-accent-2: #10b981;
+    --shadow-color-light: 220 4% 56%;
+    --card-glow-light: 0 0 40px -10px #e0e0e0;
 }
 
-.gradient-text {
-    background: linear-gradient(90deg, #3b82f6, #10b981);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+html[data-theme='dark'] {
+    /* Dark Theme */
+    --bg-primary-dark: #030712;
+    --bg-secondary-dark: #111827;
+    --text-primary-dark: #f9fafb;
+    --text-secondary-dark: #9ca3af;
+    --border-dark: #374151;
+    --shadow-color-dark: 210 20% 5%;
+    --card-glow-dark: 0 0 40px -10px #000;
+}
+
+/*
+  ==============================================
+  BASE & RESET STYLES
+  ==============================================
+*/
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-primary, var(--bg-primary-light));
+    color: var(--text-primary, var(--text-primary-light));
+    transition: background-color var(--transition-slow), color var(--transition-slow);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    position: relative; /* For pointer effect */
+}
+
+/*
+  ==============================================
+  DYNAMIC BACKGROUND & POINTER EFFECT
+  ==============================================
+*/
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: radial-gradient(circle at 20% 20%, var(--brand-accent-1), transparent 30%),
+                      radial-gradient(circle at 80% 70%, var(--brand-accent-2), transparent 30%);
+    filter: blur(100px);
+    opacity: 0.15;
+    z-index: -2;
+    animation: moveGradient 20s infinite alternate ease-in-out;
+}
+
+html[data-theme='dark'] body::before {
+    opacity: 0.2;
+}
+
+@keyframes moveGradient {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(100px, -100px); }
+}
+
+#pointer-light {
+    position: fixed;
+    z-index: 9999;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+    filter: blur(20px);
+}
+
+html[data-theme='dark'] #pointer-light {
+     background: radial-gradient(circle, rgba(59, 130, 246, 0.15), transparent 70%);
+}
+
+/*
+  ==============================================
+  NAVIGATION
+  ==============================================
+*/
+nav.fixed {
+    background-color: var(--nav-bg, rgba(247, 247, 248, 0.7));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid transparent;
+    transition: background-color var(--transition-slow), border-color var(--transition-slow);
+}
+
+html[data-theme='dark'] nav.fixed { --nav-bg: rgba(3, 7, 18, 0.7); }
+
+nav.scrolled {
+    border-bottom-color: var(--border, var(--border-light));
+}
+
+.nav-link {
+    color: var(--text-secondary, var(--text-secondary-light));
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+.nav-link:hover, .nav-link.active { color: var(--text-primary, var(--text-primary-light)); }
+
+/*
+  ==============================================
+  HERO SECTION
+  ==============================================
+*/
+#home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+#home h1 {
+    font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-primary, var(--text-primary-light));
+}
+
+#home .gradient-text {
+    font-size: clamp(1.5rem, 3vw + 0.5rem, 2.5rem);
+    font-weight: 600;
+}
+
+#home p {
+    color: var(--text-secondary, var(--text-secondary-light));
+    max-width: 55ch;
+}
+
+/*
+  ==============================================
+  BUTTONS
+  ==============================================
+*/
+a.bg-blue-600 { /* Primary Button */
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+a.bg-blue-600:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px 0px var(--brand-accent-1);
+}
+a.border-blue-600 { /* Secondary Button */
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+a.border-blue-600:hover {
+    transform: translateY(-2px);
+    background-color: var(--brand-accent-1) !important;
+    color: white !important;
+    box-shadow: 0 0 20px 0px var(--brand-accent-1);
+}
+
+
+/*
+  ==============================================
+  PROJECT CARDS
+  ==============================================
+*/
+.project-card {
+    background-color: var(--bg-secondary, var(--bg-secondary-light));
+    border: 1px solid var(--border, var(--border-light));
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.2), transparent 40%);
+    opacity: 0;
+    transition: opacity var(--transition-slow);
+    z-index: 1;
+}
+
+.project-card:hover::before {
+    opacity: 1;
 }
 
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: rgba(59, 130, 246, 0.3);
+    box-shadow: var(--card-glow, var(--card-glow-light));
 }
 
-.nav-link {
+.project-card > * {
     position: relative;
+    z-index: 2;
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #3b82f6; /* Tailwind blue-600 */
-    transition: width 0.3s ease;
+.project-card img {
+    transition: transform var(--transition-slow);
+}
+.project-card:hover img {
+    transform: scale(1.03);
 }
 
-.nav-link:hover::after {
-    width: 100%;
-}
 
-.animate-float {
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-/* Additional accessibility considerations (optional, but good practice) */
-.mobile-menu-button:focus,
-.nav-link:focus,
-a:focus {
-    outline: 2px solid #2563eb; /* Tailwind blue-600, adjust as needed */
-    outline-offset: 2px;
-}
-
-/* Ensure skill bar percentages are accessible if they represent actual data */
-/* For purely visual skill bars, ensure the text alternative (the skill name) is sufficient.
-   If the percentage is important, consider adding an aria-label or visually hidden text
-   with the percentage value if the visual bar itself isn't perfectly perceivable by all.
-   For example, if the bar width is programmatically set and represents a real value,
-   you might add:
-   <div class="bg-blue-600 h-2.5 rounded-full" style="width: 90%" aria-label="Python skill: 90%"></div>
-   Or, ensure the text "Python" clearly implies a high proficiency.
+/*
+  ==============================================
+  GENERAL STYLING & THEME SWITCHING
+  ==============================================
 */
+body {
+    --bg-primary: var(--bg-primary-light);
+    --bg-secondary: var(--bg-secondary-light);
+    --bg-accent: #F9FAFB;
+    --text-primary: var(--text-primary-light);
+    --text-secondary: var(--text-secondary-light);
+    --border: var(--border-light);
+    --card-glow: var(--card-glow-light);
+}
+
+html[data-theme='dark'] body {
+    --bg-primary: var(--bg-primary-dark);
+    --bg-secondary: var(--bg-secondary-dark);
+    --bg-accent: #1f2937;
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --border: var(--border-dark);
+    --card-glow: var(--card-glow-dark);
+}
+
+/* Update Tailwind component colors */
+.bg-white { background-color: var(--bg-secondary) !important; }
+.bg-gray-50 { background-color: var(--bg-primary) !important; }
+.text-gray-800 { color: var(--text-primary) !important; }
+.text-gray-600 { color: var(--text-secondary) !important; }
+.text-gray-700 { color: var(--text-secondary) !important; }
+.text-gray-900 { color: var(--text-primary) !important; }
+.divide-gray-200 > :not([hidden]) ~ :not([hidden]) { border-color: var(--border) !important; }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgba(var(--shadow-color-light),0.07), 0 4px 6px -2px rgba(var(--shadow-color-light),0.05) !important; }
+html[data-theme='dark'] .shadow-lg { box-shadow: 0 10px 15px -3px rgba(var(--shadow-color-dark),0.3), 0 4px 6px -2px rgba(var(--shadow-color-dark),0.2) !important; }
+.hover\:bg-gray-50:hover { background-color: var(--bg-accent) !important; }
+.bg-gradient-to-r.from-blue-50.to-emerald-50 { background: var(--bg-primary) !important; }
+footer.bg-gray-900 { background-color: var(--bg-secondary) !important; border-top: 1px solid var(--border); }
+html[data-theme='dark'] footer .text-white { color: var(--text-primary) !important; }
+
+/* Scroll Fade-in Animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s var(--transition-slow), transform 0.8s var(--transition-slow);
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
