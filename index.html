@@ -1,924 +1,379 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anushtup Nandy | Robotics Engineer</title>
-    <!-- External CSS Libraries -->
+    <title>Anushtup Nandy | Robotics Engineer & Researcher</title>
+    <meta name="description" content="Portfolio of Anushtup Nandy, a robotics engineer specializing in motion planning, reinforcement learning, and autonomous systems.">
+    
+    <!-- Tailwind & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
-    <!-- Navigation -->
-    <nav class="fixed w-full bg-white shadow-sm z-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="#" class="text-xl font-bold text-gray-900">
-                        <span class="gradient-text">AN</span>
-                    </a>
-                </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2">Home</a>
-                    <a href="#about" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2">About</a>
-                    <a href="#experience" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2">Work Experience</a>
-                    <a href="#projects" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2">Projects</a>
-                    <a href="#publications" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2">Publications</a>
-                    <a href="#contact" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2">Contact</a>
-                </div>
-                <div class="md:hidden flex items-center">
-                    <button class="mobile-menu-button">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
+<body>
+    <!-- Custom Cursor Glow -->
+    <div id="cursor-glow"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-xl font-bold tracking-wider gradient-text">AN</a>
+            <div class="hidden md:flex items-center space-x-1">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#publications" class="nav-link">Publications</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button id="theme-toggle" aria-label="Toggle theme" class="focus:outline-none">
+                    <i class="fas fa-sun text-lg"></i>
+                    <i class="fas fa-moon text-lg hidden"></i>
+                </button>
             </div>
-        </div>
-    </nav>
+            <button class="md:hidden mobile-menu-button focus:outline-none" aria-label="Open menu">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </nav>
+    </header>
 
     <!-- Mobile Menu -->
-    <div class="mobile-menu hidden md:hidden fixed inset-0 z-40 bg-white pt-16">
-        <div class="flex flex-col items-center space-y-4 py-8">
-            <a href="#home" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Home</a>
-            <a href="#about" class="block px-3 py-2 text-gray-700 hover:text-blue-600">About</a>
-            <a href="#experience" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Work Experience</a>
-            <a href="#projects" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Projects</a>
-            <a href="#publications" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Publications</a>
-            <a href="#contact" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Contact</a>
-        </div>
+    <div class="mobile-menu hidden">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#publications" class="nav-link">Publications</a>
+        <a href="#contact" class="nav-link">Contact</a>
     </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div class="flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-12 md:mb-0">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">Anushtup Nandy</h1>
-                <h2 class="text-2xl md:text-3xl font-semibold mb-6 gradient-text">Robotics Researcher</h2>
-                <p class="text-lg text-gray-600 mb-8">
-                    As a Robotics Engineer with a foundation in Mechanical Engineering, 
-                    I specialize in creating intelligent autonomous systems. My work focuses on 
-                    the intersection of dynamics, motion planning, reinforcement learning, 
-                    and control systems. I am passionate about tackling complex challenges in 
-                    robotics, from bio-inspired propulsion to advanced pathfinding algorithms, and am 
-                    currently exploring the potential of neural operators and foundation models to 
-                    redefine robotic intelligence.
-                </p>
-                <div class="flex space-x-4">
-                    <a href="#projects" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
-                        Explore My Projects
-                    </a>
-                    <a href="#contact" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium transition duration-300">
-                        Get In Touch
-                    </a>
-                </div>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-                <div class="relative w-64 h-64 md:w-80 md:h-80">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-emerald-400 rounded-full blur-xl opacity-30 animate-pulse"></div>
-                    <img src="images/IMG-20241124-WA0042.jpg" 
-                         alt="Robotics Engineer" 
-                         class="relative w-full h-full object-cover rounded-full border-4 border-white shadow-lg animate-float">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Project -->
-    <section class="py-16 bg-gradient-to-r from-blue-50 to-emerald-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12">Featured Project</h2>
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                <div class="md:flex">
-                    <div class="md:w-1/2">
-                        <img src="images/wave-trace.jpg" 
-                             alt="Bio-Inspired Undulatory Fin" 
-                             class="w-full h-full object-cover">
-                    </div>
-                    <div class="md:w-1/2 p-8">
-                        <h3 class="text-2xl font-bold mb-4">Bio-Inspired Undulatory Fin Propulsion</h3>
-                        <p class="text-gray-600 mb-6">
-                            Developed a bio-inspired robotic fin that mimics the undulatory motion of aquatic creatures for efficient underwater propulsion. 
-                            The project involved designing the mechanical structure, implementing control algorithms, and optimizing performance.
-                        </p>
-                        <div class="mb-6">
-                            <h4 class="font-semibold mb-2">Key Contributions:</h4>
-                            <ul class="list-disc pl-5 space-y-1 text-gray-600">
-                                <li>Rapid prototyped a propulsion mechanism operating Arduino, servomotors, a 3D-printed hull, & CNC-machined fin-ray</li>
-                                <li>Data analysis & visualization, with Python and OpenCV, of wave data captured at 5610 fps by a PTC high-speed camera</li>
-                                <li>Design calculations & analysis of propulsive force to be 0.16N using NI DAQ 9237 module and single-axis load cell</li>
-                                <li>Mentored 5 undergrads in building an autonomous underwater rover, securing funding of ₹2 lakhs</li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Robotics</span>
-                            <span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm">Bio-inspired Design</span>
-                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">CAD</span>
-                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm">controls</span>
-                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Experimental design</span>
-                        </div>
-                        <!-- <a href="#" class="inline-flex items-center text-blue-600 hover:text-blue-800">
-                            View Project Details
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </a> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold mb-2">About Me</h2>
-            <div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-emerald-400 mx-auto"></div>
-        </div>
-        
-        <div class="flex flex-col md:flex-row gap-12">
-            <div class="md:w-1/3">
-                <div class="bg-white p-6 rounded-xl shadow-lg sticky top-24">
-                    <img src="images/Snapchat-1286514703.jpg" 
-                         alt="Profile" 
-                         class="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-white shadow-md">
-                    <h3 class="text-xl font-bold text-center mb-2">Anushtup Nandy</h3>
-                    <p class="text-gray-600 text-center mb-6">Robotics Engineer</p>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-2">Education</h4>
-                            <div class="space-y-2">
-                                <div>
-                                    <p class="font-medium">Columbia University</p>
-                                    <p class="text-sm text-gray-600">MS in Mechanical Engineering (Robotics)</p>
-                                </div>
-                                <div>
-                                    <p class="font-medium">BITS Pilani - Hyderabad Campus</p>
-                                    <p class="text-sm text-gray-600">BE in Mechanical Engineering with minor in Robotics</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-2">Contact</h4>
-                            <div class="space-y-2">
-                                <a href="mailto:anushtup.nandy@gmail.com" class="flex items-center text-gray-600 hover:text-blue-600">
-                                    <i class="fas fa-envelope mr-2"></i> anushtup.nandy@gmail.com
-                                </a>
-                                <a href="https://www.linkedin.com/in/anushtup-nandy/" class="flex items-center text-gray-600 hover:text-blue-600">
-                                    <i class="fab fa-linkedin mr-2"></i> LinkedIn
-                                </a>
-                                <a href="https://github.com/anushtup-nandy" class="flex items-center text-gray-600 hover:text-blue-600">
-                                    <i class="fab fa-github mr-2"></i> GitHub
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="md:w-2/3">
-                <div class="bg-white p-8 rounded-xl shadow-lg mb-8">
-                    <h3 class="text-2xl font-bold mb-4">Professional Summary</h3>
-                    <p class="text-gray-600 mb-6">
-                        I am a Mechanical Engineer with a specialization in Robotics, currently pursuing my MS at Columbia University. 
-                        My research and projects focus on motion planning, reinforcement learning, controls, and bio-inspired robotics. 
-                        I'm passionate about developing intelligent systems that can adapt and learn from their environments.
+    <main class="container mx-auto px-6">
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center">
+            <div class="grid md:grid-cols-5 gap-8 items-center">
+                <div class="md:col-span-3">
+                    <p class="text-lg font-medium mb-2 reveal" style="color: var(--accent);">Anushtup Nandy</p>
+                    <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4 reveal" style="--delay: 0.1s;">
+                        Designing intelligent autonomous systems.
+                    </h1>
+                    <p class="text-lg max-w-2xl mb-8 reveal" style="--delay: 0.2s; color: var(--text-secondary);">
+                        I'm a Robotics Engineer and Researcher at the intersection of motion planning, reinforcement learning, and control systems—building the next generation of robotic intelligence.
                     </p>
-                    <p class="text-gray-600">
-                        My approach combines rigorous engineering principles with creative problem-solving to develop innovative robotic 
-                        solutions. I believe in the power of interdisciplinary collaboration and constantly seek to expand my knowledge 
-                        at the intersection of mechanical engineering, computer science, and artificial intelligence.
+                    <div class="flex flex-col sm:flex-row gap-4 reveal" style="--delay: 0.3s;">
+                        <a href="#projects" class="btn btn-primary">View My Work</a>
+                        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                    </div>
+                </div>
+                <div class="md:col-span-2 flex justify-center md:justify-end reveal" style="--delay: 0.2s;">
+                    <div class="hero-image-container w-64 h-64 md:w-80 md:h-80">
+                        <!-- !!! IMPORTANT: REPLACE THIS SRC !!! -->
+                        <img src="images/IMG-20241124-WA0042.jpg" alt="Anushtup Nandy" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="pt-12 pb-24">            
+            <div class="grid md:grid-cols-5 gap-5 items-start">
+                <div class="md:col-span-2">
+                    <h2 class="section-title reveal">About Me.</h2>
+                </div>
+                <div class="md:col-span-3 text-lg space-y-6" style="color: var(--text-secondary);">
+                    <p class="reveal">
+                        I'm a Robotics Engineer pursuing my MS at <span style="color: var(--text-primary);">Columbia University</span>, with a background in Mechanical Engineering from BITS Pilani. My core passion lies in solving complex problems in robotics, from bio-inspired propulsion to advanced pathfinding algorithms.
+                    </p>
+                    <p class="reveal">
+                        My approach combines rigorous analytical principles with creative, hands-on development. I thrive on architecting high-performance algorithms, leading projects from concept to validation, and mentoring teams to achieve ambitious goals.
                     </p>
                 </div>
-
-                <div class="bg-white p-8 rounded-xl shadow-lg mb-8">
-                    <h3 class="text-2xl font-bold mb-6">Core Competencies</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- Competency 1: Full-Cycle Robotics Development -->
-                        <div class="flex items-start">
-                            <div class="bg-blue-100 p-3 rounded-full mr-4 flex-shrink-0">
-                                <i class="fas fa-cogs text-blue-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-1">Full-Cycle Robotics Development</h4>
-                                <p class="text-gray-600 text-sm">
-                                    Leading projects from conceptual design and rapid prototyping (3D Printing, CNC) to control system implementation (ROS, C++, Python) and rigorous experimental validation.
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Competency 2: Algorithmic Problem-Solving -->
-                        <div class="flex items-start">
-                            <div class="bg-emerald-100 p-3 rounded-full mr-4 flex-shrink-0">
-                                <i class="fas fa-brain text-emerald-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-1">Algorithmic Problem-Solving</h4>
-                                <p class="text-gray-600 text-sm">
-                                    Architecting and implementing high-performance algorithms for motion planning (Heuristic Search, A*) and reinforcement learning (DQN) to solve complex, resource-constrained challenges.
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Competency 3: Data-Driven Engineering & Validation -->
-                        <div class="flex items-start">
-                            <div class="bg-purple-100 p-3 rounded-full mr-4 flex-shrink-0">
-                                <i class="fas fa-chart-line text-purple-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-1">Data-Driven Engineering & Validation</h4>
-                                <p class="text-gray-600 text-sm">
-                                    Utilizing advanced instrumentation (NI DAQ, High-Speed Cameras, Depth Cams) and data analysis frameworks (Python, OpenCV) to quantify performance, validate models, and drive design improvements.
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Competency 4: Product & Project Leadership -->
-                        <div class="flex items-start">
-                            <div class="bg-amber-100 p-3 rounded-full mr-4 flex-shrink-0">
-                                <i class="fas fa-users text-amber-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-1">Product & Project Leadership</h4>
-                                <p class="text-gray-600 text-sm">
-                                    Translating engineering solutions into tangible outcomes by reducing costs, improving efficiency, mentoring junior engineers, and securing project funding.
-                                </p>
-                            </div>
-                        </div>
+            </div>
+            <div class="mt-20">
+                <h3 class="text-2xl font-bold text-center mb-12 reveal">Core Competencies</h3>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="competency-card reveal">
+                        <i class="fas fa-cogs"></i>
+                        <h4>Robotics Development</h4>
+                        <p>End-to-end project execution from design (CAD, 3D Printing) to control system implementation (ROS, C++, Python).</p>
                     </div>
-                </div>
-                
-                <div class="bg-white p-8 rounded-xl shadow-lg mb-8">
-                    <h3 class="text-2xl font-bold mb-6">Technical Skills</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                        
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-3 border-b pb-1">Programming & Software</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="skill-tag bg-blue-100 text-blue-800">Python</span>
-                                <span class="skill-tag bg-blue-100 text-blue-800">C/C++</span>
-                                <span class="skill-tag bg-blue-100 text-blue-800">MATLAB/Simulink</span>
-                                <span class="skill-tag bg-gray-100 text-gray-800">JavaScript</span>
-                                <span class="skill-tag bg-gray-100 text-gray-800">Bash</span>
-                                <span class="skill-tag bg-gray-100 text-gray-800">NodeJS</span>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-3 border-b pb-1">Robotics & AI/ML</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="skill-tag bg-emerald-100 text-emerald-800">ROS / ROS2</span>
-                                <span class="skill-tag bg-emerald-100 text-emerald-800">Motion Planning</span>
-                                <span class="skill-tag bg-emerald-100 text-emerald-800">Control Systems</span>
-                                <span class="skill-tag bg-emerald-100 text-emerald-800">PyTorch</span>
-                                <span class="skill-tag bg-emerald-100 text-emerald-800">OpenCV</span>
-                                <span class="skill-tag bg-emerald-100 text-emerald-800">LLM / LangChain</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-3 border-b pb-1">CAD, DevTools & Platforms</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="skill-tag bg-purple-100 text-purple-800">SolidWorks</span>
-                                <span class="skill-tag bg-purple-100 text-purple-800">Linux</span>
-                                <span class="skill-tag bg-purple-100 text-purple-800">Git / GitHub</span>
-                                <span class="skill-tag bg-purple-100 text-purple-800">CMake</span>
-                                <span class="skill-tag bg-purple-100 text-purple-800">Docker</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-3 border-b pb-1">Hardware & Instrumentation</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="skill-tag bg-amber-100 text-amber-800">NI DAQ</span>
-                                <span class="skill-tag bg-amber-100 text-amber-800">Intel RealSense</span>
-                                <span class="skill-tag bg-amber-100 text-amber-800">PTC High-Speed Camera</span>
-                                <span class="skill-tag bg-amber-100 text-amber-800">Raspberry Pi</span>
-                                <span class="skill-tag bg-amber-100 text-amber-800">Jetson Nano</span>
-                                <span class="skill-tag bg-amber-100 text-amber-800">Electro-Mechanical Assembly</span>
-                            </div>
-                        </div>
-
+                    <div class="competency-card reveal" style="--delay: 0.1s;">
+                        <i class="fas fa-brain"></i>
+                        <h4>Algorithm Design</h4>
+                        <p>Architecting high-performance algorithms for motion planning (A*) and reinforcement learning (DQN).</p>
                     </div>
-                </div>
-                
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <h3 class="text-2xl font-bold mb-4">Research Interests</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="flex items-start">
-                            <div class="bg-blue-100 p-3 rounded-full mr-4">
-                                <i class="fas fa-robot text-blue-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-1">Motion Planning</h4>
-                                <p class="text-gray-600 text-sm">
-                                    Developing algorithms for efficient path planning in dynamic environments with applications in autonomous vehicles and robotic manipulators.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-emerald-100 p-3 rounded-full mr-4">
-                                <i class="fas fa-brain text-emerald-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-1">Reinforcement Learning</h4>
-                                <p class="text-gray-600 text-sm">
-                                    Applying RL techniques to enable robots to learn complex behaviors through interaction with their environment.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-purple-100 p-3 rounded-full mr-4">
-                                <i class="fas fa-sliders-h text-purple-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-1">Controls</h4>
-                                <p class="text-gray-600 text-sm">
-                                    Designing robust control systems for precise manipulation and locomotion in robotic systems.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-amber-100 p-3 rounded-full mr-4">
-                                <i class="fas fa-fish text-amber-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-1">Bio-inspired Robotics</h4>
-                                <p class="text-gray-600 text-sm">
-                                    Creating robotic systems inspired by biological organisms to achieve novel capabilities and improved performance.
-                                </p>
-                            </div>
-                        </div>
+                    <div class="competency-card reveal" style="--delay: 0.2s;">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Data-Driven Validation</h4>
+                        <p>Using advanced instrumentation (NI DAQ, High-Speed Cams) and data analysis (Python, OpenCV) to quantify performance.</p>
+                    </div>
+                    <div class="competency-card reveal" style="--delay: 0.3s;">
+                        <i class="fas fa-users"></i>
+                        <h4>Project Leadership</h4>
+                        <p>Mentoring junior engineers, securing project funding, and translating engineering solutions into tangible outcomes.</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="experience" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold mb-2">Work Experience</h2>
-            <div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-emerald-400 mx-auto"></div>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="divide-y divide-gray-200">
-                <!-- Neocis Inc. -->
-                <div class="p-6 hover:bg-gray-50 transition duration-200">
-                    <div class="md:flex justify-between items-start">
-                        <div>
-                            <h3 class="text-xl font-bold">Robotics Intern</h3>
-                            <p class="text-blue-600 font-semibold">Neocis Inc.</p>
-                        </div>
-                        <p class="text-gray-500 mt-2 md:mt-0 text-sm md:text-right">
-                            Miami, FL, USA<br>
-                            May 2025 - Aug 2025
-                        </p>
-                    </div>
-                    <p class="text-gray-600 mt-4 leading-relaxed">
-                        As a Robotics Intern at Neocis, I engineered an analytical dynamic model for the 7-DOF 
+        <!-- Experience Section -->
+        <section id="experience" class="py-24">
+            <h2 class="section-title text-center reveal">Work Experience.</h2>
+            <div class="relative mt-12 max-w-3xl mx-auto">
+                <div class="timeline-line"></div>
+                <div class="space-y-16">
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <p class="text-sm">May 2025 - Aug 2025</p>
+                            <h3 class="font-bold text-xl mt-1">Robotics Intern</h3>
+                            <p class="font-medium text-violet-400">Neocis Inc.</p>
+                            <p class="mt-2">As a Robotics Intern at Neocis, I engineered an analytical dynamic model for the 7-DOF 
                         YOMI surgical robot arm, leveraging RNEA, CRBA, and System ID techniques. This high-fidelity model
                          was instrumental in implementing Computed Torque control, which enabled advanced compliant behaviors. 
                          My contributions directly supported a strategic initiative to reduce the YOMI's production cost by 20%. 
                          I also designed critical CAD models for PCB fixtures to integrate new encoders into the arm's control system.
-                    </p>
-                </div>
-                
-                <!-- Carnegie Mellon University -->
-                <div class="p-6 hover:bg-gray-50 transition duration-200">
-                    <div class="md:flex justify-between items-start">
-                        <div>
-                            <h3 class="text-xl font-bold">Student Research Intern</h3>
-                            <p class="text-blue-600 font-semibold">Carnegie Mellon University</p>
+                            </p>
                         </div>
-                        <p class="text-gray-500 mt-2 md:mt-0 text-sm md:text-right">
-                            Pittsburgh, PA, USA<br>
-                            Mar 2023 - Dec 2023
-                        </p>
                     </div>
-                    <p class="text-gray-600 mt-4 leading-relaxed">
-                        During my research internship at Carnegie Mellon University, 
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <p class="text-sm">Mar 2023 - Dec 2023</p>
+                            <h3 class="font-bold text-xl mt-1">Student Research Intern</h3>
+                            <p class="font-medium text-violet-400">Carnegie Mellon University</p>
+                            <p class="mt-2">During my research internship at Carnegie Mellon University, 
                         I architected and implemented a novel Heuristic-Search algorithm in C++ 
                         to solve resource-constrained shortest path problems. By incorporating 
                         advanced techniques like dominance criteria and partial path pruning, 
                         my solution achieved a 2x performance increase over the existing baseline. 
                         Moreover, I also worked on testing algorithms developed by a colleague and to validate these findings in a real-world context, 
                         I developed a ROS2 framework to benchmark my algorithm against others, proving its superior efficiency in autonomous systems.
-                    </p>
-                </div>
-                
-                <!-- Pacify Medical Technologies -->
-                <div class="p-6 hover:bg-gray-50 transition duration-200">
-                    <div class="md:flex justify-between items-start">
-                        <div>
-                            <h3 class="text-xl font-bold">Design Intern</h3>
-                            <p class="text-blue-600 font-semibold">Pacify Medical Technologies Pvt. Ltd.</p>
+                            </p>
                         </div>
-                        <p class="text-gray-500 mt-2 md:mt-0 text-sm md:text-right">
-                            Mumbai, MH, IN<br>
-                            June 2022 - July 2022
-                        </p>
                     </div>
-                    <p class="text-gray-600 mt-4 leading-relaxed">
-                        At Pacify Medical Technologies, I led the design of a compact 
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <p class="text-sm">June 2022 - July 2022</p>
+                            <h3 class="font-bold text-xl mt-1">Design Intern</h3>
+                            <p class="font-medium text-violet-400">Pacify Medical Technologies</p>
+                            <p class="mt-2">At Pacify Medical Technologies, I led the design of a compact 
                         syringe-gun injection mechanism. Using SolidWorks, 
                         I engineered a new holder and nozzle assembly that achieved a 25% reduction in size. 
                         To enhance device reliability, I integrated a force-sensitive resistor with an 
                         Arduino to provide active load measurement, effectively preventing breakage under operational stress. 
                         My role also involved collaborating with suppliers to source materials, which successfully reduced a 
                         potential budget overrun by 5%.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-16 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-2">Projects</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    A selection of my recent work in robotics and mechanical engineering. Each project represents unique challenges and innovative solutions.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <img src="images/sample-prot.jpg" 
-                         alt="Bio-Inspired Undulatory Fin" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Robotics</span>
-                            <span class="bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Bio-inspired</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Bio-Inspired Undulatory Fin - BITS Pilani</h3>
-                        <p class="text-gray-600 mb-4">
-                            Developed a robotic fin that mimics stingray motion for efficient underwater propulsion using wavelike sinusoidal motion. Therefore limiting 
-                            acoustic signature and conserving energy. 
-                        </p>
-                        <p>    
-                            Rapid prototyped a propulsion mechanism operating Arduino, servomotors, a 3D-printed hull, & CNC-machined fin-ray. Conducted experimentation of the 
-                            wave structure formed using NI DAQ 9237 with a single axis load cell and a PTC high-speed camera at 5610 fps. Moreover, Mentored 5 undergrads in building an autonomous underwater rover, securing funding of ₹2 lakhs.
-                        </p>
-                        <div class="flex justify-between items-center">
-                            
-                            <div class="flex space-x-2">
-                                <a href="https://github.com/anushtup-nandy/Undulating-fin" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 2 -->
-                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <img src="images/RFastar.png" 
-                         alt="RSCPP with Refueling" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">Navigation</span>
-                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Motion Planning</span>
-                            <span class="bg-amber-100 text-amber-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Optimization</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">RSCPP with Refueling (PF-RF) - CMU</h3>
-                        <p class="text-gray-600 mb-4">
-                            Wrote algorithm employing A*-like search to minimize cost in shortest path problem with fuel and stop constraints.
-                            Achieved orders magnitude faster performance over Dynamic Programming baseline leveraging dominance & partial path pruning.
-                            Implemented algorithm design in C++ & tested on cities with 400+ gas stations, utilized CMake to automate build & testing.
-                            Published findings as first author in peer-reviewed RA-L paper, showcasing analytical rigor & clear communication.
-                        </p>
-                        <div class="flex justify-between items-center">
-                            
-                            <div class="flex space-x-2">
-                                <p>
-                                    <span class="bg-red-100 text-purple-500 text-xs font-medium px-2.5 py-0.5 rounded">See Publications</span>
-                                </p>
-                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 3 -->
-                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <img src="./images/haptic.png" 
-                         alt="Haptic Joystick" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Haptics</span>
-                            <span class="bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Human-Robo Interaction</span>
-                            <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Rehabilitation</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Haptic Joystick for Posture Control - Columbia University</h3>
-                        <p class="text-gray-600 mb-4">
-                            Developed a PD-based haptic control system for pWRAPS rehabilitation robot, facilitating remote SCI patient therapy. 
-                            Furthermore, I designed impedance control & real-time upper trunk tracking using D435i depth camera, enabling adaptive control.
-                            Currently conducting extensive experiments w/ ADDVERB haptic device, integrating AR & VR feedback for remote therapy solution.
-                        </p>
-                        <div class="flex justify-between items-center">
-                            
-                            <div class="flex space-x-2">
-                                <p>
-                                <span class="bg-red-100 text-purple-500 text-xs font-medium px-2.5 py-0.5 rounded">Publication underworks</span>
-                                </p>
-                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 4 -->
-                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <img src="./images/rl-dqn.png" 
-                         alt="Autonomous Rover" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">RL</span>
-                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Navigation</span>
-                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Autonomy</span>
-
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Path planning using Deep RL - BITS Pilani</h3>
-                        <p class="text-gray-600 mb-4">
-                            Formulated planning algorithm using DQN (deep reinforcement learning) for mobile robots in unknown environments.
-                            Developed simulations using OpenCV, NumPy, and used PyTorch for DQN algorithm.
-                            Demonstrated feasibility of planning in unknown office spaces under 600 and 800 seconds time constraints, leading to
-                            ACM AIR 2023 publication, highlighting innovative problem-solving and technical proficiency.
-                        </p>
-                        <div class="flex justify-between items-center">
-                            
-                            <div class="flex space-x-2">
-                                <a href="https://github.com/anushtup-nandy/Maze-solver-dqn" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 5 -->
-                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <img src="./images/dms.png" 
-                         alt="Robotic Arm" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Path Planning</span>
-                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Navigation</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Experimentation and validation of DMS* and MS* algorithms - CMU</h3>
-                        <p class="text-gray-600 mb-4">
-                            Validated combinatorial search algorithms (DMS* & MS*) using ROS on ROSbot 2Rs.
-                            Proved DMS* as 2x faster and successful due to evenly distributing intermediate targets, thus reducing the makespan.
-                            Co-authored paper in RA-L, underscoring rigorous analysis and practical application.
-                        </p>
-                        <div class="flex justify-between items-center">
-                            
-                            <div class="flex space-x-2">
-                                <p>
-                                   <span class="bg-red-100 text-purple-500 text-xs font-medium px-2.5 py-0.5 rounded">See Publications</span>
-                                </p>
-                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 6 -->
-                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <img src="./images/hopper.png" 
-                         alt="Swarm Robotics" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Legged robotics</span>
-                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Bio-Inspired Robotics</span>
-                            <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Controls</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Single Legged Raibert Hopper - BITS Pilani</h3>
-                        <p class="text-gray-600 mb-4">
-                           Designed a Raibert Hopper using URDF.
-                           Implemented PID controller for balance and navigation of hopper using the inverted pendulum gait
-                        </p>
-                        <div class="flex justify-between items-center">
-                            
-                            <div class="flex space-x-2">
-                                <a href="https://github.com/anushtup-nandy/Hopper_robot" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 8 -->
-                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <img src="./images/Delta_img.jpg" 
-                         alt="Swarm Robotics" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Parallel robotics</span>
-                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Dynamics</span>
-                            <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">CAD</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Development and Experimental Analysis of Delta robot - BITS Pilani</h3>
-                        <p class="text-gray-600 mb-4">
-                           Designed Delta robot using Fusion 360.
-                           Utilized acrylic sheets, 3D printing and plastic moulding to develop robot base, arms and joints.
-                           Developed simple PID constroller using Arduino Mega, L298N stepper motor drivers and Neema 17 5kg/cm stepper motors
-                        </p>
-                        <div class="flex justify-between items-center">
-                            
-                            <div class="flex space-x-2">
-                                <a href="https://github.com/anushtup-nandy/Delta-Robot-project" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Project 6 -->
-                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <!-- <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
-                         alt="Swarm Robotics" 
-                         class="w-full h-48 object-cover"> -->
-                    <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Fluids</span>
-                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Bio-Inspired Robotics</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Flapping and pitching wing mechanism for Bio-inspired UAV - BITS Pilani</h3>
-                        <p class="text-gray-600 mb-4">
-                            Developed a combined flapping and pitching mechanism for flexible wing-based UAVs using servomotors.
-                            Performed experimental analysis of propulsion under cross-flow to determine lift and drag using NI DAQ 9237 Bridge
-                            Module and S-type load cells.
-                        </p>
-                        <div class="flex justify-between items-center">
-                            
-                            <div class="flex space-x-2">
-                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300">
-                    <!-- <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
-                         alt="Swarm Robotics" 
-                         class="w-full h-48 object-cover"> -->
-                    <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <!-- <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Fluids</span>
-                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Bio-Inspired Robotics</span> -->
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">More Projects coming soon - Columbia & Personal</h3>
-                        <p class="text-gray-600 mb-4">
-                            <ul class="list-disc list-inside">
-                                <li>Quadruped robot running on PID controls and its RL simulation environment using PyBullet.<br></li>
-                                <li>Cognitive surrogate twin of a robotic factory</li>
-                                <li>VitalMesh - MCP server based patient-clinic voice agent with blockchain enabled Secure EHR</li>
-                                <li>Personal Obsidian Knowledge management assistant</li>
-                                <li>Stewart platform FK and IK control with GUI</li>
-                                <li>Sunnovation - Solar panel placement and cost optimization platform</li>
-                            </ul>
-                        </p>
-                        <div class="flex justify-between items-center">
-                            
-                            <div class="flex space-x-2">
-                                <!-- <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a> -->
-                            </div>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Publications Section -->
-    <section id="publications" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold mb-2">Publications</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">
-                My research contributions in robotics and mechanical engineering, published in peer-reviewed journals and conferences.
+        <!-- Projects Section -->
+        <section id="projects" class="py-24">
+            <h2 class="section-title text-center mb-4 reveal">Selected Projects.</h2>
+            <p class="max-w-2xl mx-auto text-center mb-12 reveal" style="color: var(--text-secondary);">
+                A collection of my work, from bio-inspired robotics to reinforcement learning algorithms.
             </p>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="divide-y divide-gray-200">
-                <!-- Publication 1 -->
-                <div class="p-6 hover:bg-gray-50 transition duration-200">
-                    <div class="flex flex-col md:flex-row md:items-center">
-                        <div class="md:w-3/4 mb-4 md:mb-0">
-                            <h3 class="text-xl font-bold mb-1">Heuristic Search for Path Finding With Refuelling</h3>
-                            <p class="text-gray-600 mb-2">
-                                <span class="font-medium"> S. Zhao, A. Nandy, H. Choset, S. Rathinam and Z. Ren</span>
-                            </p>
-                            <p class="text-sm text-gray-500">
-                                IEEE Robotics and Automation Letters, vol. 10, no. 4, pp. 3230-3237, April 2025, doi: 10.1109/LRA.2025.3540736
-                            </p>
-                        </div>
-                        <div class="md:w-1/4 flex md:justify-end">
-                            <a href="https://github.com/anushtup-nandy/anushtup-nandy.github.io/blob/main/pdfs/Heuristic%20search%20.pdf" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
-                                <i class="fas fa-file-pdf mr-2"></i> PDF
-                            </a>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="project-card reveal">
+                    <div class="project-card-bg">
+                        <img src="images/RFastar.png" alt="">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Heuristic Search for RSCPP</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Developed an A*-like algorithm in C++ to solve complex shortest path problems with fuel constraints, outperforming baselines.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">C++</span><span class="tech-tag">Motion Planning</span><span class="tech-tag">ROS2</span>
                         </div>
                     </div>
+                    <div class="card-footer"><span class="publication-tag">See Publication</span></div>
                 </div>
                 
-                <!-- Publication 2 -->
-                <div class="p-6 hover:bg-gray-50 transition duration-200">
-                    <div class="flex flex-col md:flex-row md:items-center">
-                        <div class="md:w-3/4 mb-4 md:mb-0">
-                            <h3 class="text-xl font-bold mb-1">Maze Solving Using Deep Q-Network</h3>
-                            <p class="text-gray-600 mb-2">
-                                <span class="font-medium">Anushtup Nandy</span>, Subash Sehsashtri, Abhishek Sarkar
-                            </p>
-                            <p class="text-sm text-gray-500">
-                                Advances In Robotics - 6th International Conference of The Robotics Society. AIR 2023. Ropar, India: Association for Computing Machinery, 2023. ISBN:
-                                9781450399807. DOI: 10.1145/3610419.3610458. URL: https://doi.org/10.1145/3610419.3610458
-                            </p>
-                        </div>
-                        <div class="md:w-1/4 flex md:justify-end">
-                            <a href="https://github.com/anushtup-nandy/anushtup-nandy.github.io/blob/main/pdfs/DQN_maze_solver.pdf" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
-                                <i class="fas fa-file-pdf mr-2"></i> PDF
-                            </a>
-                        </div>
+                <div class="project-card reveal">
+                    <div class="project-card-bg">
+                        <img src="images/sample-prot.jpg" alt="">
                     </div>
-                </div>
-                
-                <!-- Publication 3 -->
-                <div class="p-6 hover:bg-gray-50 transition duration-200">
-                    <div class="flex flex-col md:flex-row md:items-center">
-                        <div class="md:w-3/4 mb-4 md:mb-0">
-                            <h3 class="text-xl font-bold mb-1">DMS*: Towards Minimizing Makespan for Multi-
-                            Agent Combinatorial Path Finding</h3>
-                            <p class="text-gray-600 mb-2">
-                                R. Davis, <span class="font-medium">Zhongqiang Ren, Anushtup Nandy, Sivakumar Rathinam, and Howie Choset</span>
-                            </p>
-                            <p class="text-sm text-gray-500">
-                                IEEE Robotics and Automation Letters 9.9 (2024), pp. 7987-7994. DOI:10.1109/LRA.2024.3436333
-                            </p>
-                        </div>
-                        <div class="md:w-1/4 flex md:justify-end">
-                            <a href="https://github.com/anushtup-nandy/anushtup-nandy.github.io/blob/main/pdfs/DMS_Minimizing%20Makespan%20Multi-Agent%20Combinatorial%20Path%20Finding.pdf" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
-                                <i class="fas fa-file-pdf mr-2"></i> PDF
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <!-- <div class="p-6 text-center border-t border-gray-200">
-                <a href="#" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
-                    View All Publications
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div> -->
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-gradient-to-r from-blue-50 to-emerald-50">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-2">Get In Touch</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    Interested in collaborating or learning more about my work? Feel free to reach out through the channels below.
-                </p>
-            </div>
-            
-            <div class="bg-white rounded-xl shadow-lg p-8 md:p-12">
-                <h3 class="text-2xl font-bold mb-8 text-center">Contact Information</h3>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Bio-Inspired Undulatory Fin</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Designed a robotic fin mimicking stingray motion for efficient, low-acoustic underwater propulsion, securing ₹2 lakhs funding.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Arduino</span><span class="tech-tag">CAD</span><span class="tech-tag">Controls</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/Undulating-fin" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Email -->
-                    <a href="mailto:anushtup.nandy@gmail.com" class="text-center group">
-                        <div class="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                            <i class="fas fa-envelope text-2xl text-blue-600"></i>
+                <div class="project-card reveal">
+                    <div class="project-card-bg">
+                        <img src="images/haptic.png" alt="">
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Haptic Joystick Control</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Developed a PD-based haptic control system for a rehabilitation robot, enabling remote therapy for SCI patients.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Haptics</span><span class="tech-tag">Controls</span><span class="tech-tag">Human-Robo Interaction</span>
                         </div>
-                        <h4 class="font-semibold text-gray-700 mt-4">Email</h4>
-                        <p class="text-gray-600 group-hover:text-blue-600">anushtup.nandy@gmail.com</p>
-                    </a>
-                    
-                    <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/in/anushtup-nandy/" target="_blank" rel="noopener noreferrer" class="text-center group">
-                        <div class="bg-emerald-100 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                            <i class="fab fa-linkedin-in text-2xl text-emerald-600"></i>
+                    </div>
+                    <div class="card-footer"><span class="publication-tag">Publication Pending</span></div>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-card-bg">
+                        <img src="images/rl-dqn.png" alt="">
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Path Planning via Deep RL</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Formulated a DQN-based planning algorithm for mobile robots in unknown environments, leading to an ACM AIR 2023 publication.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Reinforcement Learning</span><span class="tech-tag">PyTorch</span>
                         </div>
-                        <h4 class="font-semibold text-gray-700 mt-4">LinkedIn</h4>
-                        <p class="text-gray-600 group-hover:text-blue-600">anushtup-nandy</p>
-                    </a>
-                    
-                    <!-- GitHub -->
-                    <a href="https://github.com/anushtup-nandy" target="_blank" rel="noopener noreferrer" class="text-center group">
-                        <div class="bg-purple-100 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                            <i class="fab fa-github text-2xl text-purple-600"></i>
+                    </div>
+                    <!-- <div class="card-footer"><a href="https://github.com/anushtup-nandy/Maze-solver-dqn" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div> -->
+                    <div class="card-footer"><span class="publication-tag">See Publication</span></div>
+
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-card-bg">
+                        <img src="images/dms.png" alt="">
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Validation of DMS* & MS*</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Validated combinatorial search algorithms on ROSbots, proving DMS* is 2x faster by better distributing intermediate targets.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                           <span class="tech-tag">Path Planning</span><span class="tech-tag">ROS</span>
                         </div>
-                        <h4 class="font-semibold text-gray-700 mt-4">GitHub</h4>
-                        <p class="text-gray-600 group-hover:text-blue-600">anushtup-nandy</p>
-                    </a>
-                    
-                    <!-- Location -->
-                    <div class="text-center">
-                        <div class="bg-amber-100 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center">
-                            <i class="fas fa-map-marker-alt text-2xl text-amber-600"></i>
+                    </div>
+                    <div class="card-footer"><span class="publication-tag">See Publication</span></div>
+                </div>
+                
+                <div class="project-card reveal">
+                    <div class="project-card-bg">
+                        <img src="images/hopper.png" alt="">
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Single Legged Raibert Hopper</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Designed a Raibert Hopper in URDF and implemented a PID controller for balance and navigation using an inverted pendulum gait.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Legged Robotics</span><span class="tech-tag">Controls</span><span class="tech-tag">URDF</span>
                         </div>
-                        <h4 class="font-semibold text-gray-700 mt-4">Location</h4>
-                        <p class="text-gray-600">New York, NY, USA</p>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/Hopper_robot" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
+                
+                <div class="project-card reveal">
+                    <div class="project-card-bg">
+                        <img src="images/Delta_img.jpg" alt="">
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Delta Parallel Robot</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Developed a Delta robot from concept to hardware using 3D printing, acrylics, and a PID controller with an Arduino Mega.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Parallel Robotics</span><span class="tech-tag">CAD</span><span class="tech-tag">Arduino</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/Delta-Robot-project" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">More Projects In Progress</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Currently developing a quadruped robot, a cognitive factory twin, a secure EHR voice agent, and more.</p>
+                         <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Quadruped</span><span class="tech-tag">Digital Twin</span><span class="tech-tag">LLM</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="py-24">
+            <h2 class="section-title text-center mb-12 reveal">Publications.</h2>
+            <div class="max-w-4xl mx-auto bg-secondary p-8 rounded-2xl border border-[var(--border)]">
+                <div class="divide-y divide-[var(--border)]">
+                    <div class="publication-item reveal">
+                        <div>
+                            <h3>Heuristic Search for Path Finding With Refuelling</h3>
+                            <p>S. Zhao, <strong>A. Nandy</strong>, H. Choset, S. Rathinam and Z. Ren<br><em>IEEE Robotics and Automation Letters, vol. 10, no. 4, April 2025</em></p>
+                        </div>
+                        <a href="pdfs/Heuristic search .pdf" target="_blank" class="btn btn-secondary">PDF <i class="fas fa-file-pdf ml-2"></i></a>
+                    </div>
+                    <div class="publication-item reveal">
+                        <div>
+                            <h3>Maze Solving Using Deep Q-Network</h3>
+                            <p><strong>Anushtup Nandy</strong>, Subash Sehsashtri, Abhishek Sarkar<br><em>Advances In Robotics - 6th Intl. Conference of The Robotics Society (AIR 2023)</em></p>
+                        </div>
+                        <a href="pdfs/DQN_maze_solver.pdf" target="_blank" class="btn btn-secondary">PDF <i class="fas fa-file-pdf ml-2"></i></a>
+                    </div>
+                    <div class="publication-item reveal">
+                        <div>
+                            <h3>DMS*: Towards Minimizing Makespan for Multi-Agent Combinatorial Path Finding</h3>
+                            <p>R. Davis, Zhongqiang Ren, <strong>Anushtup Nandy</strong>, Sivakumar Rathinam, and Howie Choset<br><em>IEEE Robotics and Automation Letters 9.9 (2024)</em></p>
+                        </div>
+                        <a href="pdfs/DMS_Minimizing Makespan Multi-Agent Combinatorial Path Finding.pdf" target="_blank" class="btn btn-secondary">PDF <i class="fas fa-file-pdf ml-2"></i></a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 text-center">
+            <h2 class="section-title mb-4 reveal">Get In Touch.</h2>
+            <p class="max-w-2xl mx-auto text-[var(--text-secondary)] mb-12 reveal">
+                I'm always open to discussing new projects, research, or potential collaborations. Feel free to reach out.
+            </p>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <a href="mailto:anushtup.nandy@gmail.com" class="contact-card reveal">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>anushtup.nandy@gmail.com</p>
+                    </div>
+                </a>
+                <a href="https://www.linkedin.com/in/anushtup-nandy/" target="_blank" rel="noopener noreferrer" class="contact-card reveal" style="--delay: 0.1s;">
+                    <i class="fab fa-linkedin"></i>
+                    <div>
+                        <h4>LinkedIn</h4>
+                        <p>in/anushtup-nandy</p>
+                    </div>
+                </a>
+                <a href="https://github.com/anushtup-nandy" target="_blank" rel="noopener noreferrer" class="contact-card reveal" style="--delay: 0.2s;">
+                    <i class="fab fa-github"></i>
+                    <div>
+                        <h4>GitHub</h4>
+                        <p>anushtup-nandy</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <a href="#" class="text-2xl font-bold">
-                        <span class="gradient-text">Anush</span>
-                    </a>
-                    <p class="text-gray-400 mt-2">Mechanical Engineer | Robotics Specialist</p>
-                </div>
-                
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white">
-                        <i class="fab fa-linkedin-in text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white">
-                        <i class="fab fa-github text-xl"></i>
-                    </a>
-                    <!-- <a href="#" class="text-gray-400 hover:text-white"> -->
-                        <!-- <i class="fab fa-twitter text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white">
-                        <i class="fab fa-youtube text-xl"></i> -->
-                    </a>
-                </div>
+    <footer class="border-t border-[var(--border)]">
+        <div class="container mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center text-sm">
+            <p class="text-[var(--text-secondary)] mb-4 sm:mb-0">&copy; 2025 Anushtup Nandy. All rights reserved.</p>
+            <div class="flex space-x-6 text-xl">
+                <a href="https://www.linkedin.com/in/anushtup-nandy/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/anushtup-nandy" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-link"><i class="fab fa-github"></i></a>
             </div>
-            
-            <!-- <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">
-                    © 2023 Anushtup Nandy. All rights reserved.
-                </p>
-                
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm">Sitemap</a>
-                </div>
-            </div> -->
         </div>
-    </footer>
+    </footer>        
+    </main>
 
-    <!-- Custom JavaScript -->
-    <script src="js/script.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
