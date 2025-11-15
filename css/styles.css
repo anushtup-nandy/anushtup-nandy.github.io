@@ -514,6 +514,113 @@ html[data-theme='light'] .project-card-bg::after {
 
 /*
   ==============================================
+  FEATURED PROJECTS CAROUSEL
+  ==============================================
+*/
+.featured-carousel-container {
+    position: relative;
+    overflow: hidden;
+    max-width: 900px; /* Reduced from 1200px */
+    margin: 0 auto;
+}
+
+.featured-carousel {
+    display: flex;
+    gap: 2rem;
+    animation: scroll-carousel 20s linear infinite;
+}
+
+.featured-carousel:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-carousel {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-100% - 2rem));
+    }
+}
+
+.featured-project-card {
+    min-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 20px; /* Reduced from 24px */
+    overflow: hidden;
+    box-shadow: 0 10px 40px -10px var(--accent-glow);
+    transition: transform 0.3s var(--ease-out-cubic), box-shadow 0.3s;
+    min-height: 400px; /* Added to control height */
+}
+
+.featured-project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px -10px var(--accent-glow);
+    border-color: var(--accent);
+}
+
+.featured-project-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.featured-project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease-out-cubic);
+}
+
+.featured-project-card:hover .featured-project-image img {
+    transform: scale(1.1);
+}
+
+.featured-project-content {
+    padding: 2rem; /* Reduced from 3rem */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.featured-project-content h3 {
+    font-size: 1.5rem; /* Reduced from 2rem */
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem; /* Reduced from 1rem */
+}
+
+.featured-project-content p {
+    color: var(--text-secondary);
+    font-size: 0.95rem; /* Reduced from 1.1rem */
+    line-height: 1.6;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .featured-project-card {
+        grid-template-columns: 1fr;
+        min-width: 90%;
+        min-height: auto;
+    }
+    
+    .featured-project-image {
+        min-height: 200px; /* Reduced from 250px */
+    }
+    
+    .featured-project-content {
+        padding: 1.5rem; /* Reduced from 2rem */
+    }
+    
+    .featured-project-content h3 {
+        font-size: 1.25rem;
+    }
+}
+
+/*
+  ==============================================
   SCROLL ANIMATIONS
   ==============================================
 */
