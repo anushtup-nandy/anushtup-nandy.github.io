@@ -444,6 +444,97 @@ html[data-theme='light'] .btn-secondary:hover {
     color: var(--accent);
 }
 
+/* Timeline Break for Career Transition */
+.timeline-break {
+    position: relative;
+    padding-left: 3rem;
+    margin: 3rem 0;
+}
+
+.timeline-break::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: -2rem;
+    height: 2rem;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--border), transparent);
+    transform: translateX(-50%);
+}
+
+.timeline-break::after {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    bottom: -2rem;
+    height: 2rem;
+    width: 2px;
+    background: linear-gradient(to top, var(--border), transparent);
+    transform: translateX(-50%);
+}
+
+.timeline-break-curve {
+    position: absolute;
+    left: 0.5rem;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+}
+
+.timeline-break-curve svg {
+    width: 100%;
+    height: 100%;
+}
+
+.timeline-break-content {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(167, 139, 250, 0.05));
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px -8px var(--accent-glow);
+    position: relative;
+}
+
+.timeline-break-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--accent), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0.3;
+}
+
+.timeline-break-icon {
+    position: absolute;
+    left: 0.5rem;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 4px var(--bg-primary), 0 0 20px -5px var(--accent);
+    z-index: 5;
+}
+
+.timeline-break-icon i {
+    color: white;
+    font-size: 1.25rem;
+}
+
+html[data-theme='light'] .timeline-break-content {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(167, 139, 250, 0.04));
+}
+
 /* Category Filter Bar */
 .category-filter {
     display: flex;
