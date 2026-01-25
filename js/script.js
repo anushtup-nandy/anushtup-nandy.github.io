@@ -44,15 +44,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // ==============================================
-    // PROJECT CARD HOVER EFFECT
+    // CATEGORY FILTERING
     // ==============================================
-    document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.dataset.category;
+            
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Filter cards with smooth animation
+            projectCards.forEach((card, index) => {
+                const cardCategories = card.dataset.category.split(' ');
+                const shouldShow = category === 'all' || cardCategories.includes(category);
+                
+                if (shouldShow) {
+                    card.classList.remove('hidden', 'filtering-out');
+                    card.classList.add('filtering-in');
+                    card.style.animationDelay = `${index * 0.05}s`;
+                } else {
+                    card.classList.add('filtering-out');
+                    setTimeout(() => {
+                        card.classList.add('hidden');
+                        card.classList.remove('filtering-out');
+                    }, 300);
+                }
+            });
+        });
+    });
+
+    // ==============================================
+    // PROJECT CARD HOVER EFFECT (Enhanced)
+    // ==============================================
+    let rafId = null;
+    
+    projectCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            if (rafId) cancelAnimationFrame(rafId);
+            
+            rafId = requestAnimationFrame(() => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                
+                card.style.setProperty('--mouse-x', `${x}%`);
+                card.style.setProperty('--mouse-y', `${y}%`);
+                
+                // Subtle 3D tilt effect
+                const tiltX = ((y - 50) / 50) * 2; // ±2deg
+                const tiltY = ((x - 50) / 50) * -2; // ±2deg
+                
+                card.style.transform = `
+                    perspective(1000px) 
+                    rotateX(${tiltX}deg) 
+                    rotateY(${tiltY}deg) 
+                    translateY(-12px) 
+                    scale(1.02)
+                `;
+            });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            card.style.transform = '';
+            card.style.setProperty('--mouse-x', '50%');
+            card.style.setProperty('--mouse-y', '50%');
         });
     });
 

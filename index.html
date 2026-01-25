@@ -217,30 +217,98 @@
         <!-- Projects Section -->
         <section id="projects" class="py-24">
             <h2 class="section-title text-center mb-4 reveal">Selected Projects.</h2>
-            <p class="max-w-2xl mx-auto text-center mb-12 reveal" style="color: var(--text-secondary);">
-                A collection of my work, from bio-inspired robotics to reinforcement learning algorithms.
+            <p class="max-w-2xl mx-auto text-center mb-8 reveal" style="color: var(--text-secondary);">
+                A collection of my work spanning robotics, AI/ML, and autonomous systems.
             </p>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Category Filter -->
+            <div class="category-filter reveal">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="robotics">Robotics</button>
+                <button class="filter-btn" data-category="ai-ml">AI/ML</button>
+                <button class="filter-btn" data-category="web">Web Apps</button>
+                <button class="filter-btn" data-category="research">Research</button>
+            </div>
+
+            <div class="projects-grid">
                 
-                <div class="project-card reveal">
+                <!-- Featured: ChemsynthAI -->
+                <div class="project-card featured reveal" data-category="ai-ml">
+                    <span class="category-tag">AI/ML</span>
+                    <div class="project-card-bg">
+                        <img src="images/chemsynth.jpeg" alt="">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">ChemsynthAI</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">AI-powered web platform designed to accelerate chemical synthesis research. Integrates literature analysis, multiple retrosynthesis strategies, reaction optimization via Bayesian methods, and logistical planning into a cohesive workflow.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Retrosynthesis</span><span class="tech-tag">Bayesian Optimization</span><span class="tech-tag">Knowledge Graphs</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/Chemsynth" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
+
+                <!-- Transformer MPC -->
+                <div class="project-card reveal" data-category="robotics research">
+                    <span class="category-tag">Robotics</span>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Transformer-based MPC for 7DoF Arm</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Developed a transformer-based Model Predictive Controller for real-time trajectory optimization of a 7-DOF robotic arm, enabling adaptive and precise manipulation.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Transformers</span><span class="tech-tag">MPC</span><span class="tech-tag">Control Theory</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/Transformer-based-MPC-for-7DoF-Robotic-Arm" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
+
+                <!-- RSCPP Heuristic Search -->
+                <div class="project-card reveal" data-category="research">
+                    <span class="category-tag">Research</span>
                     <div class="project-card-bg">
                         <img src="images/RFastar.png" alt="">
                     </div>
                     <div class="p-6">
                         <h3 class="font-bold text-xl mb-2">Heuristic Search for RSCPP</h3>
-                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Developed an A*-like algorithm in C++ to solve RCSPP complex shortest path problems with fuel constraints, outperforming baselines by 2-8x.</p>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Developed an A*-like algorithm in C++ to solve resource-constrained shortest path problems with fuel constraints, outperforming baselines by 2-8x.</p>
                         <div class="flex flex-wrap gap-2 text-sm">
                             <span class="tech-tag">C++</span><span class="tech-tag">Motion Planning</span><span class="tech-tag">ROS2</span>
                         </div>
                     </div>
                     <div class="card-footer"><span class="publication-tag">See Publication</span></div>
                 </div>
-                
-                <div class="project-card reveal">
+
+                <!-- Agentic Personal Assistant Team -->
+                <div class="project-card reveal" data-category="ai-ml">
+                    <span class="category-tag">AI/ML</span>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Agentic Personal Assistant Team</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Multi-agent system with specialized AI agents working collaboratively to handle diverse personal assistant tasks using LLMs and tool-based reasoning.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Multi-Agent Systems</span><span class="tech-tag">LLMs</span><span class="tech-tag">RAG</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/Agentic-Personal-Assistant-team" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
+
+                <!-- ScholarSync -->
+                <div class="project-card reveal" data-category="web">
+                    <span class="category-tag">Web</span>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">ScholarSync</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Collaboration platform for researchers featuring real-time document editing, reference management, and automated citation formatting for academic teams.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">React</span><span class="tech-tag">WebSockets</span><span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/ScholarSync" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
+
+                <!-- Bio-Inspired Fin -->
+                <div class="project-card reveal" data-category="robotics">
+                    <span class="category-tag">Robotics</span>
                     <div class="project-card-bg">
                         <img src="images/sample-prot.jpg" alt="">
                     </div>
-
                     <div class="p-6">
                         <h3 class="font-bold text-xl mb-2">Bio-Inspired Undulatory Fin</h3>
                         <p class="text-sm mb-4" style="color: var(--text-secondary);">Designed a robotic fin mimicking stingray motion for efficient, low-acoustic underwater propulsion, securing ₹2 lakhs funding.</p>
@@ -250,58 +318,113 @@
                     </div>
                     <div class="card-footer"><a href="https://github.com/anushtup-nandy/Undulating-fin" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
                 </div>
-                
-                <div class="project-card reveal">
+
+                <!-- NeuroSymbolic AI -->
+                <div class="project-card reveal" data-category="ai-ml research">
+                    <span class="category-tag">AI/ML</span>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">NeuroSymbolic AI Research</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Combining neural networks with symbolic reasoning to create hybrid AI systems capable of both learning from data and logical inference.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Neural-Symbolic</span><span class="tech-tag">Logic</span><span class="tech-tag">PyTorch</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/NeuroSymbolicAI-Personal" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
+
+                <!-- VitalMesh -->
+                <div class="project-card reveal" data-category="ai-ml web">
+                    <span class="category-tag">Web</span>
+                    <div class="project-card-bg">
+                        <img src="images/VitalMesh.png" alt="">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">VitalMesh</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Intelligent healthcare communication with AI voice agents for triage, real-time EHR integration, and multi-agent processing using Coral MCP protocol.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">HealthTech</span><span class="tech-tag">MCP</span><span class="tech-tag">Voice AI</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/VitalMesh" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
+
+                <!-- Tribal Knowledge Vision -->
+                <div class="project-card reveal" data-category="ai-ml">
+                    <span class="category-tag">AI/ML</span>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Tribal Knowledge Vision</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Computer vision system for capturing and digitizing tacit manufacturing knowledge, enabling knowledge transfer and process optimization in industrial settings.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Computer Vision</span><span class="tech-tag">OpenCV</span><span class="tech-tag">Knowledge Capture</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/tribal-knowledge-vision" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
+
+                <!-- Haptic Joystick -->
+                <div class="project-card reveal" data-category="robotics">
+                    <span class="category-tag">Robotics</span>
                     <div class="project-card-bg">
                         <img src="images/haptic.png" alt="">
                     </div>
-
                     <div class="p-6">
                         <h3 class="font-bold text-xl mb-2">Haptic Joystick Control</h3>
                         <p class="text-sm mb-4" style="color: var(--text-secondary);">Developed a PD-based haptic control system for a rehabilitation robot, enabling remote therapy for SCI patients.</p>
                         <div class="flex flex-wrap gap-2 text-sm">
-                            <span class="tech-tag">Haptics</span><span class="tech-tag">Controls</span><span class="tech-tag">Human-Robo Interaction</span>
+                            <span class="tech-tag">Haptics</span><span class="tech-tag">Controls</span><span class="tech-tag">HRI</span>
                         </div>
                     </div>
                     <div class="card-footer"><span class="publication-tag">Publication Pending</span></div>
                 </div>
 
-                <div class="project-card reveal">
-                    <div class="project-card-bg">
-                        <img src="images/chemsynth.jpeg" alt="">
-                    </div>
-
+                <!-- Asclios -->
+                <div class="project-card reveal" data-category="ai-ml">
+                    <span class="category-tag">AI/ML</span>
                     <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">ChemsynthAI</h3>
-                        <p class="text-sm mb-4" style="color: var(--text-secondary);"> AI-powered web platform designed to accelerate chemical synthesis research. It serves as a computational copilot for chemists, integrating literature analysis, multiple retrosynthesis strategies, reaction optimization, and logistical planning into a single, cohesive workflow.</p>
+                        <h3 class="font-bold text-xl mb-2">Asclios</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">AI-driven health monitoring system integrating wearable sensor data with predictive analytics for personalized wellness insights.</p>
                         <div class="flex flex-wrap gap-2 text-sm">
-                            <span class="tech-tag">Chemical Retro-Synthesis</span><span class="tech-tag">Bayesian Optimization</span><span class="tech-tag">Knowledge Graph Reasoning</span>
+                            <span class="tech-tag">IoT</span><span class="tech-tag">ML</span><span class="tech-tag">Data Analytics</span>
                         </div>
                     </div>
-                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/Chemsynth" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/Asclios" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
                 </div>
 
-                <div class="project-card reveal">
+                <!-- Stewart Platform -->
+                <div class="project-card reveal" data-category="robotics">
+                    <span class="category-tag">Robotics</span>
                     <div class="project-card-bg">
                         <img src="images/stewart.png" alt="">
                     </div>
-
                     <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">Stewart Platform Kinematics and Control</h3>
-                        <p class="text-sm mb-4" style="color: var(--text-secondary);"> Stewart Platform Simulation is an interactive 3D visualization tool that models a 6-DOF (Degrees of Freedom) parallel manipulator. This application allows users to dynamically adjust the position and orientation of a simulated Stewart platform while visualizing the resulting servo angles and platform configuration in real-time.</p>
+                        <h3 class="font-bold text-xl mb-2">Stewart Platform Kinematics</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Interactive 3D visualization tool for 6-DOF parallel manipulator with real-time IK solver and stability analysis.</p>
                         <div class="flex flex-wrap gap-2 text-sm">
-                            <span class="tech-tag">Parallel Robot Kinematics</span><span class="tech-tag">Control</span><span class="tech-tag">Stability analysis</span>
+                            <span class="tech-tag">Parallel Kinematics</span><span class="tech-tag">Control</span><span class="tech-tag">Stability</span>
                         </div>
                     </div>
                     <div class="card-footer"><a href="https://github.com/anushtup-nandy/stewart-platform-IK-gui/tree/main" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
                 </div>
 
+                <!-- Cognitive Digital Twin -->
+                <div class="project-card reveal" data-category="ai-ml">
+                    <span class="category-tag">AI/ML</span>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Cognitive Digital Twin</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">AI-powered digital twin framework for real-time manufacturing optimization using LLMs and reinforcement learning for adaptive decision-making.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">Digital Twin</span><span class="tech-tag">LLMs</span><span class="tech-tag">RL</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/cognitive-digital-twin" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
 
-                <div class="project-card reveal">
+                <!-- Path Planning DQN -->
+                <div class="project-card reveal" data-category="ai-ml research">
+                    <span class="category-tag">Research</span>
                     <div class="project-card-bg">
                         <img src="images/rl-dqn.png" alt="">
                     </div>
-
                     <div class="p-6">
                         <h3 class="font-bold text-xl mb-2">Path Planning via Deep RL</h3>
                         <p class="text-sm mb-4" style="color: var(--text-secondary);">Formulated a DQN-based planning algorithm for mobile robots in unknown environments, leading to an ACM AIR 2023 publication.</p>
@@ -309,16 +432,28 @@
                             <span class="tech-tag">Reinforcement Learning</span><span class="tech-tag">PyTorch</span>
                         </div>
                     </div>
-                    <!-- <div class="card-footer"><a href="https://github.com/anushtup-nandy/Maze-solver-dqn" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div> -->
                     <div class="card-footer"><span class="publication-tag">See Publication</span></div>
-
                 </div>
 
-                <div class="project-card reveal">
+                <!-- Sunnovation App -->
+                <div class="project-card reveal" data-category="web">
+                    <span class="category-tag">Web</span>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Sunnovation Platform</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Web application for solar energy optimization and monitoring with real-time analytics and predictive maintenance features.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">React</span><span class="tech-tag">IoT</span><span class="tech-tag">Analytics</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/sunnovation-app" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
+
+                <!-- DMS* Validation -->
+                <div class="project-card reveal" data-category="research">
+                    <span class="category-tag">Research</span>
                     <div class="project-card-bg">
                         <img src="images/dms.png" alt="">
                     </div>
-
                     <div class="p-6">
                         <h3 class="font-bold text-xl mb-2">Validation of DMS* & MS*</h3>
                         <p class="text-sm mb-4" style="color: var(--text-secondary);">Validated combinatorial search algorithms on ROSbots, proving DMS* is 2x faster by better distributing intermediate targets.</p>
@@ -329,26 +464,38 @@
                     <div class="card-footer"><span class="publication-tag">See Publication</span></div>
                 </div>
 
-                <div class="project-card reveal">
-                    <div class="project-card-bg">
-                        <img src="images/VitalMesh.png" alt="">
-                    </div>
-
+                <!-- Image-2-3D -->
+                <div class="project-card reveal" data-category="ai-ml">
+                    <span class="category-tag">AI/ML</span>
                     <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">VitalMesh</h3>
-                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Intelligent healthcare communication with AI voice agents for triage, real time integration into EHR and real time multi-agent processing and chatting with patient cases using Coral MCP server protocol </p>
+                        <h3 class="font-bold text-xl mb-2">Image-2-3D Reconstruction</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Deep learning pipeline for generating 3D models from 2D images using neural radiance fields and diffusion models.</p>
                         <div class="flex flex-wrap gap-2 text-sm">
-                            <span class="tech-tag">AI in HealthTech</span><span class="tech-tag">MCP server</span><span class="tech-tag">Voice Agents</span>
+                            <span class="tech-tag">NeRF</span><span class="tech-tag">Diffusion Models</span><span class="tech-tag">3D Vision</span>
                         </div>
                     </div>
-                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/VitalMesh" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/Image-2-3D" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
                 </div>
-                
-                <div class="project-card reveal">
+
+                <!-- Local LLM Assistant -->
+                <div class="project-card reveal" data-category="ai-ml">
+                    <span class="category-tag">AI/ML</span>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Local LLM Personal Assistant</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Privacy-focused personal assistant running LLMs locally with tool integration, knowledge base, and task automation capabilities.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">LLMs</span><span class="tech-tag">Local Inference</span><span class="tech-tag">Ollama</span>
+                        </div>
+                    </div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/localllm-personal-assistant" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
+                </div>
+
+                <!-- Raibert Hopper -->
+                <div class="project-card reveal" data-category="robotics">
+                    <span class="category-tag">Robotics</span>
                     <div class="project-card-bg">
                         <img src="images/hopper.png" alt="">
                     </div>
-
                     <div class="p-6">
                         <h3 class="font-bold text-xl mb-2">Single Legged Raibert Hopper</h3>
                         <p class="text-sm mb-4" style="color: var(--text-secondary);">Designed a Raibert Hopper in URDF and implemented a PID controller for balance and navigation using an inverted pendulum gait.</p>
@@ -358,12 +505,13 @@
                     </div>
                     <div class="card-footer"><a href="https://github.com/anushtup-nandy/Hopper_robot" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
                 </div>
-                
-                <div class="project-card reveal">
+
+                <!-- Delta Robot -->
+                <div class="project-card reveal" data-category="robotics">
+                    <span class="category-tag">Robotics</span>
                     <div class="project-card-bg">
                         <img src="images/Delta_img.jpg" alt="">
                     </div>
-
                     <div class="p-6">
                         <h3 class="font-bold text-xl mb-2">Delta Parallel Robot</h3>
                         <p class="text-sm mb-4" style="color: var(--text-secondary);">Developed a Delta robot from concept to hardware using 3D printing, acrylics, and a PID controller with an Arduino Mega.</p>
@@ -374,16 +522,19 @@
                     <div class="card-footer"><a href="https://github.com/anushtup-nandy/Delta-Robot-project" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
                 </div>
 
-                <div class="project-card reveal">
+                <!-- LLM Aero Input Generator -->
+                <div class="project-card reveal" data-category="ai-ml">
+                    <span class="category-tag">AI/ML</span>
                     <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">More Projects In Progress</h3>
-                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Currently developing a quadruped robot, a cognitive factory twin, Human Impedance Modelling.</p>
-                         <div class="flex flex-wrap gap-2 text-sm">
-                            <span class="tech-tag">Quadruped</span><span class="tech-tag">Digital Twin</span><span class="tech-tag">LLM</span>
+                        <h3 class="font-bold text-xl mb-2">LLM Aero Input Generator</h3>
+                        <p class="text-sm mb-4" style="color: var(--text-secondary);">LLM-based tool for generating CFD simulation inputs and parameter configurations for aerospace applications using natural language.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tech-tag">LLMs</span><span class="tech-tag">CFD</span><span class="tech-tag">Code Generation</span>
                         </div>
                     </div>
-                    <div class="card-footer"></div>
+                    <div class="card-footer"><a href="https://github.com/anushtup-nandy/llm-aero-input-generator" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a></div>
                 </div>
+
             </div>
         </section>
 
