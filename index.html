@@ -83,8 +83,32 @@
         <!-- About Section -->
         <section id="about" class="pt-12 pb-24">
             <div class="grid md:grid-cols-5 gap-5 items-start">
-                <div class="md:col-span-2">
-                    <h2 class="section-title reveal">About Me.</h2>
+                <div class="md:col-span-2 flex flex-col items-start">
+                    <h2 class="section-title reveal mb-8">About Me.</h2>
+
+                    <!-- Education Logos -->
+                    <div class="reveal flex flex-col gap-6 mt-6 border-t pt-8 w-full max-w-[200px]"
+                        style="border-color: var(--border);">
+                        <div class="flex items-center gap-4 transition-transform duration-300 hover:translate-x-1">
+                            <img src="images/bits-pilani-logo.png" alt="BITS Pilani Hyderabad"
+                                class="w-10 h-10 object-contain drop-shadow-sm" />
+                            <span class="text-sm font-medium tracking-wide"
+                                style="color: var(--text-primary); font-family: var(--font-serif-heading);">BITS
+                                Pilani</span>
+                        </div>
+                        <div class="flex items-center gap-4 transition-transform duration-300 hover:translate-x-1">
+                            <img src="images/cmu-ri-logo.jpg" alt="Carnegie Mellon University"
+                                class="w-10 h-10 object-contain rounded drop-shadow-sm" />
+                            <span class="text-sm font-medium tracking-wide"
+                                style="color: var(--text-primary); font-family: var(--font-serif-heading);">CMU</span>
+                        </div>
+                        <div class="flex items-center gap-4 transition-transform duration-300 hover:translate-x-1">
+                            <img src="images/columbia-logo.png" alt="Columbia Engineering"
+                                class="w-10 h-10 object-contain drop-shadow-sm" />
+                            <span class="text-sm font-medium tracking-wide"
+                                style="color: var(--text-primary); font-family: var(--font-serif-heading);">Columbia</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="md:col-span-3 text-lg space-y-6" style="color: var(--text-secondary);">
                     <p class="reveal">
@@ -103,7 +127,8 @@
                         world. My work centers on one goal: giving robots the mathematical intuition to navigate
                         complex, high-stakes environments with precision.
                     </p>
-                    <h3 class="text-xl font-bold mt-6 mb-3 reveal" style="color: var(--text-primary);">Track Record</h3>
+
+                    <h3 class="text-xl font-bold mt-4 mb-3 reveal" style="color: var(--text-primary);">Track Record</h3>
                     <ul class="space-y-3 reveal"
                         style="color: var(--text-secondary); list-style: none; padding-left: 0;">
                         <li><strong style="color: var(--accent);">Commercial Impact:</strong> At Neocis, I developed
@@ -117,23 +142,6 @@
                             rehabilitation at Columbia's ROAR Lab, I own the entire lifecycle - from first-principles
                             math to hardware deployment.</li>
                     </ul>
-                </div>
-            </div>
-            <!-- Education Logos -->
-            <div class="mt-20 reveal">
-                <div class="education-logos">
-                    <div class="education-logo-item">
-                        <img src="images/bits-pilani-logo.png" alt="BITS Pilani Hyderabad" />
-                        <span>BITS Pilani, Hyderabad</span>
-                    </div>
-                    <div class="education-logo-item">
-                        <img src="images/cmu-ri-logo.jpg" alt="Carnegie Mellon University Robotics Institute" />
-                        <span>CMU Robotics Institute</span>
-                    </div>
-                    <div class="education-logo-item">
-                        <img src="images/columbia-logo.png" alt="Columbia Engineering" />
-                        <span>Columbia Engineering</span>
-                    </div>
                 </div>
             </div>
 
@@ -170,56 +178,92 @@
 
         <!-- Featured Projects Section -->
         <section id="featured-projects" class="py-24">
-            <h2 class="section-title text-center mb-12 reveal">Featured Projects.</h2>
-            <div class="featured-carousel-container">
-                <div class="featured-carousel">
-                    <!-- Featured Project 1 -->
-                    <div class="featured-project-card">
-                        <div class="featured-project-image">
-                            <img src="images/chemsynth_step.jpeg" alt="Heuristic Search Project">
-                        </div>
-                        <div class="featured-project-content">
-                            <h3>ChemsynthAI</h3>
-                            <p>This project, ChemSynthAI, is a comprehensive, AI-powered web platform I developed to
-                                fundamentally accelerate chemical synthesis research. It moves beyond simple
-                                retrosynthesis by integrating literature analysis, hybrid synthesis planning, reaction
-                                optimization, and logistical cost analysis into a single, cohesive workflow. The core
-                                innovation lies in blending the precision of traditional cheminformatics with the
-                                creativity of modern deep learning models.</p>
-                            <div class="flex flex-wrap gap-2 mt-4">
-                                <span class="tech-tag">Foundation Model</span>
-                                <span class="tech-tag">Bayesian Optimization</span>
-                                <span class="tech-tag">Chemical Retrosynthesis</span>
-                            </div>
-                            <a href="https://github.com/anushtup-nandy/Chemsynth" target="_blank"
-                                class="btn btn-primary mt-6">View on GitHub</a>
-                        </div>
-                    </div>
+            <h2 class="section-title text-center mb-20 reveal">Featured Projects.</h2>
 
-                    <!-- Featured Project 2 -->
-                    <div class="featured-project-card">
-                        <div class="featured-project-image">
-                            <img src="images/sample-prot.jpg" alt="Bio-Inspired Fin">
-                        </div>
-                        <div class="featured-project-content">
-                            <h3>Bio-Inspired Undulatory Fin</h3>
-                            <p>This project details the development of a bio-mimetic underwater robot that achieves
-                                locomotion through a stingray-inspired undulating fin mechanism, circumventing the
-                                reliance on traditional propellers. My work involved engineering a flexible prototype
-                                using Arduino and servomotors, designing a 3 x 3 factorial experiment within a water
-                                tunnel, and using NI DAQ and load cells to rigorously quantify propulsive thrust across
-                                varying amplitudes, phases, and frequencies. The core achievement is the creation of a
-                                fully instrumented platform for analyzing the relationship between kinematic input and
-                                hydrodynamic output, providing a robust foundation for next-generation efficient
-                                underwater vehicles.</p>
-                            <div class="flex flex-wrap gap-2 mt-4">
-                                <span class="tech-tag">Arduino</span>
-                                <span class="tech-tag">CAD</span>
-                                <span class="tech-tag">Controls</span>
-                            </div>
-                            <a href="https://github.com/anushtup-nandy/Undulating-fin" target="_blank"
-                                class="btn btn-primary mt-6">View on GitHub</a>
-                        </div>
+            <div class="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
+                <!-- Project 1 -->
+                <div class="group reveal flex flex-col">
+                    <div class="rounded-lg overflow-hidden relative aspect-[16/9] mb-6 shadow-md">
+                        <img src="images/chemsynth_step.jpeg" alt="ChemsynthAI"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                        <div class="absolute inset-0 border border-white/10 rounded-lg pointer-events-none"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3"
+                        style="font-family: var(--font-serif-heading); color: var(--text-primary); letter-spacing: -0.01em;">
+                        ChemsynthAI</h3>
+                    <p class="text-sm md:text-base mb-6 flex-grow leading-relaxed"
+                        style="color: var(--text-secondary);">
+                        Comprehensive, AI-powered web platform fundamentally accelerating chemical synthesis research.
+                        Integrating literature analysis, hybrid synthesis planning, reaction optimization, and
+                        logistical cost analysis into a cohesive workflow blending cheminformatics with deep learning.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Foundation Model</span>
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Bayesian Opt</span>
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Retrosynthesis</span>
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Cheminformatics</span>
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Deep Learning</span>
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Reinforcement Learning</span>
+                    </div>
+                    <div>
+                        <a href="https://github.com/anushtup-nandy/Chemsynth" target="_blank"
+                            class="inline-flex items-center gap-2 font-medium tracking-wide uppercase text-xs group/link"
+                            style="color: var(--text-primary);">
+                            <span
+                                class="border-b border-transparent group-hover/link:border-[var(--accent)] transition-colors duration-300">View
+                                on GitHub</span>
+                            <i class="fab fa-github transition-transform duration-300 group-hover/link:translate-x-1"
+                                style="color: var(--accent);"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group reveal flex flex-col" style="--delay: 0.1s;">
+                    <div class="rounded-lg overflow-hidden relative aspect-[16/9] mb-6 shadow-md">
+                        <img src="images/sample-prot.jpg" alt="Bio-Inspired Fin"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                        <div class="absolute inset-0 border border-white/10 rounded-lg pointer-events-none"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3"
+                        style="font-family: var(--font-serif-heading); color: var(--text-primary); letter-spacing: -0.01em;">
+                        Bio-Inspired Undulatory Fin</h3>
+                    <p class="text-sm md:text-base mb-6 flex-grow leading-relaxed"
+                        style="color: var(--text-secondary);">
+                        Bio-mimetic underwater robot achieving locomotion through a stingray-inspired undulating fin
+                        mechanism. Engineered using Arduino/servos with a 3x3 factorial experiment in a water tunnel,
+                        quantifying thrust using NI DAQ and load cells for efficient underwater propulsion.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Micro-Controller</span>
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Mechatronics</span>
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Controls</span>
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Fluid Dynamics</span>
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Experimental Design</span>
+                        <span class="text-xs font-semibold tracking-wide py-1 px-2 border rounded transition-colors"
+                            style="color: var(--accent); border-color: var(--border);">Data Acquisition</span>
+                    </div>
+                    <div>
+                        <a href="https://github.com/anushtup-nandy/Undulating-fin" target="_blank"
+                            class="inline-flex items-center gap-2 font-medium tracking-wide uppercase text-xs group/link"
+                            style="color: var(--text-primary);">
+                            <span
+                                class="border-b border-transparent group-hover/link:border-[var(--accent)] transition-colors duration-300">View
+                                on GitHub</span>
+                            <i class="fab fa-github transition-transform duration-300 group-hover/link:translate-x-1"
+                                style="color: var(--accent);"></i>
+                        </a>
                     </div>
                 </div>
             </div>
