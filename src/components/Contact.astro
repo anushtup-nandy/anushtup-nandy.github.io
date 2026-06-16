@@ -1,0 +1,32 @@
+---
+import { site } from '../data/site';
+
+const cards = [
+  { icon: 'fas fa-envelope', title: 'Email', value: site.email, href: `mailto:${site.email}`, external: false },
+  { icon: 'fab fa-linkedin', title: 'LinkedIn', value: 'in/anushtup-nandy', href: site.socials.linkedin, external: true },
+  { icon: 'fab fa-github', title: 'GitHub', value: 'anushtup-nandy', href: site.socials.github, external: true },
+];
+---
+
+<section id="contact" class="py-24 text-center">
+  <h2 class="section-title mb-4 reveal">Get In Touch.</h2>
+  <p class="max-w-2xl mx-auto mb-12 reveal" style="color: var(--text-secondary);">
+    I'm always open to discussing new projects, research, or potential collaborations. Feel free to reach out.
+  </p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    {cards.map((c, i) => (
+      <a
+        href={c.href}
+        class="contact-card reveal"
+        style={`--delay: ${i * 0.1}s;`}
+        {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      >
+        <i class={c.icon}></i>
+        <div>
+          <h4>{c.title}</h4>
+          <p>{c.value}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

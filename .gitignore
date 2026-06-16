@@ -53,8 +53,8 @@ coverage/
 # --- Build Output (Anticipating potential future build steps) ---
 dist/
 build/
-public/ # Caution: Ensure 'public' doesn't contain source files you *want* tracked
 out/
+.astro/
 .parcel-cache/
 .cache/
 target/ # Common in some frameworks/build tools

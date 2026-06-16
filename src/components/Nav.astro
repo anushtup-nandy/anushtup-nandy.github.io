@@ -1,0 +1,25 @@
+---
+import { site, nav } from '../data/site';
+---
+
+<header class="fixed top-0 left-0 w-full z-50">
+  <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/" class="text-xl font-bold tracking-wider brand-mark" aria-label={`${site.name} — home`}>
+      {site.initials}
+    </a>
+    <div class="hidden md:flex items-center space-x-1">
+      {nav.map((item) => <a href={item.href} class="nav-link">{item.label}</a>)}
+      <button id="theme-toggle" aria-label="Toggle color theme" class="focus:outline-none">
+        <i class="fas fa-sun text-lg"></i>
+        <i class="fas fa-moon text-lg hidden"></i>
+      </button>
+    </div>
+    <button class="md:hidden mobile-menu-button focus:outline-none" aria-label="Open menu">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+  </nav>
+</header>
+
+<div class="mobile-menu">
+  {nav.map((item) => <a href={item.href} class="nav-link">{item.label}</a>)}
+</div>

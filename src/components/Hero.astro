@@ -1,0 +1,205 @@
+---
+import { site } from '../data/site';
+---
+
+<section id="home">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="grid md:grid-cols-5 hero-grid w-full">
+    <div class="md:col-span-3">
+      <p class="hero-eyebrow mb-3 reveal">{site.role}</p>
+      <h1 class="reveal" style="--delay: 0.1s;">{site.tagline}</h1>
+      <p class="text-lg max-w-2xl mb-8 reveal" style="--delay: 0.2s; color: var(--text-secondary);">
+        I'm a Robotics Engineer and Researcher at the intersection of motion planning, deep learning and control theory.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 reveal" style="--delay: 0.3s;">
+        <a href="/#projects" class="btn btn-primary">View My Work</a>
+        <a href="/#contact" class="btn btn-secondary">Get In Touch</a>
+      </div>
+    </div>
+    <div class="md:col-span-2 flex justify-center md:justify-end reveal" style="--delay: 0.2s;">
+      <div class="hero-image-container">
+        <img
+          src="/images/IMG-20241124-WA0042.jpg"
+          alt={`Portrait of ${site.name}`}
+          width="450"
+          height="450"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Signature: an INTERACTIVE dynamical system. The cursor is a moving spiral
+  // attractor; a swarm advects through the field and flows into it. The attractor
+  // tracks the cursor through a first-order lag — a control loop following its
+  // reference. Idle → it drifts on a slow Lissajous orbit. Reduced-motion → static.
+  const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
+  if (canvas) {
+    const ctx = canvas.getContext('2d')!;
+    const section = canvas.parentElement as HTMLElement;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const cssVar = (n: string, f: string) =>
+      getComputedStyle(document.documentElement).getPropertyValue(n).trim() || f;
+    const hexToRgb = (h: string) => {
+      const m = h.replace('#', '');
+      const v = m.length === 3 ? m.split('').map((c) => c + c).join('') : m;
+      const n = parseInt(v, 16);
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    };
+
+    let W = 0, H = 0, cx = 0, cy = 0, scale = 1, tick = 0;
+    // ax/ay = attractor state (the swarm's equilibrium); tx/ty = its reference target.
+    let ax = 0, ay = 0, tx = 0, ty = 0, hasPointer = false, idleAt = 0;
+
+    const toScreen = (sx: number, sy: number): [number, number] => [cx + sx * scale, cy - sy * scale];
+    const toState = (px: number, py: number): [number, number] => [(px - cx) / scale, -(py - cy) / scale];
+
+    // ẋ = field(x): a strong spiral sink that lives at the cursor attractor (ax,ay).
+    const vel = (x: number, y: number): [number, number] => {
+      const dx = x - ax, dy = y - ay;
+      const w = 1.7 / (1 + (dx * dx + dy * dy) * 0.05);
+      // spiral sink + a faint global swirl so the whole field stays alive
+      const vx = w * (-0.55 * dx - 1.45 * dy) - 0.18 * y;
+      const vy = w * (1.45 * dx - 0.55 * dy) + 0.18 * x;
+      return [vx, vy];
+    };
+
+    interface P { x: number; y: number; px: number; py: number; life: number; cyan: boolean; }
+    let parts: P[] = [];
+    let COUNT = 110;
+
+    const spawn = (): P => {
+      const px = Math.random() * W, py = Math.random() * H;
+      const [x, y] = toState(px, py);
+      return { x, y, px, py, life: 40 + Math.random() * 160, cyan: Math.random() < 0.22 };
+    };
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = section.clientWidth;
+      H = section.clientHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cx = W * (W < 768 ? 0.5 : 0.58);
+      cy = H * 0.46;
+      scale = Math.min(W, H) / 8.5;
+      COUNT = Math.round(Math.min(150, Math.max(50, (W * H) / 8500)));
+      parts = Array.from({ length: COUNT }, spawn);
+      ctx.clearRect(0, 0, W, H);
+    };
+
+    // Cursor → reference target (state coords). Listen on section so events over
+    // the hero text/image still register (canvas itself is pointer-events:none).
+    section.addEventListener('pointermove', (e) => {
+      const r = canvas.getBoundingClientRect();
+      [tx, ty] = toState(e.clientX - r.left, e.clientY - r.top);
+      hasPointer = true;
+      idleAt = tick + 90; // hold for ~1.5s after the cursor stops
+    });
+    section.addEventListener('pointerleave', () => { hasPointer = false; });
+
+    const step = (fadeRgb: number[], accent: string, cyan: string) => {
+      tick++;
+      // When idle, the reference drifts on a slow Lissajous orbit.
+      if (!hasPointer || tick > idleAt) {
+        tx = 2.6 * Math.cos(tick * 0.010);
+        ty = 1.7 * Math.sin(tick * 0.013);
+      }
+      // First-order tracking: attractor eases toward its reference.
+      ax += (tx - ax) * 0.06;
+      ay += (ty - ay) * 0.06;
+
+      ctx.globalAlpha = 0.094;
+      ctx.fillStyle = `rgb(${fadeRgb[0]},${fadeRgb[1]},${fadeRgb[2]})`;
+      ctx.fillRect(0, 0, W, H);
+      ctx.globalAlpha = 1;
+
+      ctx.lineWidth = 1.25;
+      const dt = 0.055;
+      for (const p of parts) {
+        const [vx, vy] = vel(p.x, p.y);
+        p.px = p.x; p.py = p.y;
+        p.x += vx * dt;
+        p.y += vy * dt;
+        p.life -= 1;
+        const [sx, sy] = toScreen(p.x, p.y);
+        const [spx, spy] = toScreen(p.px, p.py);
+        const speed = Math.hypot(vx, vy);
+        ctx.strokeStyle = p.cyan ? cyan : accent;
+        ctx.globalAlpha = Math.min(0.75, 0.12 + speed * 0.13);
+        ctx.beginPath();
+        ctx.moveTo(spx, spy);
+        ctx.lineTo(sx, sy);
+        ctx.stroke();
+        if (speed < 0.05 || p.life <= 0 || sx < -20 || sx > W + 20 || sy < -20 || sy > H + 20) {
+          Object.assign(p, spawn());
+        }
+      }
+      ctx.globalAlpha = 1;
+    };
+
+    const drawAttractor = (accent: string) => {
+      const [qx, qy] = toScreen(ax, ay);
+      const pulse = 5 + Math.sin(tick * 0.08) * 1.5;
+      ctx.strokeStyle = accent;
+      ctx.globalAlpha = 0.9;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(qx, qy, pulse, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.globalAlpha = 0.35;
+      ctx.beginPath();
+      ctx.arc(qx, qy, pulse + 6, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    };
+
+    let raf = 0;
+    const loop = () => {
+      const accent = cssVar('--accent', '#ff6a3d');
+      const cyan = cssVar('--blueprint', '#5cc8e0');
+      const fade = hexToRgb(cssVar('--bg-primary', '#0d1014'));
+      step(fade, accent, cyan);
+      drawAttractor(accent);
+      raf = requestAnimationFrame(loop);
+    };
+
+    resize();
+    let rt: number;
+    window.addEventListener('resize', () => {
+      clearTimeout(rt);
+      cancelAnimationFrame(raf);
+      rt = window.setTimeout(() => { resize(); if (!reduce) loop(); }, 200);
+    });
+
+    if (reduce) {
+      // Static streamlines into a fixed central attractor.
+      const accent = cssVar('--accent', '#ff6a3d');
+      const cyan = cssVar('--blueprint', '#5cc8e0');
+      ctx.lineWidth = 1.2;
+      for (let k = 0; k < 240; k++) {
+        let [x, y] = toState(Math.random() * W, Math.random() * H);
+        ctx.strokeStyle = Math.random() < 0.22 ? cyan : accent;
+        ctx.globalAlpha = 0.26;
+        ctx.beginPath();
+        let [sx, sy] = toScreen(x, y);
+        ctx.moveTo(sx, sy);
+        for (let i = 0; i < 70; i++) {
+          const [vx, vy] = vel(x, y);
+          if (Math.hypot(vx, vy) < 0.05) break;
+          x += vx * 0.055; y += vy * 0.055;
+          [sx, sy] = toScreen(x, y);
+          ctx.lineTo(sx, sy);
+        }
+        ctx.stroke();
+      }
+      drawAttractor(accent);
+    } else {
+      loop();
+    }
+  }
+</script>

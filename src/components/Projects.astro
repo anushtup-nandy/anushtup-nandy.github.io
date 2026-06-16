@@ -1,0 +1,79 @@
+---
+import { projects } from '../data/projects';
+
+const filters = [
+  { key: 'all', label: 'All' },
+  { key: 'robotics', label: 'Robotics' },
+  { key: 'ai-ml', label: 'AI/ML' },
+  { key: 'web', label: 'Web Apps' },
+  { key: 'research', label: 'Research' },
+];
+---
+
+<section id="projects" class="py-24">
+  <h2 class="section-title text-center mb-4 reveal">Selected Projects.</h2>
+  <p class="max-w-2xl mx-auto text-center mb-8 reveal" style="color: var(--text-secondary);">
+    A collection of my work spanning robotics, AI/ML, and autonomous systems.
+  </p>
+
+  <div class="category-filter reveal">
+    {filters.map((f, i) => (
+      <button class:list={['filter-btn', i === 0 && 'active']} data-category={f.key}>{f.label}</button>
+    ))}
+  </div>
+
+  <div class="projects-grid">
+    {projects.map((p) => (
+      <div class:list={['project-card', 'reveal', p.featured && 'featured']} data-category={p.categories.join(' ')}>
+        <span class="category-tag">{p.badge}</span>
+        {p.image && (
+          <div class="project-card-bg"><img src={p.image} alt="" loading="lazy" /></div>
+        )}
+        <div class="card-body">
+          <h3 class="font-bold text-xl mb-2">{p.title}</h3>
+          <p class="text-sm mb-4">{p.description}</p>
+          <div class="flex flex-wrap gap-2 text-sm">
+            {p.tags.map((t) => <span class="tech-tag">{t}</span>)}
+          </div>
+        </div>
+        <div class="card-footer">
+          {p.github ? (
+            <a href={p.github} target="_blank" rel="noopener noreferrer" class="social-link" aria-label={`${p.title} on GitHub`}>
+              <i class="fab fa-github"></i>
+            </a>
+          ) : (
+            <span class="publication-tag">{p.publication}</span>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.project-card');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const category = button.dataset.category || 'all';
+      buttons.forEach((b) => b.classList.remove('active'));
+      button.classList.add('active');
+
+      cards.forEach((card) => {
+        const cats = card.dataset.category || '';
+        const show = category === 'all' || cats.includes(category);
+        if (show) {
+          card.classList.remove('hidden', 'filtering-out');
+          card.classList.add('filtering-in');
+        } else {
+          card.classList.add('filtering-out');
+          setTimeout(() => {
+            card.classList.add('hidden');
+            card.classList.remove('filtering-out');
+          }, 300);
+        }
+      });
+    });
+  });
+</script>

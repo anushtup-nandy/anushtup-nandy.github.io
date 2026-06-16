@@ -1,0 +1,136 @@
+---
+import { experience, careerBreak } from '../data/experience';
+
+// Source is newest-first; the trajectory reads chronologically left → right.
+const roles = [...experience].reverse();
+
+const yearOf = (period: string) =>
+  /present/i.test(period) ? 'NOW' : period.match(/\d{4}/)?.[0] ?? '';
+
+const shortOrg = (org: string) =>
+  org
+    .split('·')[0]
+    .trim()
+    .replace('Carnegie Mellon University', 'CMU')
+    .replace('Neocis Inc.', 'Neocis')
+    .replace('Pacify Medical Technologies', 'Pacify');
+
+type Stop =
+  | { kind: 'role'; year: string; org: string; title: string; period: string; fullOrg: string; detail: string }
+  | { kind: 'break'; year: string; org: string; heading: string; body: string; note: string };
+
+// Insert the career pivot just before the current (last) role.
+const stops: Stop[] = [];
+roles.forEach((r, i) => {
+  if (i === roles.length - 1) {
+    stops.push({ kind: 'break', year: '↩', org: 'Pivot', heading: careerBreak.heading, body: careerBreak.body, note: careerBreak.note });
+  }
+  stops.push({ kind: 'role', year: yearOf(r.period), org: shortOrg(r.org), title: r.title, period: r.period, fullOrg: r.org, detail: r.detail });
+});
+const activeDefault = stops.length - 1; // current role
+---
+
+<section id="experience" class="py-24">
+  <div class="text-center mb-4">
+    <p class="section-eyebrow justify-center" style="margin-bottom:0;">// trajectory</p>
+    <h2 class="section-title reveal">Career Trajectory.</h2>
+  </div>
+
+  <div class="trajectory reveal" data-active={activeDefault}>
+    <div class="trajectory-rail" role="tablist" aria-label="Career timeline">
+      <div class="trajectory-track" aria-hidden="true"></div>
+      <div class="trajectory-fill" aria-hidden="true"></div>
+      {stops.map((s, i) => (
+        <button
+          class:list={['traj-node', s.kind === 'break' && 'is-break', i === activeDefault && 'active']}
+          data-index={i}
+          role="tab"
+          aria-selected={i === activeDefault ? 'true' : 'false'}
+          aria-label={`${s.kind === 'role' ? s.title : s.heading} — ${s.year}`}
+        >
+          <span class="traj-dot"></span>
+          <span class="traj-year">{s.year}</span>
+          <span class="traj-org">{s.org}</span>
+        </button>
+      ))}
+    </div>
+
+    <div class="trajectory-panel">
+      {stops.map((s, i) => (
+        <div class="traj-detail" data-index={i} hidden={i !== activeDefault}>
+          {s.kind === 'role' ? (
+            <>
+              <p class="traj-period">{s.period}</p>
+              <h3 class="traj-title">{s.title}</h3>
+              <p class="traj-suborg">{s.fullOrg}</p>
+              <p class="traj-text">{s.detail}</p>
+            </>
+          ) : (
+            <>
+              <p class="traj-period"><i class="fas fa-location-arrow"></i> {s.note}</p>
+              <h3 class="traj-title" style="color: var(--accent);">{s.heading}</h3>
+              <p class="traj-text">{s.body}</p>
+            </>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.trajectory');
+  if (root) {
+    const rail = root.querySelector<HTMLElement>('.trajectory-rail')!;
+    const track = root.querySelector<HTMLElement>('.trajectory-track')!;
+    const fill = root.querySelector<HTMLElement>('.trajectory-fill')!;
+    const nodes = [...root.querySelectorAll<HTMLButtonElement>('.traj-node')];
+    const details = [...root.querySelectorAll<HTMLElement>('.traj-detail')];
+    let active = Number(root.dataset.active) || 0;
+
+    const centerX = (n: HTMLElement) => {
+      const rr = rail.getBoundingClientRect();
+      const nr = n.getBoundingClientRect();
+      return nr.left + nr.width / 2 - rr.left;
+    };
+
+    const layout = () => {
+      if (!nodes.length) return;
+      const first = centerX(nodes[0]);
+      const last = centerX(nodes[nodes.length - 1]);
+      track.style.left = first + 'px';
+      track.style.width = last - first + 'px';
+      fill.style.left = first + 'px';
+      fill.style.width = Math.max(0, centerX(nodes[active]) - first) + 'px';
+    };
+
+    const setActive = (i: number) => {
+      active = i;
+      nodes.forEach((n, j) => {
+        n.classList.toggle('active', j === i);
+        n.setAttribute('aria-selected', j === i ? 'true' : 'false');
+      });
+      details.forEach((d, j) => (d.hidden = j !== i));
+      layout();
+      // On overflow (mobile), keep the active node in view.
+      if (rail.scrollWidth > rail.clientWidth) {
+        const n = nodes[i];
+        rail.scrollTo({ left: n.offsetLeft + n.offsetWidth / 2 - rail.clientWidth / 2, behavior: 'smooth' });
+      }
+    };
+
+    nodes.forEach((n, i) => {
+      n.addEventListener('click', () => setActive(i));
+      n.addEventListener('mouseenter', () => setActive(i));
+      n.addEventListener('focus', () => setActive(i));
+    });
+
+    let rt: number;
+    window.addEventListener('resize', () => {
+      clearTimeout(rt);
+      rt = window.setTimeout(layout, 150);
+    });
+    // Initial geometry once fonts/layout settle.
+    requestAnimationFrame(() => requestAnimationFrame(layout));
+  }
+</script>

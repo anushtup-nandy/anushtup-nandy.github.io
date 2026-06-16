@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+import { formatDate, readingTime } from '../../utils';
+import { site } from '../../data/site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const categories = ['All', ...new Set(posts.map((p) => p.data.category))];
+---
+
+<BaseLayout
+  title={`Writing | ${site.name}`}
+  description="Notes on control, motion planning, sim-to-real, paper deep-dives, and hardware build logs."
+>
+  <section class="pt-32 pb-12 text-center">
+    <p class="hero-eyebrow mb-3">Field Notes</p>
+    <h1 class="section-title">Writing.</h1>
+  </section>
+
+  <SectionDivider />
+
+  <section class="pb-32">
+    {posts.length === 0 ? (
+      <div class="coming-soon">
+        <span class="coming-soon-tag">// status: drafting</span>
+        <h2>Coming soon …</h2>
+        <p>Derivations, sim-to-real notes, and build logs are on the way.</p>
+      </div>
+    ) : (
+      <>
+        <div class="category-filter">
+          {categories.map((c, i) => (
+            <button class:list={['filter-btn', i === 0 && 'active']} data-category={c}>{c}</button>
+          ))}
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {posts.map((post) => (
+            <a href={`/blog/${post.id}/`} class="blog-card" data-category={post.data.category}>
+              {post.data.cover && (
+                <div class="blog-card-cover"><img src={post.data.cover} alt="" loading="lazy" /></div>
+              )}
+              <div class="blog-card-body">
+                <div class="metadata mb-3 flex items-center gap-2 flex-wrap">
+                  <span>{post.data.category}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{formatDate(post.data.pubDate)}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{readingTime(post.body)} min</span>
+                </div>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                  {post.data.tags.slice(0, 3).map((t) => <span class="tech-tag">{t}</span>)}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </>
+    )}
+  </section>
+
+  <script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const cards = document.querySelectorAll<HTMLElement>('.blog-card');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const cat = button.dataset.category || 'All';
+        buttons.forEach((b) => b.classList.remove('active'));
+        button.classList.add('active');
+        cards.forEach((card) => {
+          const show = cat === 'All' || card.dataset.category === cat;
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</BaseLayout>

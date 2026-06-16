@@ -1,0 +1,171 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Relative path to a social card image under /public, e.g. /images/foo.png */
+  image?: string;
+  /** When set, emit an article OG type and BlogPosting JSON-LD. */
+  article?: { publishedTime: string; tags?: string[] };
+}
+
+const {
+  title = `${site.name} | ${site.role}`,
+  description = site.description,
+  image = '/images/IMG-20241124-WA0042.jpg',
+  article,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: site.role,
+  url: Astro.site?.href,
+  email: `mailto:${site.email}`,
+  sameAs: [site.socials.github, site.socials.linkedin],
+  alumniOf: ['Columbia University', 'BITS Pilani', 'Carnegie Mellon University'],
+  knowsAbout: ['Motion Planning', 'Model Predictive Control', 'Reinforcement Learning', 'Robotics', 'Control Theory'],
+};
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={site.name} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    {article?.publishedTime && <meta property="article:published_time" content={article.publishedTime} />}
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} — Writing`} href="/rss.xml" />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(personLd)} />
+
+    <!-- Set theme before paint to avoid FOUC -->
+    <script is:inline>
+      const t = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    </script>
+
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Nav />
+    <main id="main" class="container mx-auto px-6">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // ---- Theme toggle ----
+      const html = document.documentElement;
+      const toggle = document.getElementById('theme-toggle');
+      const syncIcons = () => {
+        const dark = html.getAttribute('data-theme') === 'dark';
+        document.querySelector('#theme-toggle .fa-sun')?.classList.toggle('hidden', !dark);
+        document.querySelector('#theme-toggle .fa-moon')?.classList.toggle('hidden', dark);
+      };
+      syncIcons();
+      toggle?.addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        syncIcons();
+      });
+
+      // ---- Mobile menu ----
+      const menuBtn = document.querySelector('.mobile-menu-button');
+      const menu = document.querySelector('.mobile-menu');
+      menuBtn?.addEventListener('click', () => menu?.classList.toggle('is-open'));
+      menu?.querySelectorAll('a').forEach((a) =>
+        a.addEventListener('click', () => menu.classList.remove('is-open'))
+      );
+
+      // ---- Scroll-driven UI (rAF-throttled) ----
+      const header = document.querySelector('header');
+      const sections = [...document.querySelectorAll('section[id]')] as HTMLElement[];
+      const navLinks = [...document.querySelectorAll('.nav-link')] as HTMLAnchorElement[];
+
+      const onScroll = () => {
+        const y = window.scrollY;
+        header?.classList.toggle('scrolled', y > 50);
+
+        let current = '';
+        for (const s of sections) {
+          if (y >= s.offsetTop - 120) current = s.id;
+        }
+        for (const link of navLinks) {
+          const href = link.getAttribute('href') || '';
+          link.classList.toggle('active', href === `/#${current}` || href === `#${current}`);
+        }
+      };
+
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          onScroll();
+          ticking = false;
+        });
+      });
+      onScroll();
+
+      // ---- Reveal on scroll (fail-open: only hide once JS confirmed running) ----
+      const reveals = document.querySelectorAll('.reveal');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduce && 'IntersectionObserver' in window) {
+        // Hide now, then animate in. (Skipped under reduced-motion → content stays visible.)
+        reveals.forEach((el) => el.classList.add('reveal-init'));
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -100px 0px' }
+        );
+        reveals.forEach((el) => io.observe(el));
+      }
+    </script>
+  </body>
+</html>

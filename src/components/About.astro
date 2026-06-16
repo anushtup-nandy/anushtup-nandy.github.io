@@ -1,0 +1,71 @@
+---
+const education = [
+  { logo: '/images/bits-pilani-logo.png', name: 'BITS Pilani', alt: 'BITS Pilani Hyderabad', rounded: false },
+  { logo: '/images/cmu-ri-logo.jpg', name: 'CMU', alt: 'Carnegie Mellon University', rounded: true },
+  { logo: '/images/columbia-logo.png', name: 'Columbia', alt: 'Columbia Engineering', rounded: false },
+];
+
+const competencies = [
+  { icon: 'fa-cogs', title: 'Robotics Development', body: 'Concept to hardware - CAD, ROS, C++, Python.' },
+  { icon: 'fa-brain', title: 'Algorithm Design', body: 'Motion planning (D-PRM*, RRT*), RL, MPC.' },
+  { icon: 'fa-chart-line', title: 'Data-Driven Validation', body: 'Instrumentation (NI DAQ) and analysis in Python/OpenCV.' },
+  { icon: 'fa-users', title: 'Project Leadership', body: 'Mentoring, funding, and shipping results.' },
+];
+
+const trackRecord = [
+  { label: 'Commercial Impact:', text: 'At Neocis, I developed dynamic models for the YOMI surgical arm that directly enabled advanced compliant motion and reduced system costs by 20%.' },
+  { label: 'Algorithmic Depth:', text: 'At CMU, I engineered a novel Heuristic-Search algorithm for pathfinding that outperformed baselines by 2-8x, resulting in IEEE RA-L publications.' },
+  { label: 'Full-Stack Execution:', text: "From securing funding for bio-inspired underwater vehicles at BITS Pilani to designing haptic controls for rehabilitation at Columbia's ROAR Lab, I own the entire lifecycle, from first-principles math to hardware deployment." },
+];
+---
+
+<section id="about" class="pt-12 pb-24">
+  <div class="grid md:grid-cols-5 gap-5 items-start">
+    <div class="md:col-span-2 flex flex-col items-start">
+      <h2 class="section-title reveal mb-8">About Me.</h2>
+      <div class="reveal flex flex-col gap-6 mt-6 border-t pt-8 w-full max-w-[200px]" style="border-color: var(--border);">
+        {education.map((e) => (
+          <div class="flex items-center gap-4 transition-transform duration-300 hover:translate-x-1">
+            <img src={e.logo} alt={e.alt} class:list={['w-10 h-10 object-contain drop-shadow-sm', e.rounded && 'rounded']} />
+            <span class="text-sm font-medium tracking-wide" style="color: var(--text-primary); font-family: var(--font-serif-heading);">{e.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="md:col-span-3 text-lg space-y-6" style="color: var(--text-secondary);">
+      <p class="reveal">
+        I'm a Robotics Engineer pursuing my MS at <span style="color: var(--text-primary);">Columbia University</span>,
+        with a background in Mechanical Engineering from BITS Pilani. My core passion lies in solving complex problems
+        in robotics, from bio-inspired propulsion to advanced control algorithms.
+      </p>
+      <p class="reveal">
+        My approach combines rigorous analytical principles with creative, hands-on development. I thrive on architecting
+        high-performance algorithms, leading projects from concept to validation, and mentoring teams to achieve ambitious goals.
+      </p>
+      <p class="reveal">
+        Bridging the gap between abstract control theory and hardware that actually works in the real world - my work centers
+        on one goal: giving robots the mathematical intuition to navigate complex, high-stakes environments with precision.
+      </p>
+
+      <h3 class="text-xl font-bold mt-4 mb-3 reveal" style="color: var(--text-primary);">Track Record</h3>
+      <ul class="space-y-3 reveal" style="list-style: none; padding-left: 0;">
+        {trackRecord.map((t) => (
+          <li><strong style="color: var(--accent);">{t.label}</strong> {t.text}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-20">
+    <h3 class="text-2xl font-bold text-center mb-12 reveal">Core Competencies</h3>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      {competencies.map((c, i) => (
+        <div class="competency-card reveal" style={`--delay: ${i * 0.1}s;`}>
+          <i class:list={['fas', c.icon]}></i>
+          <h4>{c.title}</h4>
+          <p>{c.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

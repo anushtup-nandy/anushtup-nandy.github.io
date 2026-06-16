@@ -1,0 +1,16 @@
+---
+import { site } from '../data/site';
+const year = 2026;
+---
+
+<footer class="border-t" style="border-color: var(--border);">
+  <div class="container mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center text-sm gap-4">
+    <p style="color: var(--text-secondary);">© {year} {site.name}. All rights reserved.</p>
+    <div class="flex space-x-6 text-xl items-center">
+      <a href="/rss.xml" aria-label="RSS feed" class="social-link"><i class="fas fa-rss"></i></a>
+      <a href={`mailto:${site.email}`} aria-label="Email" class="social-link"><i class="fas fa-envelope"></i></a>
+      <a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin"></i></a>
+      <a href={site.socials.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-link"><i class="fab fa-github"></i></a>
+    </div>
+  </div>
+</footer>
