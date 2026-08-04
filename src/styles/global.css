@@ -256,10 +256,15 @@ html[data-theme='light'] #theme-toggle:hover {
   position: relative;
 }
 
+/* Full-bleed: #home lives inside the padded .container, so break the canvas
+   out to viewport width (body has overflow-x: hidden). */
 #hero-canvas {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
   height: 100%;
   z-index: 0;
   pointer-events: none;

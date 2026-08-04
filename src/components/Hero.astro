@@ -80,8 +80,9 @@ import { site } from '../data/site';
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = section.clientWidth;
-      H = section.clientHeight;
+      // Canvas is full-bleed (100vw), wider than its section — size from itself.
+      W = canvas.clientWidth;
+      H = canvas.clientHeight;
       canvas.width = W * dpr;
       canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
