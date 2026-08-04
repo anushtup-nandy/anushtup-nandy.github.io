@@ -15,7 +15,7 @@ export const publications: Publication[] = [
   },
   {
     title: 'Maze Solving Using Deep Q-Network',
-    authors: '<strong>Anushtup Nandy</strong>, Subash Sehsashtri, Abhishek Sarkar',
+    authors: '<strong>Anushtup Nandy</strong>, Subash Seshathri, Abhishek Sarkar',
     venue: 'Advances In Robotics - 6th Intl. Conference of The Robotics Society (AIR 2023)',
     pdf: '/pdfs/DQN_maze_solver.pdf',
   },

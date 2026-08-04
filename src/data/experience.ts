@@ -11,7 +11,7 @@ export const experience: Role[] = [
     title: 'Control Systems Engineer',
     org: 'ARMATRIX · Full-time',
     detail:
-      'At ARMATRIX, I am architecting the core software framework for the robotic arm, defining the system-level hierarchy to ensure scalable control and navigation. This includes developing and deploying Sequential Convex Programming (SCP) and QP-based soft-constrained MPC algorithms, enabling high-fidelity navigation through narrow gaps and high-obstacle density environments. Additionally, I am engineering a high-fidelity dynamic simulation environment in MuJoCo, bridging the Sim2Real gap through detailed physics modeling and system identification to accelerate control tuning.',
+      'At ARMATRIX, I lead a team of 5 engineers, architecting the end-to-end software stack for the robotic arm. I designed a hierarchical 3-layer control stack running at 20 Hz that cut tracking error by 96% and MPC solve time by 82%, with recursive feasibility guaranteed via convex decomposition and geometric refinement for safe navigation at sub-5 cm clearance. I developed deterministic 24-DOF SE(3) path planning with real-time collision checking using Sobol-sampled D-PRM*, and architected a zero-copy POSIX shared-memory transport layer, lock-free seqlock reads for the C++ real-time loops with a semaphore-blocked Python bridge, hardened by compile-time schema validation to eliminate silent memory corruption. I also engineered a high-fidelity MuJoCo simulation environment, bridging the Sim2Real gap through physics modeling and system identification.',
   },
   {
     period: 'May 2025 - Aug 2025',
@@ -22,10 +22,10 @@ export const experience: Role[] = [
   },
   {
     period: 'Mar 2023 - Dec 2023',
-    title: 'Student Research Intern',
+    title: 'Research Scholar',
     org: 'Carnegie Mellon University',
     detail:
-      'During my research internship at Carnegie Mellon University, I architected and implemented a novel Heuristic-Search algorithm in C++ to solve resource-constrained shortest path problems. By incorporating advanced techniques like dominance criteria and partial path pruning, my solution achieved a 2x performance increase over the existing baseline. Moreover, I also worked on testing algorithms developed by a colleague and to validate these findings in a real-world context, I developed a ROS2 framework to benchmark my algorithm against others, proving its superior efficiency in autonomous systems.',
+      'During my research at Carnegie Mellon University, I architected and implemented a novel Heuristic-Search algorithm in C++ to solve resource-constrained shortest path problems. By incorporating advanced techniques like dominance criteria and partial path pruning, my solution achieved a 2-8x performance increase over the existing baseline. Moreover, I also worked on testing algorithms developed by a colleague and to validate these findings in a real-world context, I developed a ROS2 framework to benchmark my algorithm against others, proving its superior efficiency in autonomous systems.',
   },
   {
     period: 'June 2022 - July 2022',

@@ -59,10 +59,10 @@ export const projects: Project[] = [
   {
     title: 'Transformer-based MPC for 7DoF Arm',
     description:
-      'Developed a transformer-based Model Predictive Controller for real-time trajectory optimization of a 7-DOF robotic arm, enabling adaptive and precise manipulation.',
+      'Transformer MPC controller achieving 97.5% MSE reduction and 84% RMSE improvement over baseline tracking — multi-head self-attention trained on 20K PyBullet samples, deployed in CasADi at a 0.05s control rate.',
     categories: ['robotics', 'research'],
     badge: 'Robotics',
-    tags: ['Transformers', 'MPC', 'Control Theory'],
+    tags: ['Transformers', 'MPC', 'CasADi'],
     github: 'https://github.com/anushtup-nandy/Transformer-based-MPC-for-7DoF-Robotic-Arm',
   },
   {
@@ -132,13 +132,13 @@ export const projects: Project[] = [
     github: 'https://github.com/anushtup-nandy/tribal-knowledge-vision',
   },
   {
-    title: 'Haptic Joystick Control',
+    title: 'Haptic Teleoperation & Postural Control',
     description:
-      'Developed a PD-based haptic control system for a rehabilitation robot, enabling remote therapy for SCI patients.',
+      'PD-based haptic teleoperation for the pWRAPS rehabilitation robot enabling remote SCI therapy — 3-DOF seated-posture impedance modeled via System ID and Gaussian processes (MoGP), with AR/VR feedback.',
     categories: ['robotics'],
     badge: 'Robotics',
-    tags: ['Haptics', 'Controls', 'HRI'],
-    image: 'public/images/haptic.png',
+    tags: ['Haptics', 'Gaussian Processes', 'HRI'],
+    image: '/images/Haptic.png',
     publication: 'Publication Pending',
   },
   {
