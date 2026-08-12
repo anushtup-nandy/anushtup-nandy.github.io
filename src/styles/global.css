@@ -15,6 +15,13 @@
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
   --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
   --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+  /* Spring, no JS: a critically-underdamped step response sampled into linear().
+     Peaks at 1.014 then settles — the overshoot is what reads as "physical". */
+  --ease-spring: linear(
+    0, 0.009 1.2%, 0.036 2.4%, 0.146 5.3%, 0.328 9.1%, 0.532 13.3%, 0.704 17.5%,
+    0.834 21.9%, 0.918 26.3%, 0.973 31.4%, 1 36.6%, 1.014 42.4%, 1.013 50.5%,
+    1.004 62.8%, 1
+  );
 
   /* Light Theme — cool "engineering paper" (not warm cream) */
   --bg-primary-light: #eceff3;
@@ -134,8 +141,15 @@ body {
 */
 header {
   background: transparent;
-  transition: background-color 0.3s var(--ease-out-cubic), border-color 0.3s var(--ease-out-cubic);
+  transition: background-color 0.3s var(--ease-out-cubic), border-color 0.3s var(--ease-out-cubic),
+    transform 0.35s var(--ease-out-cubic);
   border-bottom: 1px solid transparent;
+}
+
+/* Scrolling down past the fold retracts the nav; scrolling up brings it back.
+   `:focus-within` overrides it so keyboard users can never tab into a hidden bar. */
+header.nav-hidden:not(:focus-within) {
+  transform: translateY(-100%);
 }
 
 html[data-theme='dark'] header.scrolled {
@@ -667,15 +681,43 @@ html[data-theme='light'] #theme-toggle:hover {
 }
 
 /* Category Filter Bar */
+/* Segmented control: one accent thumb slides between modes rather than each
+   pill lighting up independently — the selection is a single moving object. */
 .category-filter {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
+  position: relative;
+  display: inline-flex;
   flex-wrap: wrap;
-  margin-bottom: 3rem;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+}
+
+.filter-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 20px -5px var(--accent);
+  opacity: 0;
+  transform: translate(var(--fx, 0), var(--fy, 0));
+  transition: opacity 0.2s;
+}
+
+/* Transitions land only once JS has measured the first button, so the thumb
+   never animates in from the container's origin on load. */
+.filter-indicator.ready {
+  opacity: 1;
+  transition: transform 0.45s var(--ease-spring), width 0.45s var(--ease-spring),
+    height 0.45s var(--ease-spring), opacity 0.2s;
 }
 
 .filter-btn {
+  position: relative;
+  z-index: 1;
   padding: 0.5rem 1.25rem;
   border-radius: 999px;
   font-family: var(--font-mono);
@@ -683,25 +725,25 @@ html[data-theme='light'] #theme-toggle:hover {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 500;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
+  background: transparent;
+  border: 0;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.3s var(--ease-out-cubic);
+  transition: color 0.3s var(--ease-out-cubic);
 }
 
 .filter-btn:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
   color: var(--text-primary);
-  box-shadow: 0 4px 12px -4px var(--accent-glow);
 }
 
-.filter-btn.active {
-  background: var(--accent);
+.filter-btn.active,
+.filter-btn.active:hover {
   color: var(--bg-primary);
-  border-color: var(--accent);
-  box-shadow: 0 0 20px -5px var(--accent);
+}
+
+/* No thumb to sit behind (JS off) → the active pill paints its own. */
+.filter-indicator:not(.ready) ~ .filter-btn.active {
+  background: var(--accent);
 }
 
 /* Project Grid */
@@ -874,30 +916,17 @@ html[data-theme='light'] #theme-toggle:hover {
   z-index: 20;
 }
 
-/* Filtering transitions */
+/* Filtering. The reflow itself is a View Transition — the browser FLIPs the
+   surviving cards into their new grid slots for free (see Projects.astro).
+   Only the root cross-fade is suppressed: the page outside the grid is
+   identical across the snapshot, so fading it is wasted work. */
 .project-card.hidden {
   display: none;
 }
 
-.project-card.filtering-out {
-  opacity: 0;
-  transform: scale(0.8);
-  pointer-events: none;
-}
-
-.project-card.filtering-in {
-  animation: filterIn 0.5s var(--ease-out-cubic) forwards;
-}
-
-@keyframes filterIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8) translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
 }
 
 /* Publication Item */
@@ -1237,18 +1266,98 @@ html[data-theme='dark'] .prose pre span {
   swaps in `.visible` on scroll. If JS never runs, nothing is ever hidden.
 */
 .reveal {
-  transition: opacity 0.8s var(--ease-out-cubic), transform 0.8s var(--ease-out-cubic);
+  transition: opacity 0.55s var(--ease-out-cubic), transform 0.7s var(--ease-spring);
   transition-delay: var(--delay, 0s);
 }
 
 .reveal.reveal-init {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(24px);
 }
 
 .reveal.reveal-init.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/*
+  Word-by-word reveal. `.reveal-words` opts the block out of the whole-element
+  fade above and hands the motion to its per-word masks instead. The transition
+  is declared only on the `.visible` state, so hiding is instant on load and
+  only the reveal animates. Fails open: no JS → no `.reveal-init` → no masks.
+*/
+.reveal-words.reveal-init {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-words .word {
+  display: inline-block;
+  overflow: hidden;
+  /* Bleed the mask past the baseline so descenders (g, y, p) aren't clipped. */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+/* The mask is an inline-block, so the inter-word space has to come from margin.
+   Trailing (not leading) so a line break never indents the wrapped line. */
+.reveal-words .word:not(:last-child) {
+  margin-right: 0.24em;
+}
+
+.reveal-words .word > span {
+  display: inline-block;
+}
+
+.reveal-words.reveal-init .word > span {
+  transform: translateY(110%);
+}
+
+.reveal-words.reveal-init.visible .word > span {
+  transform: none;
+  transition: transform 0.8s var(--ease-spring);
+  transition-delay: calc(var(--wi) * 0.055s + var(--delay, 0s));
+}
+
+/*
+  Reading progress. Driven entirely by a scroll-progress timeline — no JS, no
+  scroll listener. Where `scroll()` is unsupported the bar stays at scaleX(0),
+  i.e. invisible, which is the correct degradation.
+*/
+.read-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+@supports (animation-timeline: scroll()) {
+  .read-progress {
+    animation: read-progress linear forwards;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes read-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Count-up figures: tabular digits so the glyph width never shifts mid-count.
+   The final value is what ships in the HTML — the script counts *up to* it. */
+.metric {
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  text-align: right;
 }
 
 /*

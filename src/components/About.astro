@@ -12,10 +12,13 @@ const competencies = [
   { icon: 'fa-users', title: 'Project Leadership', body: 'Mentoring, funding, and shipping results.' },
 ];
 
+// `text` is trusted authored markup (rendered with set:html below). The figures
+// carrying the impact are wrapped in .metric so they count up when scrolled to;
+// the final value is what ships in the HTML, so it reads correctly without JS.
 const trackRecord = [
-  { label: 'Production Control:', text: 'At Armatrix, I lead a team of 5 building a hierarchical 3-layer control stack running at 20 Hz - cutting tracking error by 96% and MPC solve time by 82% for safe navigation at sub-5 cm clearance.' },
-  { label: 'Commercial Impact:', text: 'At Neocis, I developed dynamic models for the YOMI surgical arm that directly enabled advanced compliant motion and reduced system costs by 20%.' },
-  { label: 'Algorithmic Depth:', text: 'At CMU, I engineered a novel Heuristic-Search algorithm for pathfinding that outperformed baselines by 2-8x, resulting in IEEE RA-L publications.' },
+  { label: 'Production Control:', text: 'At Armatrix, I lead a team of 5 building a hierarchical 3-layer control stack running at 20 Hz - cutting tracking error by <span class="metric" data-to="96">96</span>% and MPC solve time by <span class="metric" data-to="82">82</span>% for safe navigation at sub-5 cm clearance.' },
+  { label: 'Commercial Impact:', text: 'At Neocis, I developed dynamic models for the YOMI surgical arm that directly enabled advanced compliant motion and reduced system costs by <span class="metric" data-to="20">20</span>%.' },
+  { label: 'Algorithmic Depth:', text: 'At CMU, I engineered a novel Heuristic-Search algorithm for pathfinding that outperformed baselines by 2-<span class="metric" data-to="8">8</span>x, resulting in IEEE RA-L publications.' },
   { label: 'Full-Stack Execution:', text: "From securing funding for bio-inspired underwater vehicles at BITS Pilani to designing haptic controls for rehabilitation at Columbia's ROAR Lab, I own the entire lifecycle, from first-principles math to hardware deployment." },
 ];
 ---
@@ -51,7 +54,7 @@ const trackRecord = [
       <h3 class="text-xl font-bold mt-4 mb-3 reveal" style="color: var(--text-primary);">Track Record</h3>
       <ul class="space-y-3 reveal" style="list-style: none; padding-left: 0;">
         {trackRecord.map((t) => (
-          <li><strong style="color: var(--accent);">{t.label}</strong> {t.text}</li>
+          <li><strong style="color: var(--accent);">{t.label}</strong> <span set:html={t.text} /></li>
         ))}
       </ul>
     </div>
@@ -70,3 +73,44 @@ const trackRecord = [
     </div>
   </div>
 </section>
+
+<script>
+  // Count the track-record figures up when they scroll into view. Fail-open: the
+  // real value is already in the HTML, so no JS (or reduced-motion) = static text.
+  const metrics = [...document.querySelectorAll<HTMLElement>('#about .metric')];
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const countUp = (el: HTMLElement, to: number) => {
+    const DURATION = 1100;
+    let start = 0;
+    const frame = (now: number) => {
+      if (!start) start = now;
+      const t = Math.min(1, (now - start) / DURATION);
+      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic — decelerating readout
+      el.textContent = String(Math.round(eased * to));
+      if (t < 1) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  };
+
+  if (metrics.length && !reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          io.unobserve(e.target);
+          const el = e.target as HTMLElement;
+          countUp(el, Number(el.dataset.to));
+        }
+      },
+      { rootMargin: '0px 0px -80px 0px' }
+    );
+
+    for (const el of metrics) {
+      // Lock the width the final value occupies, so counting never reflows the prose.
+      el.style.minWidth = `${el.offsetWidth}px`;
+      el.textContent = '0';
+      io.observe(el);
+    }
+  }
+</script>

@@ -122,9 +122,19 @@ const personLd = {
       const sections = [...document.querySelectorAll('section[id]')] as HTMLElement[];
       const navLinks = [...document.querySelectorAll('.nav-link')] as HTMLAnchorElement[];
 
+      let lastY = window.scrollY;
+
       const onScroll = () => {
         const y = window.scrollY;
         header?.classList.toggle('scrolled', y > 50);
+
+        // Retract the bar while scrolling down past the fold, restore on any upward
+        // move. The 6px deadband keeps rubber-band scroll from flickering it.
+        if (Math.abs(y - lastY) > 6) {
+          const hide = y > lastY && y > 260 && !menu?.classList.contains('is-open');
+          header?.classList.toggle('nav-hidden', hide);
+          lastY = y;
+        }
 
         let current = '';
         for (const s of sections) {

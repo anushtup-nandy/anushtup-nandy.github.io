@@ -1,5 +1,8 @@
 ---
 import { site } from '../data/site';
+
+// Split for the per-word mask reveal (see .reveal-words in global.css).
+const taglineWords = site.tagline.split(' ');
 ---
 
 <section id="home">
@@ -7,11 +10,15 @@ import { site } from '../data/site';
   <div class="grid md:grid-cols-5 hero-grid w-full">
     <div class="md:col-span-3">
       <p class="hero-eyebrow mb-3 reveal">{site.role}</p>
-      <h1 class="reveal" style="--delay: 0.1s;">{site.tagline}</h1>
-      <p class="text-lg max-w-2xl mb-8 reveal" style="--delay: 0.2s; color: var(--text-secondary);">
+      <h1 class="reveal reveal-words" style="--delay: 0.06s;">
+        {taglineWords.map((w, i) => (
+          <span class="word" style={`--wi: ${i};`}><span>{w}</span></span>
+        ))}
+      </h1>
+      <p class="text-lg max-w-2xl mb-8 reveal" style="--delay: 0.22s; color: var(--text-secondary);">
         I'm a Robotics Engineer and Researcher at the intersection of motion planning, deep learning and control theory.
       </p>
-      <div class="flex flex-col sm:flex-row gap-4 reveal" style="--delay: 0.3s;">
+      <div class="flex flex-col sm:flex-row gap-4 reveal" style="--delay: 0.34s;">
         <a href="/#projects" class="btn btn-primary">View My Work</a>
         <a href="/#contact" class="btn btn-secondary">Get In Touch</a>
         <a href="/pdfs/AnushtupNandyCV.pdf" target="_blank" rel="noopener" class="btn btn-secondary">Resume <i class="fas fa-file-pdf" aria-hidden="true"></i></a>

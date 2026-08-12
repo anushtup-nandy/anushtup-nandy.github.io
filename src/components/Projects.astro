@@ -16,10 +16,15 @@ const filters = [
     A collection of my work spanning robotics, AI/ML, and autonomous systems.
   </p>
 
-  <div class="category-filter reveal">
-    {filters.map((f, i) => (
-      <button class:list={['filter-btn', i === 0 && 'active']} data-category={f.key}>{f.label}</button>
-    ))}
+  <div class="text-center mb-12 reveal">
+    <div class="category-filter">
+      <span class="filter-indicator" aria-hidden="true"></span>
+      {filters.map((f, i) => (
+        <button class:list={['filter-btn', i === 0 && 'active']} data-category={f.key} aria-pressed={i === 0}>
+          {f.label}
+        </button>
+      ))}
+    </div>
   </div>
 
   <div class="projects-grid">
@@ -51,29 +56,71 @@ const filters = [
 </section>
 
 <script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-  const cards = document.querySelectorAll<HTMLElement>('.project-card');
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>('.filter-btn')];
+  const cards = [...document.querySelectorAll<HTMLElement>('.project-card')];
+  const thumb = document.querySelector<HTMLElement>('.filter-indicator');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  buttons.forEach((button) => {
+  // Typed locally: startViewTransition isn't in every lib.dom we might build against.
+  const startViewTransition = (
+    document as Document & {
+      startViewTransition?: (cb: () => void) => { finished: Promise<void> };
+    }
+  ).startViewTransition?.bind(document);
+
+  // offsetLeft/Top are relative to .category-filter (position: relative), so this
+  // tracks a wrapped second row on narrow screens too.
+  const moveThumb = (btn: HTMLElement) => {
+    if (!thumb) return;
+    thumb.style.width = `${btn.offsetWidth}px`;
+    thumb.style.height = `${btn.offsetHeight}px`;
+    thumb.style.setProperty('--fx', `${btn.offsetLeft}px`);
+    thumb.style.setProperty('--fy', `${btn.offsetTop}px`);
+  };
+
+  const applyFilter = (category: string) => {
+    for (const card of cards) {
+      const cats = card.dataset.category || '';
+      card.classList.toggle('hidden', !(category === 'all' || cats.includes(category)));
+    }
+  };
+
+  for (const button of buttons) {
     button.addEventListener('click', () => {
       const category = button.dataset.category || 'all';
-      buttons.forEach((b) => b.classList.remove('active'));
-      button.classList.add('active');
+      for (const b of buttons) {
+        const on = b === button;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', String(on));
+      }
+      moveThumb(button);
 
-      cards.forEach((card) => {
-        const cats = card.dataset.category || '';
-        const show = category === 'all' || cats.includes(category);
-        if (show) {
-          card.classList.remove('hidden', 'filtering-out');
-          card.classList.add('filtering-in');
-        } else {
-          card.classList.add('filtering-out');
-          setTimeout(() => {
-            card.classList.add('hidden');
-            card.classList.remove('filtering-out');
-          }, 300);
-        }
+      // Naming each card hands the grid reflow to the browser: surviving cards
+      // are FLIPped into their new slots, dropped ones fade out. Names are
+      // cleared afterwards so they never affect ordinary hover/paint.
+      if (reduce || !startViewTransition) return applyFilter(category);
+      cards.forEach((c, i) => c.style.setProperty('view-transition-name', `pcard-${i}`));
+      startViewTransition(() => applyFilter(category)).finished.finally(() => {
+        for (const c of cards) c.style.removeProperty('view-transition-name');
       });
     });
+  }
+
+  const activeBtn = () => buttons.find((b) => b.classList.contains('active'));
+  // Measure once layout/fonts settle, then arm the thumb's transitions so it
+  // never animates in from the container origin.
+  requestAnimationFrame(() => {
+    const b = activeBtn();
+    if (b) moveThumb(b);
+    requestAnimationFrame(() => thumb?.classList.add('ready'));
+  });
+
+  let resizeTimer: number;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => {
+      const b = activeBtn();
+      if (b) moveThumb(b);
+    }, 150);
   });
 </script>

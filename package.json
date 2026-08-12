@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "check:motion": "astro build && node tests/motion.check.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.11",
