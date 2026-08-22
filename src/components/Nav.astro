@@ -5,7 +5,7 @@ import { site, nav } from '../data/site';
 <header class="fixed top-0 left-0 w-full z-50">
   <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
     <a href="/" class="text-xl font-bold tracking-wider brand-mark" aria-label={`${site.name} — home`}>
-      {site.initials}
+      {site.initials}<span class="brand-dot" aria-hidden="true"></span>
     </a>
     <div class="hidden md:flex items-center space-x-1">
       {nav.map((item) => <a href={item.href} class="nav-link">{item.label}</a>)}

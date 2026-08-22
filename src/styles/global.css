@@ -228,6 +228,15 @@ html[data-theme='light'] #theme-toggle:hover {
   letter-spacing: 0.02em;
 }
 
+/* Square LED after the wordmark — same "system online" motif as the hero. */
+.brand-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-left: 3px;
+  background: var(--accent);
+}
+
 .mobile-menu {
   position: fixed;
   inset: 0;
@@ -262,11 +271,12 @@ html[data-theme='light'] #theme-toggle:hover {
   ==============================================
 */
 #home {
-  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
-  align-items: center;
-  padding-top: 80px;
-  padding-bottom: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 96px;
+  padding-bottom: 5rem;
   position: relative;
 }
 
@@ -284,20 +294,31 @@ html[data-theme='light'] #theme-toggle:hover {
   pointer-events: none;
 }
 
-#home .hero-grid {
+.hero-inner {
   position: relative;
   z-index: 1;
-  gap: 3rem;
-  align-items: center;
+  max-width: 64rem;
 }
 
 #home h1 {
   font-family: var(--font-serif-heading);
-  font-size: 3.25rem;
+  font-size: clamp(3rem, 8.5vw, 6rem);
   font-weight: 600;
-  line-height: 1.08;
-  margin-bottom: 1.25rem;
-  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.04em;
+}
+
+/* The closing words are drawn, not printed — technical-outline stroke. */
+.word-outline > span {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--text-primary);
+}
+
+@supports not (-webkit-text-stroke: 1px) {
+  .word-outline > span {
+    color: var(--text-primary);
+  }
 }
 
 .hero-eyebrow {
@@ -306,41 +327,73 @@ html[data-theme='light'] #theme-toggle:hover {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
 }
 
-@media (min-width: 768px) {
-  #home h1 {
-    font-size: 4.75rem;
-  }
-  #home .hero-grid {
-    gap: 4rem;
-  }
+/* "System online" LED — shared motif with the nav wordmark. */
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: status-ping 2.4s var(--ease-out-cubic) infinite;
 }
 
-.hero-image-container {
+@keyframes status-ping {
+  0% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  60% { box-shadow: 0 0 0 8px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+.hero-sub {
+  max-width: 36rem;
+  margin-bottom: 2.75rem;
+  color: var(--text-secondary);
+}
+
+/* Bottom-left scroll cue: a drip of accent running down a hairline. */
+.hero-foot {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 0;
+  z-index: 1;
+}
+
+.scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.scroll-line {
   position: relative;
-  width: 100%;
-  max-width: 400px;
-  aspect-ratio: 1;
-  margin: 0 auto;
+  width: 1px;
+  height: 42px;
+  background: var(--border);
+  overflow: hidden;
 }
 
-.hero-image-container img {
-  position: relative;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  transition: transform 0.4s var(--ease-out-cubic), box-shadow 0.4s;
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 14px;
+  background: var(--accent);
+  animation: scroll-drip 2.2s var(--ease-in-out-quad) infinite;
 }
 
-.hero-image-container:hover img {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.2);
-}
-
-@media (min-width: 768px) {
-  .hero-image-container {
-    max-width: 450px;
-  }
+@keyframes scroll-drip {
+  from { transform: translateY(-14px); }
+  to { transform: translateY(42px); }
 }
 
 /*
@@ -365,6 +418,16 @@ html[data-theme='light'] #theme-toggle:hover {
 
 .btn:hover {
   transform: translateY(-1px);
+}
+
+.btn i {
+  margin-left: 0.6rem;
+  font-size: 0.75em;
+  transition: transform 0.3s var(--ease-out-cubic);
+}
+
+.btn:hover .fa-arrow-right {
+  transform: translateX(4px);
 }
 
 .btn-primary {
@@ -467,6 +530,109 @@ html[data-theme='light'] #theme-toggle:hover {
   COMPONENTS
   ==============================================
 */
+/* Viewfinder corner ticks — an instrument's calibration frame. */
+.tick-frame {
+  position: relative;
+}
+
+.tick-frame::before,
+.tick-frame::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.tick-frame::before {
+  top: -7px;
+  left: -7px;
+  border-top: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+}
+
+.tick-frame::after {
+  bottom: -7px;
+  right: -7px;
+  border-bottom: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+}
+
+/* About portrait — sized for the narrow column. */
+.about-portrait {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 2.25rem;
+}
+
+.about-portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  filter: saturate(0.88);
+}
+
+/* Featured case studies — a numbered manifest of flagship work. */
+.case-study {
+  padding: 3.5rem 0;
+}
+
+.case-study + .case-study {
+  border-top: 1px solid var(--border);
+}
+
+.case-media-crop {
+  overflow: hidden;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  aspect-ratio: 16 / 9;
+}
+
+.case-media-crop img {
+  transition: transform 0.7s var(--ease-out-cubic);
+}
+
+.case-study:hover .case-media-crop img {
+  transform: scale(1.04);
+}
+
+.case-index {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-bottom: 0.9rem;
+}
+
+.case-title {
+  font-family: var(--font-serif-heading);
+  font-size: 1.9rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 0.9rem;
+}
+
+.case-desc {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+/* Spec line in the data-trace cyan — instrumentation, not action. */
+.case-specs {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blueprint);
+  margin-bottom: 1.6rem;
+}
+
 .competency-card {
   background: var(--bg-secondary);
   padding: 1.5rem;
@@ -766,13 +932,32 @@ html[data-theme='light'] #theme-toggle:hover {
 .project-card {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
   transition: all 0.3s var(--ease-out-cubic);
   min-height: 320px;
+}
+
+/* Instrument tick on the top edge — draws in on hover. */
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--accent);
+  z-index: 20;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out-cubic);
+}
+
+.project-card:hover::before {
+  transform: scaleX(1);
 }
 
 .project-card:hover {
@@ -811,11 +996,17 @@ html[data-theme='light'] #theme-toggle:hover {
   transform: scale(1.08) rotate(1deg);
 }
 
+/* Tint the full card, strengthening downward — titles must stay readable
+   over bright imagery, not just the footer. */
 .project-card-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 0%, var(--bg-secondary) 92%);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--bg-secondary) 68%, transparent) 0%,
+    var(--bg-secondary) 82%
+  );
   transition: opacity 0.3s var(--ease-out-cubic);
   z-index: 1;
 }
@@ -829,6 +1020,7 @@ html[data-theme='light'] #theme-toggle:hover {
   margin-bottom: 0.75rem;
   transition: color 0.3s;
   letter-spacing: 0.01em;
+  padding-right: 4rem; /* clear the floating category badge */
 }
 
 .project-card:hover h3 {
@@ -843,13 +1035,14 @@ html[data-theme='light'] #theme-toggle:hover {
   color: var(--text-secondary);
 }
 
+/* Quiet by default so titles lead; accent only answers the pointer. */
 .tech-tag {
   background-color: transparent;
-  color: var(--accent);
+  color: var(--text-secondary);
   font-family: var(--font-mono);
   font-weight: 400;
   padding: 0.3rem 0.7rem;
-  border: 1px solid var(--accent);
+  border: 1px solid var(--border);
   border-radius: 2px;
   font-size: 0.68rem;
   letter-spacing: 0.03em;
@@ -858,8 +1051,8 @@ html[data-theme='light'] #theme-toggle:hover {
 }
 
 .tech-tag:hover {
-  background-color: var(--accent);
-  color: var(--bg-primary);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .card-footer {
@@ -904,8 +1097,11 @@ html[data-theme='light'] #theme-toggle:hover {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: var(--accent);
-  color: var(--bg-primary);
+  background: color-mix(in srgb, var(--bg-secondary) 80%, transparent);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-family: var(--font-mono);
   font-size: 0.62rem;
   font-weight: 500;

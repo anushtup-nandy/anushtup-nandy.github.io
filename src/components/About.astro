@@ -1,4 +1,6 @@
 ---
+import { site } from '../data/site';
+
 const education = [
   { logo: '/images/bits-pilani-logo.png', name: 'BITS Pilani', alt: 'BITS Pilani Hyderabad', rounded: false },
   { logo: '/images/cmu-ri-logo.jpg', name: 'CMU', alt: 'Carnegie Mellon University', rounded: true },
@@ -27,6 +29,15 @@ const trackRecord = [
   <div class="grid md:grid-cols-5 gap-5 items-start">
     <div class="md:col-span-2 flex flex-col items-start">
       <h2 class="section-title reveal mb-8">About Me.</h2>
+      <div class="about-portrait tick-frame reveal">
+        <img
+          src="/images/IMG-20241124-WA0042.jpg"
+          alt={`Portrait of ${site.name}`}
+          width="450"
+          height="450"
+          loading="lazy"
+        />
+      </div>
       <div class="reveal flex flex-col gap-6 mt-6 border-t pt-8 w-full max-w-[200px]" style="border-color: var(--border);">
         {education.map((e) => (
           <div class="flex items-center gap-4 transition-transform duration-300 hover:translate-x-1">

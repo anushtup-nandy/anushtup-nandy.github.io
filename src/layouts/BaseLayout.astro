@@ -98,8 +98,11 @@ const personLd = {
       const toggle = document.getElementById('theme-toggle');
       const syncIcons = () => {
         const dark = html.getAttribute('data-theme') === 'dark';
-        document.querySelector('#theme-toggle .fa-sun')?.classList.toggle('hidden', !dark);
-        document.querySelector('#theme-toggle .fa-moon')?.classList.toggle('hidden', dark);
+        const sun = document.querySelector<HTMLElement>('#theme-toggle .fa-sun');
+        const moon = document.querySelector<HTMLElement>('#theme-toggle .fa-moon');
+        // Inline display beats the Font Awesome stylesheet regardless of load order.
+        if (sun) sun.style.display = dark ? 'inline-block' : 'none';
+        if (moon) moon.style.display = dark ? 'none' : 'inline-block';
       };
       syncIcons();
       toggle?.addEventListener('click', () => {
@@ -136,9 +139,11 @@ const personLd = {
           lastY = y;
         }
 
+        // Viewport-relative: offsetTop lies for sections inside positioned
+        // wrappers (.lattice-bg), which marked About active at the very top.
         let current = '';
         for (const s of sections) {
-          if (y >= s.offsetTop - 120) current = s.id;
+          if (s.getBoundingClientRect().top <= 120) current = s.id;
         }
         for (const link of navLinks) {
           const href = link.getAttribute('href') || '';
