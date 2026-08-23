@@ -7,20 +7,14 @@ import FeaturedProjects from '../components/FeaturedProjects.astro';
 import Projects from '../components/Projects.astro';
 import Publications from '../components/Publications.astro';
 import Contact from '../components/Contact.astro';
-import SectionDivider from '../components/SectionDivider.astro';
 ---
 
 <BaseLayout>
   <Hero />
-  <div class="lattice-bg">
-    <About />
-  </div>
-  <SectionDivider />
+  <About />
   <FeaturedProjects />
   <Experience />
-  <SectionDivider />
   <Projects />
   <Publications />
-  <SectionDivider />
   <Contact />
 </BaseLayout>

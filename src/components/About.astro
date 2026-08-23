@@ -2,85 +2,109 @@
 import { site } from '../data/site';
 
 const education = [
-  { logo: '/images/bits-pilani-logo.png', name: 'BITS Pilani', alt: 'BITS Pilani Hyderabad', rounded: false },
-  { logo: '/images/cmu-ri-logo.jpg', name: 'CMU', alt: 'Carnegie Mellon University', rounded: true },
-  { logo: '/images/columbia-logo.png', name: 'Columbia', alt: 'Columbia Engineering', rounded: false },
+  { logo: '/images/columbia-logo.png', name: 'Columbia University', note: 'MS · ROAR Lab', rounded: false },
+  { logo: '/images/cmu-ri-logo.jpg', name: 'Carnegie Mellon', note: 'Research Scholar', rounded: true },
+  { logo: '/images/bits-pilani-logo.png', name: 'BITS Pilani', note: 'Mechanical Engineering', rounded: false },
 ];
 
 const competencies = [
-  { icon: 'fa-cogs', title: 'Robotics Development', body: 'Concept to hardware - CAD, ROS, C++, Python.' },
-  { icon: 'fa-brain', title: 'Algorithm Design', body: 'Motion planning (D-PRM*, RRT*), RL, MPC.' },
-  { icon: 'fa-chart-line', title: 'Data-Driven Validation', body: 'Instrumentation (NI DAQ) and analysis in Python/OpenCV.' },
-  { icon: 'fa-users', title: 'Project Leadership', body: 'Mentoring, funding, and shipping results.' },
+  { title: 'Robotics development', body: 'Concept to hardware - CAD, ROS, C++, Python.' },
+  { title: 'Algorithm design', body: 'Motion planning (D-PRM*, RRT*), RL, MPC.' },
+  { title: 'Data-driven validation', body: 'Instrumentation (NI DAQ) and analysis in Python/OpenCV.' },
+  { title: 'Project leadership', body: 'Mentoring, funding, and shipping results.' },
 ];
 
 // `text` is trusted authored markup (rendered with set:html below). The figures
 // carrying the impact are wrapped in .metric so they count up when scrolled to;
 // the final value is what ships in the HTML, so it reads correctly without JS.
 const trackRecord = [
-  { label: 'Production Control:', text: 'At Armatrix, I lead a team of 5 building a hierarchical 3-layer control stack running at 20 Hz - cutting tracking error by <span class="metric" data-to="96">96</span>% and MPC solve time by <span class="metric" data-to="82">82</span>% for safe navigation at sub-5 cm clearance.' },
-  { label: 'Commercial Impact:', text: 'At Neocis, I developed dynamic models for the YOMI surgical arm that directly enabled advanced compliant motion and reduced system costs by <span class="metric" data-to="20">20</span>%.' },
-  { label: 'Algorithmic Depth:', text: 'At CMU, I engineered a novel Heuristic-Search algorithm for pathfinding that outperformed baselines by 2-<span class="metric" data-to="8">8</span>x, resulting in IEEE RA-L publications.' },
-  { label: 'Full-Stack Execution:', text: "From securing funding for bio-inspired underwater vehicles at BITS Pilani to designing haptic controls for rehabilitation at Columbia's ROAR Lab, I own the entire lifecycle, from first-principles math to hardware deployment." },
+  { label: 'Production control', text: 'At Armatrix, I lead a team of 5 building a hierarchical 3-layer control stack running at 20 Hz - cutting tracking error by <span class="metric" data-to="96">96</span>% and MPC solve time by <span class="metric" data-to="82">82</span>% for safe navigation at sub-5 cm clearance.' },
+  { label: 'Commercial impact', text: 'At Neocis, I developed dynamic models for the YOMI surgical arm that directly enabled advanced compliant motion and reduced system costs by <span class="metric" data-to="20">20</span>%.' },
+  { label: 'Algorithmic depth', text: 'At CMU, I engineered a novel Heuristic-Search algorithm for pathfinding that outperformed baselines by 2-<span class="metric" data-to="8">8</span>x, resulting in IEEE RA-L publications.' },
+  { label: 'Full-stack execution', text: "From securing funding for bio-inspired underwater vehicles at BITS Pilani to designing haptic controls for rehabilitation at Columbia's ROAR Lab, I own the entire lifecycle, from first-principles math to hardware deployment." },
 ];
 ---
 
-<section id="about" class="pt-12 pb-24">
-  <div class="grid md:grid-cols-5 gap-5 items-start">
-    <div class="md:col-span-2 flex flex-col items-start">
-      <h2 class="section-title reveal mb-8">About Me.</h2>
-      <div class="about-portrait tick-frame reveal">
-        <img
-          src="/images/IMG-20241124-WA0042.jpg"
-          alt={`Portrait of ${site.name}`}
-          width="450"
-          height="450"
-          loading="lazy"
-        />
+<section id="about" class="plate">
+  <div class="shell">
+    <header class="sheet-head reveal">
+      <p class="sheet-index">01 / Profile</p>
+      <div>
+        <h2 class="section-title">About</h2>
       </div>
-      <div class="reveal flex flex-col gap-6 mt-6 border-t pt-8 w-full max-w-[200px]" style="border-color: var(--border);">
-        {education.map((e) => (
-          <div class="flex items-center gap-4 transition-transform duration-300 hover:translate-x-1">
-            <img src={e.logo} alt={e.alt} class:list={['w-10 h-10 object-contain drop-shadow-sm', e.rounded && 'rounded']} />
-            <span class="text-sm font-medium tracking-wide" style="color: var(--text-primary); font-family: var(--font-serif-heading);">{e.name}</span>
+    </header>
+
+    <div class="about-grid">
+      <div class="reveal">
+        <figure class="portrait">
+          <img
+            src="/images/IMG-20241124-WA0042.jpg"
+            alt={`Portrait of ${site.name}`}
+            width="450"
+            height="560"
+            loading="lazy"
+          />
+          <figcaption>
+            <span>{site.name}</span>
+            <span>Fig. 01</span>
+          </figcaption>
+        </figure>
+
+        <div class="ledger">
+          {education.map((e) => (
+            <div class="ledger-row">
+              <img src={e.logo} alt={`${e.name} logo`} class:list={[e.rounded && 'rounded']} />
+              <span class="ledger-name">{e.name}</span>
+              <span class="ledger-note">{e.note}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p class="about-lede reveal">{site.positioning}</p>
+
+        <div class="about-body reveal" style="--delay: 0.1s;">
+          <p>
+            Robotics engineer with an MS from <strong>Columbia University</strong> and a Mechanical
+            Engineering background from <strong>BITS Pilani</strong>. My core passion lies in solving
+            complex problems in robotics, from bio-inspired propulsion to advanced control algorithms.
+          </p>
+          <p>
+            My approach combines rigorous analytical principles with hands-on development:
+            architecting high-performance algorithms, leading projects from concept to validation,
+            and mentoring teams to achieve ambitious goals.
+          </p>
+        </div>
+
+        <div class="record reveal" style="--delay: 0.16s;">
+          <h3 class="record-head">Track Record</h3>
+          {trackRecord.map((t, i) => (
+            <div class="record-row">
+              <span class="record-n">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <span class="record-label">{t.label}</span>
+                <p class="record-text" set:html={t.text} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-24">
+      <p class="tag-label reveal">Core competencies</p>
+      <div class="capabilities mt-6">
+        {competencies.map((c, i) => (
+          <div class="capability reveal" style={`--delay: ${i * 0.06}s;`}>
+            <span class="cap-n">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h4>{c.title}</h4>
+              <p>{c.body}</p>
+            </div>
           </div>
         ))}
       </div>
-    </div>
-    <div class="md:col-span-3 text-lg space-y-6" style="color: var(--text-secondary);">
-      <p class="reveal">
-        I'm a Robotics Engineer pursuing my MS at <span style="color: var(--text-primary);">Columbia University</span>,
-        with a background in Mechanical Engineering from BITS Pilani. My core passion lies in solving complex problems
-        in robotics, from bio-inspired propulsion to advanced control algorithms.
-      </p>
-      <p class="reveal">
-        My approach combines rigorous analytical principles with creative, hands-on development. I thrive on architecting
-        high-performance algorithms, leading projects from concept to validation, and mentoring teams to achieve ambitious goals.
-      </p>
-      <p class="reveal">
-        Bridging the gap between abstract control theory and hardware that actually works in the real world - my work centers
-        on one goal: giving robots the mathematical intuition to navigate complex, high-stakes environments with precision.
-      </p>
-
-      <h3 class="text-xl font-bold mt-4 mb-3 reveal" style="color: var(--text-primary);">Track Record</h3>
-      <ul class="space-y-3 reveal" style="list-style: none; padding-left: 0;">
-        {trackRecord.map((t) => (
-          <li><strong style="color: var(--accent);">{t.label}</strong> <span set:html={t.text} /></li>
-        ))}
-      </ul>
-    </div>
-  </div>
-
-  <div class="mt-20">
-    <h3 class="text-2xl font-bold text-center mb-12 reveal">Core Competencies</h3>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      {competencies.map((c, i) => (
-        <div class="competency-card reveal" style={`--delay: ${i * 0.1}s;`}>
-          <i class:list={['fas', c.icon]}></i>
-          <h4>{c.title}</h4>
-          <p>{c.body}</p>
-        </div>
-      ))}
     </div>
   </div>
 </section>

@@ -2,30 +2,37 @@
 import { featuredProjects } from '../data/projects';
 ---
 
-<section id="featured-projects" class="py-24">
-  <h2 class="section-title mb-4 reveal">Featured Projects.</h2>
-  <div>
+<section id="featured-projects" class="plate">
+  <div class="shell">
+    <header class="sheet-head reveal">
+      <p class="sheet-index">02 / Case study</p>
+      <div>
+        <h2 class="section-title">Featured <em>work</em></h2>
+        <p class="sheet-lede">Two builds carried end to end — from first-principles modelling to instrumented hardware.</p>
+      </div>
+    </header>
+
     {featuredProjects.map((p, i) => (
-      <article class="case-study reveal grid md:grid-cols-12 gap-8 md:gap-12 items-center">
-        <div class:list={['case-media tick-frame md:col-span-7', i % 2 === 1 && 'md:order-2']}>
+      <article class:list={['case-study', 'reveal', i % 2 === 1 && 'flip']}>
+        <div class="case-media">
           <div class="case-media-crop">
-            <img src={p.image} alt={p.alt} loading="lazy" class="w-full h-full object-cover" />
+            <img src={p.image} alt={p.alt} loading="lazy" />
           </div>
+          <figcaption class="case-caption">
+            <span>Fig. {String(i + 1).padStart(2, '0')} — {p.title}</span>
+            <span>{String(i + 1).padStart(2, '0')} / {String(featuredProjects.length).padStart(2, '0')}</span>
+          </figcaption>
         </div>
-        <div class="md:col-span-5">
-          <p class="case-index">{String(i + 1).padStart(2, '0')} /</p>
+
+        <div>
+          <p class="case-index">{String(i + 1).padStart(2, '0')}</p>
           <h3 class="case-title">{p.title}</h3>
           <p class="case-desc">{p.description}</p>
-          <p class="case-specs">{p.tags.join(' · ')}</p>
-          <a
-            href={p.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 font-medium tracking-wide uppercase text-xs group/link"
-            style="color: var(--text-primary); font-family: var(--font-mono);"
-          >
-            <span class="border-b border-transparent group-hover/link:border-[var(--accent)] transition-colors duration-300">View on GitHub</span>
-            <i class="fab fa-github transition-transform duration-300 group-hover/link:translate-x-1" style="color: var(--accent);"></i>
+          <div class="case-specs">
+            {p.tags.map((t) => <span class="tech-tag">{t}</span>)}
+          </div>
+          <a href={p.github} target="_blank" rel="noopener noreferrer" class="link-quiet">
+            View on GitHub <span aria-hidden="true">&#8599;</span>
           </a>
         </div>
       </article>

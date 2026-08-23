@@ -38,10 +38,10 @@ const blogPostingLd = {
 
   <div class="read-progress" aria-hidden="true"></div>
 
-  <article class="pt-32 pb-24">
+  <article class="shell" style="padding-top: 10rem; padding-bottom: 6rem;">
     <div class="max-w-[68ch] mx-auto mb-10">
-      <a href="/blog" class="metadata inline-flex items-center gap-2 mb-6" style="color: var(--accent);">
-        <i class="fas fa-arrow-left"></i> All Writing
+      <a href="/blog" class="link-quiet inline-block mb-8">
+        <span aria-hidden="true">&#8592;</span> All writing
       </a>
       <div class="metadata mb-4 flex items-center gap-2 flex-wrap">
         <span>{category}</span>
@@ -50,15 +50,15 @@ const blogPostingLd = {
         <span aria-hidden="true">·</span>
         <span>{readingTime(body)} min read</span>
       </div>
-      <h1 class="section-title" style="font-size: 2.75rem; line-height: 1.1;">{title}</h1>
-      <p class="mt-6 text-xl" style="color: var(--text-secondary); font-style: italic;">{description}</p>
+      <h1 class="section-title" style="font-size: clamp(2.25rem, 5vw, 3.4rem);">{title}</h1>
+      <p class="mt-6" style="color: var(--text-secondary); font-size: 1.15rem;">{description}</p>
       <div class="flex flex-wrap gap-2 mt-5">
         {tags.map((t) => <span class="tech-tag">{t}</span>)}
       </div>
     </div>
 
     {cover && (
-      <img src={cover} alt="" class="max-w-4xl w-full mx-auto rounded-lg mb-12" style="border: 1px solid var(--border);" />
+      <img src={cover} alt="" class="max-w-4xl w-full mx-auto mb-12" style="border: 1px solid var(--border);" />
     )}
 
     <div class="prose">

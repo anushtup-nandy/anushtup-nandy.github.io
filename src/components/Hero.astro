@@ -1,34 +1,55 @@
 ---
 import { site } from '../data/site';
+import { experience } from '../data/experience';
+import { publications } from '../data/publications';
 
 // Split for the per-word mask reveal (see .reveal-words in global.css).
-// The closing two words take the technical-outline treatment.
+// The closing clause takes the italic display treatment.
 const taglineWords = site.tagline.split(' ');
-const outlineFrom = taglineWords.length - 2;
+const emFrom = taglineWords.length - 2;
+
+const current = experience[0];
+const readout = [
+  { k: 'Current', v: `${current.title}, ${current.org.split('·')[0].trim()}` },
+  { k: 'Focus', v: 'Motion planning · MPC · Sim-to-real' },
+  { k: 'Published', v: `${publications.length} peer-reviewed papers` },
+  { k: 'Based', v: site.location },
+];
 ---
 
 <section id="home">
-  <canvas id="hero-canvas" aria-hidden="true"></canvas>
-  <div class="hero-inner">
-    <p class="hero-eyebrow mb-5 reveal">
-      <span class="status-dot" aria-hidden="true"></span>{site.role}
-    </p>
-    <h1 class="reveal reveal-words" style="--delay: 0.06s;">
-      {taglineWords.map((w, i) => (
-        <><span class:list={['word', i >= outlineFrom && 'word-outline']} style={`--wi: ${i};`}><span>{w}</span></span>{i === 1 && <br class="hidden md:inline" />}</>
-      ))}
-    </h1>
-    <p class="hero-sub text-lg reveal" style="--delay: 0.26s;">
-      I'm a Robotics Engineer and Researcher at the intersection of motion planning, deep learning and control theory.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 reveal" style="--delay: 0.38s;">
-      <a href="/#projects" class="btn btn-primary">View My Work <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
-      <a href="/#contact" class="btn btn-secondary">Get In Touch</a>
-      <a href="/pdfs/AnushtupNandyCV.pdf" target="_blank" rel="noopener" class="btn btn-secondary">Resume <i class="fas fa-file-pdf" aria-hidden="true"></i></a>
+  <div class="shell hero-body">
+    <div class="hero-inner">
+      <p class="hero-eyebrow reveal">
+        <span class="status-dot" aria-hidden="true"></span>{site.role}
+      </p>
+      <h1 class="reveal reveal-words" style="--delay: 0.06s;">
+        {taglineWords.map((w, i) => (
+          <><span class:list={['word', i >= emFrom && 'word-em']} style={`--wi: ${i};`}><span>{w}</span></span>{i === 1 && <br class="hidden md:inline" />}</>
+        ))}
+      </h1>
+      <p class="hero-sub reveal" style="--delay: 0.3s;">
+        I'm a Robotics Engineer and Researcher at the intersection of motion planning, deep learning and control theory.
+      </p>
+      <div class="hero-cta reveal" style="--delay: 0.42s;">
+        <a href="/#projects" class="btn btn-primary">View my work <span class="arrow" aria-hidden="true">&#8594;</span></a>
+        <a href="/pdfs/AnushtupNandyCV.pdf" target="_blank" rel="noopener" class="btn btn-secondary">
+          Resume <span class="arrow" aria-hidden="true">&#8599;</span>
+        </a>
+        <a href="/#contact" class="link-quiet">Get in touch</a>
+      </div>
     </div>
-  </div>
-  <div class="hero-foot reveal" style="--delay: 0.55s;" aria-hidden="true">
-    <span class="scroll-cue"><span class="scroll-line"></span>Scroll</span>
+
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+    <dl class="hero-readout reveal" style="--delay: 0.58s;">
+      {readout.map((r) => (
+        <div class="readout-cell">
+          <dt>{r.k}</dt>
+          <dd>{r.v}</dd>
+        </div>
+      ))}
+    </dl>
   </div>
 </section>
 
@@ -40,7 +61,7 @@ const outlineFrom = taglineWords.length - 2;
   const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
   if (canvas) {
     const ctx = canvas.getContext('2d')!;
-    const section = canvas.parentElement as HTMLElement;
+    const section = document.getElementById('home') as HTMLElement;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const cssVar = (n: string, f: string) =>
@@ -79,36 +100,43 @@ const outlineFrom = taglineWords.length - 2;
       canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const mobile = W < 768;
-      hud = !mobile;
-      bx = W * (mobile ? 0.72 : 0.7);
-      by = H * (mobile ? 0.86 : 0.8);
-      rMax = Math.min(W, H) * (mobile ? 0.42 : 0.55);
+      const narrow = !mobile && W < 1100;
+      // Telemetry only where there is room for it below the arm.
+      hud = !mobile && !narrow;
+      bx = W * (mobile ? 0.52 : narrow ? 0.85 : 0.82);
+      by = H * (mobile ? 0.93 : narrow ? 0.7 : 0.78);
+      // Mobile gets a short, wide band — clamp against a scaled height so the
+      // arm still fills it instead of collapsing to the band's thickness.
+      rMax = mobile
+        ? Math.min(W, H * 1.6) * 0.44
+        : Math.min(W, H) * (narrow ? 0.36 : 0.46);
       L1 = rMax * 0.56;
       L2 = rMax * 0.44;
       rMin = L1 - L2;
-      ox = bx - rMax * (mobile ? 0.2 : 0.5);
-      oy = by - rMax * 0.52;
-      oa = rMax * 0.32;
-      ob = rMax * 0.2;
+      ox = bx - rMax * (mobile ? 0.34 : 0.45);
+      oy = by - rMax * (mobile ? 0.6 : 0.55);
+      oa = rMax * (mobile ? 0.4 : 0.3);
+      ob = rMax * (mobile ? 0.22 : 0.19);
       [tx, ty] = orbitAt(0);
       [mx, my] = [tx, ty];
       trace.length = 0;
     };
 
-    const deg = (a: number) => `${((wrap(a) * 180) / Math.PI).toFixed(1).padStart(6, ' ')}°`;
+    const deg = (a: number) => `${((wrap(a) * 180) / Math.PI).toFixed(1).padStart(6, ' ')}\u00b0`;
 
     const draw = (tracking: boolean) => {
-      const accent = cssVar('--accent', '#ff6a3d');
-      const cyan = cssVar('--blueprint', '#5cc8e0');
-      const steel = cssVar('--text-secondary', '#8a94a3');
-      const bg = cssVar('--bg-primary', '#0d1014');
+      const accent = cssVar('--accent', '#e85d2f');
+      const trc = cssVar('--trace', '#7ba3b5');
+      const steel = cssVar('--text-secondary', '#9b9b99');
+      const faint = cssVar('--text-faint', '#5e5e5d');
+      const bg = cssVar('--bg-primary', '#0b0b0c');
 
       ctx.clearRect(0, 0, W, H);
 
       // Reach envelope — the workspace boundary, faint and dashed.
-      ctx.setLineDash([3, 9]);
-      ctx.strokeStyle = steel;
-      ctx.globalAlpha = 0.28;
+      ctx.setLineDash([2, 10]);
+      ctx.strokeStyle = faint;
+      ctx.globalAlpha = 0.5;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.arc(bx, by, rMax, Math.PI, Math.PI * 2);
@@ -116,7 +144,7 @@ const outlineFrom = taglineWords.length - 2;
 
       // Idle: show the reference orbit the controller is following.
       if (!tracking) {
-        ctx.globalAlpha = 0.22;
+        ctx.globalAlpha = 0.32;
         ctx.beginPath();
         for (let i = 0; i <= 160; i++) {
           const [x, y] = orbitAt((i / 160) * Math.PI * 2);
@@ -129,7 +157,8 @@ const outlineFrom = taglineWords.length - 2;
 
       // Fixed support: pedestal + ground hatching, straight off the drawing sheet.
       ctx.strokeStyle = steel;
-      ctx.lineWidth = 1.5;
+      ctx.globalAlpha = 0.75;
+      ctx.lineWidth = 1.25;
       ctx.beginPath();
       ctx.moveTo(bx - 7, by + 3);
       ctx.lineTo(bx - 13, by + 15);
@@ -143,6 +172,7 @@ const outlineFrom = taglineWords.length - 2;
         ctx.lineTo(x, by + 24);
       }
       ctx.stroke();
+      ctx.globalAlpha = 1;
 
       // Forward kinematics.
       const ex = bx + L1 * Math.cos(a1), ey = by + L1 * Math.sin(a1);
@@ -150,11 +180,11 @@ const outlineFrom = taglineWords.length - 2;
 
       // End-effector trace: alpha ramps toward the tip, so holding still clears it.
       trace.push([hx, hy]);
-      if (trace.length > 130) trace.shift();
-      ctx.strokeStyle = cyan;
-      ctx.lineWidth = 1.4;
+      if (trace.length > 140) trace.shift();
+      ctx.strokeStyle = trc;
+      ctx.lineWidth = 1.2;
       for (let i = 1; i < trace.length; i++) {
-        ctx.globalAlpha = (i / trace.length) * 0.5;
+        ctx.globalAlpha = (i / trace.length) * 0.55;
         ctx.beginPath();
         ctx.moveTo(trace[i - 1][0], trace[i - 1][1]);
         ctx.lineTo(trace[i][0], trace[i][1]);
@@ -165,7 +195,7 @@ const outlineFrom = taglineWords.length - 2;
       // Links.
       ctx.strokeStyle = steel;
       ctx.lineCap = 'round';
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
       ctx.moveTo(bx, by);
       ctx.lineTo(ex, ey);
@@ -175,7 +205,7 @@ const outlineFrom = taglineWords.length - 2;
       // Gripper prongs along the wrist direction.
       const dir = a1 + a2;
       ctx.strokeStyle = accent;
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1.8;
       ctx.beginPath();
       for (const off of [-0.5, 0.5]) {
         ctx.moveTo(hx, hy);
@@ -184,14 +214,14 @@ const outlineFrom = taglineWords.length - 2;
       ctx.stroke();
 
       // Joints: instrument circles over the linework.
-      const joints: [number, number, number][] = [[bx, by, 6], [ex, ey, 4.5]];
+      const joints: [number, number, number][] = [[bx, by, 5.5], [ex, ey, 4], [hx, hy, 2.5]];
       for (const [jx, jy, r] of joints) {
         ctx.beginPath();
         ctx.arc(jx, jy, r, 0, Math.PI * 2);
         ctx.fillStyle = bg;
         ctx.fill();
         ctx.strokeStyle = accent;
-        ctx.lineWidth = 1.6;
+        ctx.lineWidth = 1.4;
         ctx.stroke();
       }
 
@@ -199,29 +229,25 @@ const outlineFrom = taglineWords.length - 2;
       const dirs: [number, number][] = [[1, 0], [-1, 0], [0, 1], [0, -1]];
       ctx.strokeStyle = accent;
       ctx.fillStyle = accent;
-      ctx.globalAlpha = tracking ? 0.95 : 0.55;
-      ctx.lineWidth = 1.4;
+      ctx.globalAlpha = tracking ? 0.9 : 0.45;
+      ctx.lineWidth = 1.2;
       ctx.beginPath();
       for (const [ux, uy] of dirs) {
-        ctx.moveTo(mx + ux * 4, my + uy * 4);
-        ctx.lineTo(mx + ux * 13, my + uy * 13);
+        ctx.moveTo(mx + ux * 5, my + uy * 5);
+        ctx.lineTo(mx + ux * 14, my + uy * 14);
       }
       ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(mx, my, 1.8, 0, Math.PI * 2);
-      ctx.fill();
       ctx.globalAlpha = 1;
 
       // Telemetry readout — live joint state, not decoration.
       if (hud) {
-        ctx.font = '10px "IBM Plex Mono", monospace';
+        ctx.font = '9.5px "IBM Plex Mono", monospace';
         ctx.textAlign = 'right';
         ctx.fillStyle = accent;
-        ctx.fillText(tracking ? '● TRACKING' : '○ IDLE', W - 28, H - 46);
-        ctx.fillStyle = steel;
-        ctx.globalAlpha = 0.9;
-        ctx.fillText(`θ1 ${deg(a1)}  θ2 ${deg(a2)}  EE ${Math.round(hx)},${Math.round(hy)}`, W - 28, H - 28);
-        ctx.globalAlpha = 1;
+        ctx.fillText(tracking ? 'TRACKING' : 'IDLE', W - 32, H - 156);
+        ctx.fillStyle = faint;
+        ctx.fillText(`\u03b81 ${deg(a1)}   \u03b82 ${deg(a2)}`, W - 32, H - 140);
+        ctx.fillText(`ee ${Math.round(hx)}, ${Math.round(hy)}`, W - 32, H - 124);
         ctx.textAlign = 'left';
       }
     };
@@ -263,15 +289,20 @@ const outlineFrom = taglineWords.length - 2;
     if (reduce) staticFrame();
     else loop();
 
+    // Re-measure whenever the element's box changes — window resize alone
+    // misses the reflow that lands when the display webfont finishes loading.
     let rt: number;
-    window.addEventListener('resize', () => {
+    const relayout = () => {
       clearTimeout(rt);
       rt = window.setTimeout(() => {
+        if (canvas.clientWidth === W && canvas.clientHeight === H) return;
         cancelAnimationFrame(raf);
         resize();
         if (reduce) staticFrame();
         else loop();
-      }, 200);
-    });
+      }, 150);
+    };
+    if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(canvas);
+    else window.addEventListener('resize', relayout);
   }
 </script>

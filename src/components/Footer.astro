@@ -1,16 +1,26 @@
 ---
 import { site } from '../data/site';
 const year = 2026;
+
+const links = [
+  { href: `mailto:${site.email}`, label: 'Email', external: false },
+  { href: site.socials.linkedin, label: 'LinkedIn', external: true },
+  { href: site.socials.github, label: 'GitHub', external: true },
+  { href: '/rss.xml', label: 'RSS', external: false },
+];
 ---
 
-<footer class="border-t" style="border-color: var(--border);">
-  <div class="container mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center text-sm gap-4">
-    <p style="color: var(--text-secondary);">© {year} {site.name}. All rights reserved.</p>
-    <div class="flex space-x-6 text-xl items-center">
-      <a href="/rss.xml" aria-label="RSS feed" class="social-link"><i class="fas fa-rss"></i></a>
-      <a href={`mailto:${site.email}`} aria-label="Email" class="social-link"><i class="fas fa-envelope"></i></a>
-      <a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin"></i></a>
-      <a href={site.socials.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-link"><i class="fab fa-github"></i></a>
+<footer>
+  <div class="shell">
+    <div class="footer-bar">
+      <p class="metadata">© {year} {site.name} · {site.location}</p>
+      <div class="footer-links">
+        {links.map((l) => (
+          <a href={l.href} {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+            {l.label}
+          </a>
+        ))}
+      </div>
     </div>
   </div>
 </footer>

@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout title={`Page not found — ${site.name}`} description="That page doesn't exist.">
+  <section class="plate" style="padding-top: 11rem; min-height: 70svh;">
+    <div class="shell">
+      <header class="sheet-head">
+        <p class="sheet-index">404 / No route</p>
+        <div>
+          <h1 class="section-title">Nothing at <em>this address</em></h1>
+          <p class="sheet-lede">
+            The page you asked for doesn't exist — or it moved. Everything lives on the front page.
+          </p>
+        </div>
+      </header>
+
+      <div class="channels">
+        <a href="/" class="channel">
+          <span class="channel-key">Home</span>
+          <span class="channel-val">Back to the front page</span>
+          <span class="channel-go" aria-hidden="true">&#8594;</span>
+        </a>
+        <a href="/#projects" class="channel">
+          <span class="channel-key">Projects</span>
+          <span class="channel-val">The full index of work</span>
+          <span class="channel-go" aria-hidden="true">&#8594;</span>
+        </a>
+        <a href="/blog" class="channel">
+          <span class="channel-key">Writing</span>
+          <span class="channel-val">Notes on control and planning</span>
+          <span class="channel-go" aria-hidden="true">&#8594;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

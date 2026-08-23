@@ -23,57 +23,66 @@ type Stop =
 const stops: Stop[] = [];
 roles.forEach((r, i) => {
   if (i === roles.length - 1) {
-    stops.push({ kind: 'break', year: '↩', org: 'Pivot', heading: careerBreak.heading, body: careerBreak.body, note: careerBreak.note });
+    stops.push({ kind: 'break', year: 'PIVOT', org: 'To India', heading: careerBreak.heading, body: careerBreak.body, note: careerBreak.note });
   }
   stops.push({ kind: 'role', year: yearOf(r.period), org: shortOrg(r.org), title: r.title, period: r.period, fullOrg: r.org, detail: r.detail });
 });
 const activeDefault = stops.length - 1; // current role
 ---
 
-<section id="experience" class="py-24">
-  <div class="text-center mb-4">
-    <p class="section-eyebrow justify-center" style="margin-bottom:0;">// trajectory</p>
-    <h2 class="section-title reveal">Career Trajectory.</h2>
-  </div>
+<section id="experience" class="plate">
+  <div class="shell">
+    <header class="sheet-head reveal">
+      <p class="sheet-index">03 / Trajectory</p>
+      <div>
+        <h2 class="section-title">Career <em>trajectory</em></h2>
+        <p class="sheet-lede">Scrub the rail. Each stop is a system I owned, and what it cost to make it work.</p>
+      </div>
+    </header>
 
-  <div class="trajectory reveal" data-active={activeDefault}>
-    <div class="trajectory-rail" role="tablist" aria-label="Career timeline">
-      <div class="trajectory-track" aria-hidden="true"></div>
-      <div class="trajectory-fill" aria-hidden="true"></div>
-      {stops.map((s, i) => (
-        <button
-          class:list={['traj-node', s.kind === 'break' && 'is-break', i === activeDefault && 'active']}
-          data-index={i}
-          role="tab"
-          aria-selected={i === activeDefault ? 'true' : 'false'}
-          aria-label={`${s.kind === 'role' ? s.title : s.heading} — ${s.year}`}
-        >
-          <span class="traj-dot"></span>
-          <span class="traj-year">{s.year}</span>
-          <span class="traj-org">{s.org}</span>
-        </button>
-      ))}
-    </div>
+    <div class="trajectory reveal" data-active={activeDefault}>
+      <div class="trajectory-rail" role="tablist" aria-label="Career timeline">
+        <div class="trajectory-track" aria-hidden="true"></div>
+        <div class="trajectory-fill" aria-hidden="true"></div>
+        {stops.map((s, i) => (
+          <button
+            class:list={['traj-node', s.kind === 'break' && 'is-break', i === activeDefault && 'active']}
+            data-index={i}
+            role="tab"
+            aria-selected={i === activeDefault ? 'true' : 'false'}
+            aria-label={`${s.kind === 'role' ? s.title : s.heading} \u2014 ${s.year}`}
+          >
+            <span class="traj-dot"></span>
+            <span class="traj-year">{s.year}</span>
+            <span class="traj-org">{s.org}</span>
+          </button>
+        ))}
+      </div>
 
-    <div class="trajectory-panel">
-      {stops.map((s, i) => (
-        <div class="traj-detail" data-index={i} hidden={i !== activeDefault}>
-          {s.kind === 'role' ? (
-            <>
-              <p class="traj-period">{s.period}</p>
-              <h3 class="traj-title">{s.title}</h3>
-              <p class="traj-suborg">{s.fullOrg}</p>
-              <p class="traj-text">{s.detail}</p>
-            </>
-          ) : (
-            <>
-              <p class="traj-period"><i class="fas fa-location-arrow"></i> {s.note}</p>
-              <h3 class="traj-title" style="color: var(--accent);">{s.heading}</h3>
-              <p class="traj-text">{s.body}</p>
-            </>
-          )}
-        </div>
-      ))}
+      <div class="trajectory-panel">
+        {stops.map((s, i) => (
+          <div class="traj-detail" data-index={i} hidden={i !== activeDefault}>
+            {s.kind === 'role' ? (
+              <>
+                <div>
+                  <p class="traj-period">{s.period}</p>
+                  <h3 class="traj-title">{s.title}</h3>
+                  <p class="traj-suborg">{s.fullOrg}</p>
+                </div>
+                <p class="traj-text">{s.detail}</p>
+              </>
+            ) : (
+              <>
+                <div>
+                  <p class="traj-period">{s.note}</p>
+                  <h3 class="traj-title">{s.heading}</h3>
+                </div>
+                <p class="traj-text">{s.body}</p>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>
@@ -88,9 +97,12 @@ const activeDefault = stops.length - 1; // current role
     const details = [...root.querySelectorAll<HTMLElement>('.traj-detail')];
     let active = Number(root.dataset.active) || 0;
 
+    // Measure the dot, not the node: the nodes are left-aligned, so a node's
+    // centre is nowhere near its marker.
     const centerX = (n: HTMLElement) => {
       const rr = rail.getBoundingClientRect();
-      const nr = n.getBoundingClientRect();
+      const dot = n.querySelector('.traj-dot') ?? n;
+      const nr = dot.getBoundingClientRect();
       return nr.left + nr.width / 2 - rr.left;
     };
 

@@ -2,20 +2,32 @@
 import { publications } from '../data/publications';
 ---
 
-<section id="publications" class="py-24">
-  <h2 class="section-title text-center mb-12 reveal">Publications.</h2>
-  <div class="max-w-4xl mx-auto p-8 rounded-2xl border" style="background: var(--bg-secondary); border-color: var(--border);">
-    <div class="divide-y" style="border-color: var(--border);">
-      {publications.map((pub) => (
-        <div class="publication-item reveal">
+<section id="publications" class="plate">
+  <div class="shell">
+    <header class="sheet-head reveal">
+      <p class="sheet-index">05 / Papers</p>
+      <div>
+        <h2 class="section-title">Publications</h2>
+      </div>
+    </header>
+
+    <div class="pub-list">
+      {publications.map((pub, i) => (
+        <article class="publication-item reveal">
+          <span class="pub-n">{String(i + 1).padStart(2, '0')}</span>
           <div>
             <h3>{pub.title}</h3>
-            <p><span set:html={pub.authors} /><br /><em>{pub.venue}</em></p>
+            <p class="pub-authors">
+              <span set:html={pub.authors} />
+              <span class="pub-venue">{pub.venue}</span>
+            </p>
           </div>
-          <a href={pub.pdf} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-            PDF <i class="fas fa-file-pdf ml-2"></i>
-          </a>
-        </div>
+          <div class="pub-pdf">
+            <a href={pub.pdf} target="_blank" rel="noopener noreferrer" class="link-quiet">
+              PDF <span aria-hidden="true">&#8599;</span>
+            </a>
+          </div>
+        </article>
       ))}
     </div>
   </div>

@@ -8,50 +8,60 @@ const filters = [
   { key: 'web', label: 'Web Apps' },
   { key: 'research', label: 'Research' },
 ];
+
+// Publication-backed work has no repo: point it at the papers section rather
+// than shipping a dead `#` link. Pending work stays inert, styled as inert.
+const destination = (p: (typeof projects)[number]) =>
+  p.github ?? (p.publication === 'See Publication' ? '/#publications' : null);
 ---
 
-<section id="projects" class="py-24">
-  <h2 class="section-title text-center mb-4 reveal">Selected Projects.</h2>
-  <p class="max-w-2xl mx-auto text-center mb-8 reveal" style="color: var(--text-secondary);">
-    A collection of my work spanning robotics, AI/ML, and autonomous systems.
-  </p>
-
-  <div class="text-center mb-12 reveal">
-    <div class="category-filter">
-      <span class="filter-indicator" aria-hidden="true"></span>
-      {filters.map((f, i) => (
-        <button class:list={['filter-btn', i === 0 && 'active']} data-category={f.key} aria-pressed={i === 0}>
-          {f.label}
-        </button>
-      ))}
-    </div>
-  </div>
-
-  <div class="projects-grid">
-    {projects.map((p) => (
-      <div class:list={['project-card', 'reveal', p.featured && 'featured']} data-category={p.categories.join(' ')}>
-        <span class="category-tag">{p.badge}</span>
-        {p.image && (
-          <div class="project-card-bg"><img src={p.image} alt="" loading="lazy" /></div>
-        )}
-        <div class="card-body">
-          <h3 class="font-bold text-xl mb-2">{p.title}</h3>
-          <p class="text-sm mb-4">{p.description}</p>
-          <div class="flex flex-wrap gap-2 text-sm">
-            {p.tags.map((t) => <span class="tech-tag">{t}</span>)}
-          </div>
-        </div>
-        <div class="card-footer">
-          {p.github ? (
-            <a href={p.github} target="_blank" rel="noopener noreferrer" class="social-link" aria-label={`${p.title} on GitHub`}>
-              <i class="fab fa-github"></i>
-            </a>
-          ) : (
-            <span class="publication-tag">{p.publication}</span>
-          )}
+<section id="projects" class="plate">
+  <div class="shell">
+    <header class="sheet-head reveal">
+      <p class="sheet-index">04 / Index</p>
+      <div>
+        <h2 class="section-title">Selected <em>projects</em></h2>
+        <p class="sheet-lede">A collection of my work spanning robotics, AI/ML, and autonomous systems.</p>
+        <div class="category-filter mt-8">
+          <span class="filter-indicator" aria-hidden="true"></span>
+          {filters.map((f, i) => (
+            <button class:list={['filter-btn', i === 0 && 'active']} data-category={f.key} aria-pressed={i === 0}>
+              {f.label}
+            </button>
+          ))}
         </div>
       </div>
-    ))}
+    </header>
+
+    <ul class="work-index">
+      {projects.map((p, i) => {
+        const href = destination(p);
+        const external = Boolean(p.github);
+        const Row = href ? 'a' : 'div';
+        return (
+          <li class:list={['project-card', 'reveal', p.featured && 'featured']} data-category={p.categories.join(' ')}>
+            <Row
+              class="work-link"
+              data-image={p.image}
+              {...(href ? { href } : {})}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              {...(href ? {} : { 'data-pending': 'true' })}
+            >
+              <span class="work-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="work-head">
+                <span class="work-title">{p.title}</span>
+                {href && <span class="work-go" aria-hidden="true">{external ? '↗' : '→'}</span>}
+              </span>
+              <span class="work-desc">{p.description}</span>
+              <span class="work-meta">
+                {p.tags.map((t) => <span class="tech-tag">{t}</span>)}
+              </span>
+              <span class="work-kind">{href ? p.badge : p.publication}</span>
+            </Row>
+          </li>
+        );
+      })}
+    </ul>
   </div>
 </section>
 
@@ -95,9 +105,9 @@ const filters = [
       }
       moveThumb(button);
 
-      // Naming each card hands the grid reflow to the browser: surviving cards
-      // are FLIPped into their new slots, dropped ones fade out. Names are
-      // cleared afterwards so they never affect ordinary hover/paint.
+      // Naming each row hands the reflow to the browser: survivors are FLIPped
+      // into their new slots, dropped ones fade out. Names are cleared afterwards
+      // so they never affect ordinary hover/paint.
       if (reduce || !startViewTransition) return applyFilter(category);
       cards.forEach((c, i) => c.style.setProperty('view-transition-name', `pcard-${i}`));
       startViewTransition(() => applyFilter(category)).finished.finally(() => {
@@ -123,4 +133,46 @@ const filters = [
       if (b) moveThumb(b);
     }, 150);
   });
+
+  // ---- Hover preview plate. One reused element, pointer-driven, desktop only.
+  // An index row can't show its image inline without becoming a card again, so
+  // the image comes to the cursor instead.
+  const rows = [...document.querySelectorAll<HTMLElement>('.work-link[data-image]')];
+  const fine = window.matchMedia('(hover: hover) and (min-width: 1024px)').matches;
+  if (rows.length && fine && !reduce) {
+    const peek = document.createElement('div');
+    peek.className = 'work-peek';
+    peek.setAttribute('aria-hidden', 'true');
+    const img = document.createElement('img');
+    img.alt = '';
+    peek.appendChild(img);
+    document.body.appendChild(peek);
+
+    let raf = 0;
+    let px = 0;
+    let py = 0;
+    const place = () => {
+      raf = 0;
+      peek.style.setProperty('--px', `${px}px`);
+      peek.style.setProperty('--py', `${py}px`);
+    };
+
+    for (const row of rows) {
+      row.addEventListener('pointerenter', () => {
+        const src = row.dataset.image;
+        if (!src) return;
+        if (img.getAttribute('src') !== src) img.src = src;
+        peek.classList.add('on');
+      });
+      row.addEventListener('pointerleave', () => peek.classList.remove('on'));
+      row.addEventListener('pointermove', (e) => {
+        // Keep the plate on screen: flip left of the cursor near the right edge.
+        const w = peek.offsetWidth || 320;
+        const h = peek.offsetHeight || 240;
+        px = Math.min(e.clientX + 28, window.innerWidth - w - 16);
+        py = Math.min(Math.max(e.clientY - h / 2, 16), window.innerHeight - h - 16);
+        if (!raf) raf = requestAnimationFrame(place);
+      });
+    }
+  }
 </script>

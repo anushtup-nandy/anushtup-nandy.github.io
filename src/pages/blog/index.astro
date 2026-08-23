@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SectionDivider from '../../components/SectionDivider.astro';
 import { formatDate, readingTime } from '../../utils';
 import { site } from '../../data/site';
 
@@ -13,71 +12,84 @@ const categories = ['All', ...new Set(posts.map((p) => p.data.category))];
 ---
 
 <BaseLayout
-  title={`Writing | ${site.name}`}
+  title={`Writing — ${site.name}`}
   description="Notes on control, motion planning, sim-to-real, paper deep-dives, and hardware build logs."
 >
-  <section class="pt-32 pb-12 text-center">
-    <p class="hero-eyebrow mb-3">Field Notes</p>
-    <h1 class="section-title">Writing.</h1>
-  </section>
-
-  <SectionDivider />
-
-  <section class="pb-32">
-    {posts.length === 0 ? (
-      <div class="coming-soon">
-        <span class="coming-soon-tag">// status: drafting</span>
-        <h2>Coming soon …</h2>
-        <p>Derivations, sim-to-real notes, and build logs are on the way.</p>
-      </div>
-    ) : (
-      <>
-        <div class="category-filter">
-          {categories.map((c, i) => (
-            <button class:list={['filter-btn', i === 0 && 'active']} data-category={c}>{c}</button>
-          ))}
+  <section class="plate" style="padding-top: 11rem;">
+    <div class="shell">
+      <header class="sheet-head">
+        <p class="sheet-index">00 / Field notes</p>
+        <div>
+          <h1 class="section-title">Writing</h1>
+          <p class="sheet-lede">Derivations, sim-to-real notes, paper deep-dives, and build logs.</p>
         </div>
+      </header>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {posts.map((post) => (
-            <a href={`/blog/${post.id}/`} class="blog-card" data-category={post.data.category}>
-              {post.data.cover && (
-                <div class="blog-card-cover"><img src={post.data.cover} alt="" loading="lazy" /></div>
-              )}
-              <div class="blog-card-body">
-                <div class="metadata mb-3 flex items-center gap-2 flex-wrap">
-                  <span>{post.data.category}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{formatDate(post.data.pubDate)}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{readingTime(post.body)} min</span>
-                </div>
-                <h3>{post.data.title}</h3>
-                <p>{post.data.description}</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                  {post.data.tags.slice(0, 3).map((t) => <span class="tech-tag">{t}</span>)}
-                </div>
-              </div>
-            </a>
-          ))}
+      {posts.length === 0 ? (
+        <div class="coming-soon">
+          <span class="coming-soon-tag">Status: drafting</span>
+          <div>
+            <h2>Nothing published yet</h2>
+            <p>Derivations, sim-to-real notes, and build logs are on the way. The RSS feed is live if you want them as they land.</p>
+            <p class="mt-5"><a href="/rss.xml" class="link-quiet">Subscribe via RSS <span aria-hidden="true">&#8599;</span></a></p>
+          </div>
         </div>
-      </>
-    )}
+      ) : (
+        <>
+          <div class="category-filter mb-10">
+            <span class="filter-indicator" aria-hidden="true"></span>
+            {categories.map((c, i) => (
+              <button class:list={['filter-btn', i === 0 && 'active']} data-category={c}>{c}</button>
+            ))}
+          </div>
+
+          <div style="border-top: 1px solid var(--border);">
+            {posts.map((post, i) => (
+              <a href={`/blog/${post.id}/`} class="blog-card" data-category={post.data.category}>
+                <span class="blog-n">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.description}</p>
+                </div>
+                <div class="metadata" style="padding-top: 0.4rem;">
+                  {post.data.category} · {formatDate(post.data.pubDate)} · {readingTime(post.body)} min
+                </div>
+              </a>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
   </section>
 
   <script>
-    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-    const cards = document.querySelectorAll<HTMLElement>('.blog-card');
-    buttons.forEach((button) => {
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>('.filter-btn')];
+    const cards = [...document.querySelectorAll<HTMLElement>('.blog-card')];
+    const thumb = document.querySelector<HTMLElement>('.filter-indicator');
+
+    const moveThumb = (btn: HTMLElement) => {
+      if (!thumb) return;
+      thumb.style.width = `${btn.offsetWidth}px`;
+      thumb.style.height = `${btn.offsetHeight}px`;
+      thumb.style.setProperty('--fx', `${btn.offsetLeft}px`);
+      thumb.style.setProperty('--fy', `${btn.offsetTop}px`);
+    };
+
+    for (const button of buttons) {
       button.addEventListener('click', () => {
         const cat = button.dataset.category || 'All';
-        buttons.forEach((b) => b.classList.remove('active'));
-        button.classList.add('active');
-        cards.forEach((card) => {
-          const show = cat === 'All' || card.dataset.category === cat;
-          card.style.display = show ? '' : 'none';
-        });
+        for (const b of buttons) b.classList.toggle('active', b === button);
+        moveThumb(button);
+        for (const card of cards) {
+          card.style.display = cat === 'All' || card.dataset.category === cat ? '' : 'none';
+        }
       });
+    }
+
+    requestAnimationFrame(() => {
+      const b = buttons.find((x) => x.classList.contains('active'));
+      if (b) moveThumb(b);
+      requestAnimationFrame(() => thumb?.classList.add('ready'));
     });
   </script>
 </BaseLayout>

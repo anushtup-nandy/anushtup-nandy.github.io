@@ -3,21 +3,27 @@ import { site, nav } from '../data/site';
 ---
 
 <header class="fixed top-0 left-0 w-full z-50">
-  <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-    <a href="/" class="text-xl font-bold tracking-wider brand-mark" aria-label={`${site.name} — home`}>
-      {site.initials}<span class="brand-dot" aria-hidden="true"></span>
-    </a>
-    <div class="hidden md:flex items-center space-x-1">
-      {nav.map((item) => <a href={item.href} class="nav-link">{item.label}</a>)}
-      <button id="theme-toggle" aria-label="Toggle color theme" class="focus:outline-none">
-        <i class="fas fa-sun text-lg"></i>
-        <i class="fas fa-moon text-lg hidden"></i>
+  <div class="shell">
+    <nav class="nav-bar" aria-label="Primary">
+      <a href="/" class="brand-mark" aria-label={`${site.name} — home`}>
+        {site.initials}<span class="brand-sub" aria-hidden="true">Robotics &amp; Control</span>
+      </a>
+
+      <div class="hidden md:flex items-center">
+        {nav.map((item) => <a href={item.href} class="nav-link">{item.label}</a>)}
+        <button id="theme-toggle" type="button" aria-label="Toggle colour theme">
+          <svg viewBox="0 0 20 20" width="13" height="13" aria-hidden="true">
+            <circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.2" />
+            <path d="M10 2.75a7.25 7.25 0 0 0 0 14.5z" fill="currentColor" />
+          </svg>
+        </button>
+      </div>
+
+      <button class="md:hidden menu-btn" type="button" aria-label="Open menu">
+        <span></span><span></span>
       </button>
-    </div>
-    <button class="md:hidden mobile-menu-button focus:outline-none" aria-label="Open menu">
-      <i class="fas fa-bars text-xl"></i>
-    </button>
-  </nav>
+    </nav>
+  </div>
 </header>
 
 <div class="mobile-menu">
