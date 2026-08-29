@@ -8,10 +8,22 @@ const education = [
 ];
 
 const competencies = [
-  { title: 'Robotics development', body: 'Concept to hardware - CAD, ROS, C++, Python.' },
-  { title: 'Algorithm design', body: 'Motion planning (D-PRM*, RRT*), RL, MPC.' },
-  { title: 'Data-driven validation', body: 'Instrumentation (NI DAQ) and analysis in Python/OpenCV.' },
-  { title: 'Project leadership', body: 'Mentoring, funding, and shipping results.' },
+  {
+    title: 'Optimal control & planning',
+    body: 'MPC with recursive feasibility via convex decomposition. Deterministic 24-DOF SE(3) planning with Sobol-sampled D-PRM*. Solvers that hold their deadline.',
+  },
+  {
+    title: 'Real-time systems',
+    body: 'Lock-free C++ at a hard 20 Hz - zero-copy POSIX shared memory, seqlock reads, and compile-time schema validation across a Python bridge.',
+  },
+  {
+    title: 'Learning that has to ship',
+    body: 'Transformer-based MPC, RL policies, Gaussian-process system ID. Trained in MuJoCo and PyBullet, validated against instrumented hardware - not a leaderboard.',
+  },
+  {
+    title: 'End-to-end ownership',
+    body: 'Team of 5, first-principles derivation through deployment. Funding secured, papers published, hardware in the field.',
+  },
 ];
 
 // `text` is trusted authored markup (rendered with set:html below). The figures
@@ -66,14 +78,15 @@ const trackRecord = [
 
         <div class="about-body reveal" style="--delay: 0.1s;">
           <p>
-            Robotics engineer with an MS from <strong>Columbia University</strong> and a Mechanical
-            Engineering background from <strong>BITS Pilani</strong>. My core passion lies in solving
-            complex problems in robotics, from bio-inspired propulsion to advanced control algorithms.
+            Mechanical engineering at <strong>BITS Pilani</strong>, research under Howie Choset at
+            <strong>Carnegie Mellon</strong>, an MS at <strong>Columbia</strong>'s ROAR Lab, and surgical
+            robotics at <strong>Neocis</strong> in Miami. Four institutions, one thread: I want to know why
+            a system behaves the way it does, and then I want to make it behave.
           </p>
           <p>
-            My approach combines rigorous analytical principles with hands-on development:
-            architecting high-performance algorithms, leading projects from concept to validation,
-            and mentoring teams to achieve ambitious goals.
+            Which means the math is never decoration. A planner is only as good as the C++ underneath it,
+            a model is only as good as the system ID behind it, and neither counts until it holds on
+            hardware someone is paying for. I build all three layers.
           </p>
         </div>
 

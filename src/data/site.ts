@@ -1,14 +1,14 @@
 export const site = {
   name: 'Anushtup Nandy',
   initials: 'AN',
-  role: 'Robotics & Control Systems Engineer',
-  tagline: 'Designing intelligent autonomous systems.',
+  role: 'AI & Robotics Systems Engineer',
+  tagline: 'Systems that survive contact.',
   positioning:
-    "I give robots the mathematical intuition to move through hard, high-stakes spaces — first-principles math to hardware that ships.",
+    'I take hard problems from proof to production — convex optimisation and learned policies on one side, lock-free C++ and real hardware on the other. Most engineers pick a side; the interesting work is the seam.',
   description:
-    'Portfolio and writing of Anushtup Nandy — robotics engineer specializing in motion planning, model predictive control, reinforcement learning, and autonomous systems.',
+    'Anushtup Nandy — AI and robotics systems engineer. I take research-grade work to production: motion planning, model predictive control, reinforcement learning, and the real-time C++ that runs them on hardware. Two IEEE RA-L papers, Columbia MS, ex-CMU, ex-Neocis.',
   email: 'anushtup.nandy@gmail.com',
-  location: 'India',
+  location: 'Bengaluru, India',
   socials: {
     github: 'https://github.com/anushtup-nandy',
     linkedin: 'https://www.linkedin.com/in/anushtup-nandy/',
