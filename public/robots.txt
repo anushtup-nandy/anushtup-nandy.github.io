@@ -1,0 +1,6 @@
+# No Disallow rules — search and answer engines (GPTBot, ClaudeBot,
+# PerplexityBot, Google-Extended, …) are all welcome to index this site.
+User-agent: *
+Allow: /
+
+Sitemap: https://anushtup-nandy.github.io/sitemap-index.xml
