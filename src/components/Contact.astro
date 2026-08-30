@@ -21,13 +21,14 @@ const channels = [
       </div>
     </header>
 
-    <a href={`mailto:${site.email}`} class="contact-mail reveal">{site.email}</a>
+    <a href={`mailto:${site.email}`} class="contact-mail reveal" data-goatcounter-click="email">{site.email}</a>
 
     <div class="channels reveal" style="--delay: 0.08s;">
       {channels.map((c) => (
         <a
           href={c.href}
           class="channel"
+          data-goatcounter-click={`channel-${c.key.toLowerCase()}`}
           {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
         >
           <span class="channel-key">{c.key}</span>

@@ -73,6 +73,13 @@ const personLd = {
 
     <script type="application/ld+json" is:inline set:html={JSON.stringify(personLd)} />
 
+    <!-- GoatCounter: pageviews + referrers, no cookies, no consent banner.
+         Elements with data-goatcounter-click are counted as events. -->
+    <script
+      is:inline
+      data-goatcounter="https://anushtup.goatcounter.com/count"
+      async src="//gc.zgo.at/count.js"></script>
+
     <!-- Set theme before paint to avoid FOUC -->
     <script is:inline>
       const t = localStorage.getItem('theme') || 'dark';
