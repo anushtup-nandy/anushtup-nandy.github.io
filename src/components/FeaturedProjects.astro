@@ -8,14 +8,14 @@ import { featuredProjects } from '../data/projects';
       <p class="sheet-index">02 / Case study</p>
       <div>
         <h2 class="section-title">Featured <em>work</em></h2>
-        <p class="sheet-lede">Two builds carried end to end — from first-principles modelling to instrumented hardware.</p>
+        <p class="sheet-lede">Two builds carried end to end — from first-principles modelling to shipped, tested systems.</p>
       </div>
     </header>
 
     {featuredProjects.map((p, i) => (
       <article class:list={['case-study', 'reveal', i % 2 === 1 && 'flip']}>
         <div class="case-media">
-          <div class="case-media-crop">
+          <div class="case-media-crop" style={p.ratio && `--case-ratio: ${p.ratio}`}>
             <img src={p.image} alt={p.alt} loading="lazy" />
           </div>
           <figcaption class="case-caption">

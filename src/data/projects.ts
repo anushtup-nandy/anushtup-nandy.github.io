@@ -7,6 +7,8 @@ export interface FeaturedProject {
   alt: string;
   tags: string[];
   github: string;
+  /** Media aspect ratio; defaults to the 4/5 portrait plate. Diagrams want landscape. */
+  ratio?: string;
 }
 
 export interface Project {
@@ -34,13 +36,14 @@ export const featuredProjects: FeaturedProject[] = [
     github: 'https://github.com/anushtup-nandy/Chemsynth',
   },
   {
-    title: 'Bio-Inspired Undulatory Fin',
+    title: 'detplan',
     description:
-      'Bio-mimetic underwater robot achieving locomotion through a stingray-inspired undulating fin mechanism. Engineered using Arduino/servos with a 3x3 factorial experiment in a water tunnel, quantifying thrust using NI DAQ and load cells for efficient underwater propulsion.',
-    image: '/images/sample-prot.jpg',
-    alt: 'Bio-inspired undulatory fin prototype',
-    tags: ['Micro-Controller', 'Mechatronics', 'Controls', 'Fluid Dynamics', 'Experimental Design', 'Data Acquisition'],
-    github: 'https://github.com/anushtup-nandy/Undulating-fin',
+      'C++17 planning library where the same (start, goal, environment, seed) returns a byte-identical path on every run, process and compiler. Deterministic RRT-Connect and Halton-driven D-PRM* close the usual leaks — RNG, container order, nearest-neighbour ties, float reassociation — turning a plan into an artifact you can diff in CI and put in front of a certification body. Differential tested against OMPL.',
+    image: '/images/detplan.png',
+    alt: 'Two independent detplan solves tracing the same path around an obstacle, sharing one solution digest',
+    ratio: '3 / 2',
+    tags: ['C++17', 'RRT-Connect', 'PRM*', 'Low-Discrepancy Sampling', 'Reproducibility', 'nanobind'],
+    github: 'https://github.com/anushtup-nandy/Deterministic-Sampling-based-Planner',
   },
 ];
 
@@ -64,6 +67,17 @@ export const projects: Project[] = [
     badge: 'Robotics',
     tags: ['Transformers', 'MPC', 'CasADi'],
     github: 'https://github.com/anushtup-nandy/Transformer-based-MPC-for-7DoF-Robotic-Arm',
+  },
+  {
+    title: 'detplan',
+    description:
+      'C++17 sampling-based planner with a bit-exact reproducibility guarantee — deterministic RRT-Connect and Halton-based D-PRM*, differential tested against OMPL and fuzzed under ASan/UBSan.',
+    categories: ['robotics', 'research'],
+    badge: 'Robotics',
+    tags: ['C++17', 'Motion Planning', 'Reproducibility'],
+    image: '/images/detplan.png',
+    github: 'https://github.com/anushtup-nandy/Deterministic-Sampling-based-Planner',
+    featured: true,
   },
   {
     title: 'Heuristic Search for RSCPP',

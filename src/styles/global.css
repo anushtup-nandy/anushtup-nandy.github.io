@@ -1016,8 +1016,15 @@ html[data-theme='light'] #theme-toggle {
 .case-media-crop {
   overflow: hidden;
   border: 1px solid var(--border);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: var(--case-ratio, 4 / 5);
   background: var(--bg-secondary);
+}
+
+/* Diagrams are transparent PNGs sized to their own frame: show them whole on
+   the card background instead of cover-cropping into the photo plate. */
+.case-media-crop[style*='--case-ratio'] img {
+  object-fit: contain;
+  filter: none;
 }
 
 .case-media-crop img {
